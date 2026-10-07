@@ -1,20 +1,37 @@
 /**
  * "How it works": the app's segmented control picks one of three screens.
- * Tap or arrow keys; the seal plays each time Seal is chosen.
+ * One pill slides under the labels to the chosen step. The steps also move
+ * on by themselves while the section is on screen; a tap or the arrow keys
+ * take over, and the tour picks up again after a quiet spell. Hovering or
+ * focusing the control holds it. The seal plays each time Seal is chosen.
  */
-import { SealMoment } from './seal.js?v=2e6058781b';
+import { SealMoment } from './seal.js?v=511cf98402';
+import { reducedMotion, whenVisible } from './motion.js?v=511cf98402';
+
+/** how long each step stays up; Seal gets longer so the stamp lands */
+const DWELL = [5200, 5200, 6800];
+/** after a tap, wait this long before touring again */
+const RESUME = 12000;
 
 export function initStory() {
   const seg = document.querySelector('[data-how]');
   if (!seg) return;
   const tabs = [...seg.querySelectorAll('.seg-btn')];
+  const pill = seg.querySelector('.seg-pill');
   const screens = [...document.querySelectorAll('.how-phone .stage-screen')];
   const caps = [...document.querySelectorAll('.how-cap .cap')];
   const panel = document.getElementById('how-panel');
   const page = document.querySelector('.how-phone [data-seal-page]');
   const seal = page ? new SealMoment(page) : null;
   let current = 0;
-  let timer = 0;
+  let sealTimer = 0;
+
+  const placePill = () => {
+    if (!pill) return;
+    const t = tabs[current];
+    pill.style.width = `${t.offsetWidth}px`;
+    pill.style.transform = `translateX(${t.offsetLeft}px)`;
+  };
 
   const show = (i, focus = false) => {
     current = i;
@@ -24,21 +41,49 @@ export function initStory() {
       t.setAttribute('aria-selected', String(on));
       t.tabIndex = on ? 0 : -1;
     });
+    placePill();
     screens.forEach((s, k) => s.classList.toggle('is-on', k === i));
     caps.forEach((c, k) => c.classList.toggle('is-on', k === i));
     panel?.setAttribute('aria-labelledby', tabs[i].id);
     if (focus) tabs[i].focus();
-    clearTimeout(timer);
+    clearTimeout(sealTimer);
     seal?.reset();
-    if (i === 2 && seal) timer = setTimeout(() => seal.play(), 360);
+    if (i === 2 && seal) sealTimer = setTimeout(() => seal.play(), 360);
   };
 
-  tabs.forEach((t, i) => t.addEventListener('click', () => show(i)));
+  // the tour: only while on screen, held while a pointer or keyboard focus is on the control
+  let tour = 0;
+  let visible = false;
+  let hover = false;
+  let keys = false;
+  let chosenAt = -Infinity;
+  const stop = () => { clearTimeout(tour); tour = 0; };
+  const next = () => {
+    stop();
+    if (reducedMotion() || !visible || hover || keys) return;
+    const wait = Math.max(DWELL[current], chosenAt + RESUME - performance.now());
+    tour = setTimeout(() => { show((current + 1) % tabs.length); next(); }, wait);
+  };
+  const choose = (i, focus) => { chosenAt = performance.now(); show(i, focus); next(); };
+
+  tabs.forEach((t, i) => t.addEventListener('click', () => choose(i)));
   seg.addEventListener('keydown', (e) => {
     const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
     if (!d) return;
     e.preventDefault();
-    show((current + d + tabs.length) % tabs.length, true);
+    choose((current + d + tabs.length) % tabs.length, true);
   });
+  seg.addEventListener('pointerenter', () => { hover = true; stop(); });
+  seg.addEventListener('pointerleave', () => { hover = false; next(); });
+  seg.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) { keys = true; stop(); } });
+  seg.addEventListener('focusout', (e) => { if (!seg.contains(e.relatedTarget)) { keys = false; next(); } });
+
   show(0);
+  if (pill) {
+    seg.classList.add('has-pill');
+    // labels can reflow (fonts, rotation); keep the pill on its step
+    new ResizeObserver(placePill).observe(seg);
+    requestAnimationFrame(() => requestAnimationFrame(() => seg.classList.add('is-ready')));
+  }
+  whenVisible(seg, (on) => { visible = on; if (on) next(); else stop(); }, { threshold: 0.6 });
 }
