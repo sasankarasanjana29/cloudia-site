@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-page="{{page}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#070d19" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:image" content="assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="site.css?v={{cssv}}">
+  <!-- Nothing on this site comes from another company: no fonts, scripts,
+       analytics or cookies. Keep it that way, or update privacy.html. -->
+  <script>
+    // hide-then-reveal only while the script really runs; if it fails to
+    // load (an old browser, a blocked file), everything simply shows
+    document.documentElement.classList.add('js');
+    setTimeout(function () { if (!window.cloudiaReady) document.documentElement.classList.remove('js'); }, 2500);
+  </script>
+  <script type="module" src="scripts/main.js?v={{jsv}}"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <!-- include:icons -->
+  <!-- include:header -->
+  <main id="main">
+{{content}}
+  </main>
+  <!-- include:footer -->
+</body>
+</html>

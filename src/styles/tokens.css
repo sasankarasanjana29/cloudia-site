@@ -1,0 +1,133 @@
+/* tastemaker: macro=long-scroll-narrative (+1 bento band) | nav=floating-glass-pill | hero=centred-type-over-phone-rising-from-clouds | footer=quiet-legal-row | mood=playful-calm | palette=Cloudia app tokens (src/theme/tokens.ts), not generated | contrast: text/bg 17.2, accent #0069b8/bg 5.7, brand #0195ff/bg 3.1 (large text + UI only) | critique: show 4, philosophy 4, hierarchy 4, specificity 5, restraint 4, variety 4 */
+
+/*
+ * Cloudia's own tokens, copied from the app (src/theme/tokens.ts and
+ * src/theme/cloudia.ts). The site does not invent colours: if a value here
+ * changes, it changed in the app first.
+ *
+ * Contrast contract (checked with tastemaker check_contrast.py):
+ *   --text on --page ............ 17.2  body text
+ *   --brand-strong on --page ..... 5.7  links, small brand text
+ *   --brand on --page ............ 3.1  large text (24px+, or 19px bold) and UI only
+ *   white on --brand ............. 3.1  button labels at 19px bold and up only
+ */
+:root {
+  /* primitives */
+  --blue-100: #e8f2ff; --blue-200: #c0e5ff; --blue-300: #96d3ff; --blue-400: #58abfe;
+  --blue-500: #0195ff; --blue-600: #297fff; --blue-700: #0069b8; --blue-800: #14406b;
+  --blue-900: #0d2b45; --blue-950: #0a213b;
+  --green-100: #f4fbf6; --green-300: #98e770; --green-500: #4bcd00; --green-600: #38a900;
+  --red-50: #fff0f0; --red-500: #e00000;
+  --orange-300: #f9bd69; --orange-500: #ff9029; --mint-500: #48d5bf;
+  --night-950: #070d19; --night-900: #0d1628; --night-850: #121d33; --night-800: #18253e;
+  --night-700: #22314f; --night-600: #2f4264; --night-500: #4b5f82; --night-400: #7587a5;
+  --night-300: #9fb0c8; --night-200: #c9d4e4; --night-100: #eaf0f8;
+
+  /* semantic, light */
+  --page: #ffffff;
+  --raised: #ffffff;
+  --sunken: #f6f8fa;
+  --muted-bg: #f2f3f5;
+  --line: #ededed;
+  --line-strong: #e6e9ee;
+  --text: #1b1b1b;
+  --text-2: #303030;
+  --text-3: #5f6672;
+  --text-muted: #8a9099;
+  --brand: var(--blue-500);
+  --brand-strong: var(--blue-700);
+  --brand-subtle: var(--blue-100);
+  --brand-line: var(--blue-200);
+  --on-brand: #ffffff;
+  --success: var(--green-600);
+  --success-subtle: var(--green-100);
+  --danger: var(--red-500);
+  --danger-subtle: var(--red-50);
+  --chrome: rgba(255, 255, 255, 0.82);
+  --chrome-line: rgba(255, 255, 255, 0.9);
+  --scrim: rgba(0, 0, 0, 0.35);
+  --shadow-ink: 13 43 69;            /* #0d2b45, the app's shadow colour */
+
+  /* the app's four skies (src/lib/skyMood.ts) */
+  --sky-dawn: linear-gradient(180deg, #ff9a76, #ffbf8f 55%, #7cbcff);
+  --sky-day: linear-gradient(180deg, #0195ff, #38aaff 55%, #96d3ff);
+  --sky-dusk: linear-gradient(180deg, #ff7f7a, #c77dd9 55%, #6d7cff);
+  --sky-night: linear-gradient(180deg, #0a1633, #16275a 55%, #2b3f86);
+
+  /* bento tints, each one step off white in a Cloudia hue */
+  --tint-blue: #eef6ff;
+  --tint-green: #f0faea;
+  --tint-orange: #fff4e8;
+  --tint-mint: #e9faf6;
+  --tint-rose: #fff1f2;
+
+  /* type: the app's SF Rounded, reached through the system (never bundled) */
+  --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fs-display: clamp(2.75rem, 1.4rem + 5.6vw, 5.75rem);
+  --fs-h2: clamp(2.125rem, 1.3rem + 3.2vw, 3.75rem);
+  --fs-h3: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+  --fs-lead: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+
+  /* space: one scale, everywhere */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px;
+  --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; --s-11: 160px;
+
+  /* radius: the app's, plus two larger ones for page-sized panels */
+  --r-field: 16px; --r-tile: 18px; --r-card: 22px; --r-panel: 26px;
+  --r-section: 36px; --r-sheet: 42px; --r-pill: 999px;
+
+  /* motion: strong ease-out for entrances, the iOS sheet curve for travel */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --wrap: 1180px;
+  color-scheme: light;
+}
+
+/* Cloudia at night: the app's navy night ramp, never grey */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: var(--night-950);
+    --raised: var(--night-850);
+    --sunken: var(--night-900);
+    --muted-bg: var(--night-800);
+    --line: var(--night-800);
+    --line-strong: var(--night-700);
+    --text: var(--night-100);
+    --text-2: var(--night-200);
+    --text-3: var(--night-300);
+    --text-muted: var(--night-400);
+    --brand: var(--blue-400);
+    --brand-strong: var(--blue-300);
+    --brand-subtle: var(--blue-950);
+    --brand-line: var(--blue-800);
+    --success: var(--green-500);
+    --success-subtle: #10301a;
+    --danger: #ff5a64;
+    --danger-subtle: #3a1418;
+    --chrome: rgba(18, 29, 51, 0.86);
+    --chrome-line: rgba(255, 255, 255, 0.08);
+    --scrim: rgba(0, 0, 0, 0.6);
+    --shadow-ink: 0 0 0;
+    --tint-blue: #0e1d36;
+    --tint-green: #0f2219;
+    --tint-orange: #2a1d12;
+    --tint-mint: #0d2427;
+    --tint-rose: #2a1419;
+    /* the app's skies after dark: deeper, so they glow instead of shout */
+    --sky-dawn: linear-gradient(180deg, #7a4140, #8a5a52 55%, #2c4a78);
+    --sky-day: linear-gradient(180deg, #0b4a8c, #1662ad 55%, #2d7cc4);
+    --sky-dusk: linear-gradient(180deg, #6e3654, #4e3a80 55%, #2a3a7c);
+    --sky-night: linear-gradient(180deg, #070f24, #0f1c42 55%, #1c2c62);
+    color-scheme: dark;
+  }
+}
+
+/* the sky right now, set from the visitor's clock by scripts/today.js */
+:root { --sky-now: var(--sky-day); }
+:root[data-phase="dawn"] { --sky-now: var(--sky-dawn); }
+:root[data-phase="dusk"] { --sky-now: var(--sky-dusk); }
+:root[data-phase="night"] { --sky-now: var(--sky-night); }

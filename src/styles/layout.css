@@ -1,0 +1,59 @@
+/* The shared frame: floating nav, footer, section rhythm. */
+
+/* ---------- nav: a floating glass pill (after Jomo), on every page ---------- */
+.nav-shell { position: sticky; top: 0; z-index: 50; padding: var(--s-3) var(--s-4) 0; pointer-events: none; }
+.nav {
+  pointer-events: auto;
+  width: min(100%, 980px); margin-inline: auto;
+  display: flex; align-items: center; gap: var(--s-4);
+  height: 60px; padding: 0 var(--s-2) 0 var(--s-3);
+  border-radius: var(--r-pill);
+  background: var(--chrome);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: inset 0 0 0 1px var(--chrome-line), 0 8px 30px -14px rgba(var(--shadow-ink) / 0.28);
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.03em; }
+.brand img { width: 36px; height: 36px; border-radius: 10px; }
+.nav-links { display: none; gap: var(--s-1); margin-left: auto; }
+.nav-links a { display: block; padding: 10px 14px; border-radius: var(--r-pill); color: var(--text-2); text-decoration: none; font-weight: 600; font-size: 0.975rem; transition: background-color 160ms ease, color 160ms ease; }
+@media (hover: hover) and (pointer: fine) { .nav-links a:hover { background: var(--muted-bg); color: var(--text); } }
+.nav-status { margin-left: auto; padding: 8px 14px; border-radius: var(--r-pill); background: var(--brand-subtle); color: var(--brand-strong); font-size: 0.875rem; font-weight: 700; white-space: nowrap; }
+.nav-toggle { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--muted-bg); display: grid; place-items: center; cursor: pointer; flex: none; }
+.nav-toggle svg { width: 22px; height: 22px; }
+
+/* small screens: the links open as a card under the pill */
+@media (max-width: 859px) {
+  .nav { position: relative; }
+  .nav-links.is-open {
+    display: grid; position: absolute; left: 0; right: 0; top: calc(100% + 8px);
+    padding: var(--s-2); border-radius: var(--r-panel);
+    background: var(--raised); box-shadow: inset 0 0 0 1px var(--line), 0 20px 40px -18px rgba(var(--shadow-ink) / 0.35);
+    animation: menu-in 200ms var(--ease-out);
+  }
+  .nav-links.is-open a { padding: 14px 16px; font-size: 1.0625rem; }
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(-6px) scale(0.98); } }
+@media (min-width: 860px) {
+  .nav { padding-right: var(--s-3); }
+  .nav-links { display: flex; }
+  .nav-status { margin-left: var(--s-2); }
+  .nav-toggle { display: none; }
+}
+@media (max-width: 380px) { .nav-status { display: none; } .nav-toggle { margin-left: auto; } }
+
+/* ---------- footer ---------- */
+.foot { margin-top: var(--s-9); padding: var(--s-8) 0 var(--s-7); border-top: 1px solid var(--line); }
+.foot-grid { display: grid; gap: var(--s-6); }
+.foot-brand { display: grid; gap: var(--s-3); max-width: 34ch; }
+.foot-links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); align-content: start; }
+.foot-links a { color: var(--text-2); font-weight: 600; text-decoration: none; padding: 6px 0; }
+@media (hover: hover) and (pointer: fine) { .foot-links a:hover { color: var(--brand-strong); text-decoration: underline; } }
+.foot-fine { margin-top: var(--s-6); display: grid; gap: var(--s-1); font-size: 0.8125rem; color: var(--text-3); }
+@media (min-width: 760px) {
+  .foot-grid { grid-template-columns: 1fr auto; align-items: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-links.is-open { animation: none; }
+  .nav-links a { transition: none; }
+}

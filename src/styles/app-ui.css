@@ -1,0 +1,239 @@
+/*
+ * Cloudia's screens, rebuilt in HTML so they stay sharp, follow light and
+ * dark mode and can move. Every screen is laid out on the iPhone's own
+ * 393 x 852 point canvas with the app's numbers (LoopCard, tab bar, sky
+ * hero), then scaled into the frame by --k.
+ */
+
+/* ---------- the phone ---------- */
+.phone {
+  --sw: 280px; --k: 0.71247; --bz: 10px;
+  position: relative; flex: none;
+  width: calc(var(--sw) + 2 * var(--bz));
+  padding: var(--bz);
+  border-radius: calc(55px * var(--k) + var(--bz));
+  background: linear-gradient(145deg, #2a2d33, #0e0f12 40%, #1c1e22);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.14),
+    0 2px 2px rgba(var(--shadow-ink) / 0.06),
+    0 30px 60px -20px rgba(var(--shadow-ink) / 0.35),
+    0 60px 120px -40px rgba(var(--shadow-ink) / 0.35);
+}
+.phone--lg { --sw: 310px; --k: 0.78880; --bz: 11px; }
+.phone--sm { --sw: 236px; --k: 0.60051; --bz: 9px; }
+.screen {
+  position: relative; overflow: hidden;
+  width: var(--sw); height: calc(852px * var(--k));
+  border-radius: calc(55px * var(--k));
+  background: var(--page);
+  isolation: isolate;
+}
+.canvas {
+  position: absolute; left: 0; top: 0;
+  width: 393px; height: 852px;
+  transform: scale(var(--k)); transform-origin: 0 0;
+  font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); text-align: left;
+}
+.island {
+  position: absolute; z-index: 30; left: 50%; top: 11px;
+  width: 124px; height: 36px; margin-left: -62px;
+  border-radius: 20px; background: #000;
+}
+.statusbar {
+  position: absolute; z-index: 29; left: 0; right: 0; top: 0; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 30px 0 46px; font-size: 17px; font-weight: 600; letter-spacing: -0.02em;
+  color: var(--text);
+}
+.statusbar.on-sky { color: #fff; }
+.statusbar svg { height: 13px; width: auto; }
+.statusbar .sb-icons { display: flex; gap: 6px; align-items: center; }
+
+/* ---------- Today: the sky hero ---------- */
+.sky {
+  position: absolute; left: 0; right: 0; top: 0; height: 214px;
+  background: var(--sky-now, var(--sky-day));
+  overflow: hidden;
+}
+.sky-cloud { position: absolute; width: 150px; opacity: 0.55; }
+.sky-cloud.c1 { left: -50px; top: 96px; width: 140px; }
+.sky-cloud.c2 { right: -56px; top: 88px; width: 160px; }
+.sky-edge {
+  /* the app's cloud edge: a row of white bumps the list scrolls out of */
+  position: absolute; left: -24px; right: -24px; bottom: -2px; height: 46px;
+  background:
+    radial-gradient(circle at 48px 60px, var(--page) 42px, transparent 43px) 0 0 / 104px 46px repeat-x,
+    linear-gradient(var(--page), var(--page)) 0 38px / 100% 10px no-repeat;
+}
+.sky-head { position: absolute; left: 22px; right: 130px; top: 70px; z-index: 2; color: #fff; }
+.sky-date { font-size: 16px; font-weight: 600; opacity: 0.92; }
+.sky-title { font-size: 25px; font-weight: 800; letter-spacing: -0.04em; margin-top: 2px; }
+.sky-btns { position: absolute; right: 20px; top: 79px; z-index: 2; display: flex; gap: 10px; }
+.round-btn {
+  width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  display: grid; place-items: center; color: #1b1b1b;
+}
+.round-btn svg { width: 22px; height: 22px; }
+.sky-mascot { position: absolute; left: 50%; top: 128px; width: 118px; margin-left: -59px; z-index: 3; }
+
+.month { position: absolute; top: 240px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 64px; font-size: 26px; font-weight: 800; letter-spacing: -0.04em; }
+.month svg { width: 22px; height: 22px; color: var(--text-2); }
+.week { position: absolute; top: 284px; left: 10px; right: 10px; display: grid; grid-template-columns: repeat(7, 1fr); }
+.day { display: grid; justify-items: center; gap: 2px; padding: 10px 0 12px; border-radius: 26px; color: var(--text-muted); }
+.day b { font-size: 21px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+.day span { font-size: 14px; font-weight: 500; }
+.day.is-past b { color: var(--text-muted); }
+.day.is-today { background: var(--brand-subtle); }
+.day.is-today b, .day.is-today span { color: var(--brand-strong); }
+.dots { display: flex; gap: 3px; height: 6px; align-items: center; margin-top: 4px; }
+.dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-subtle); }
+.dots i.due { background: var(--blue-500); }
+.dots i.late { background: var(--red-500); }
+.dots i.done { background: var(--green-500); }
+
+.chips { position: absolute; top: 388px; left: 20px; right: 0; display: flex; gap: 8px; }
+.chip { height: 38px; padding: 0 18px; border-radius: 19px; background: var(--muted-bg); display: grid; place-items: center; font-size: 16px; font-weight: 500; color: var(--text); }
+.chip.on { background: var(--blue-500); color: #fff; font-weight: 600; }
+
+.list { position: absolute; top: 446px; left: 20px; right: 20px; display: grid; gap: 12px; }
+.pill-head { justify-self: start; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 15px; font-size: 15px; font-weight: 600; }
+.pill-head::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill-head.late { background: var(--danger-subtle); color: var(--red-500); }
+.pill-head.now { background: var(--brand-subtle); color: var(--brand-strong); }
+.pill-head.soft { background: var(--muted-bg); color: var(--text-3); }
+.pill-head b { font-weight: 600; margin-left: 2px; }
+
+/* ---------- the loop card (LoopCard.tsx: 78 tall, 50 art tile, 20 badge) ---------- */
+.loop {
+  height: 78px; display: flex; align-items: center; gap: 12px;
+  padding: 0 14px 0 12px; border-radius: 22px;
+  background: var(--raised); border: 1px solid var(--line);
+}
+.loop-art { position: relative; width: 50px; height: 50px; border-radius: 16px; display: grid; place-items: center; background: var(--sunken); flex: none; }
+.loop.mine .loop-art { background: var(--brand-subtle); }
+.loop-art img { width: 38px; height: 38px; }
+.loop-badge {
+  position: absolute; right: -4px; bottom: -4px; width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--raised); display: grid; place-items: center;
+  background: var(--brand-subtle); color: #0e6fb8;
+}
+.loop.mine .loop-badge { background: #0195ff; color: #fff; }
+.loop-badge svg { width: 11px; height: 11px; }
+.loop-text { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.loop-top { display: flex; align-items: center; gap: 8px; }
+.loop-title { flex: 1; min-width: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.loop-meta { display: flex; gap: 5px; font-size: 14px; color: var(--text-muted); white-space: nowrap; }
+.loop-meta b { font-weight: 600; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.due { display: inline-flex; align-items: center; gap: 3px; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 700; letter-spacing: -0.1px; background: var(--muted-bg); color: var(--text-2); flex: none; }
+.due.today { background: var(--blue-500); color: #fff; }
+.due.soon { background: var(--brand-subtle); color: var(--brand-strong); }
+.due.late { background: var(--danger-subtle); color: var(--red-500); }
+.due.done { background: var(--success-subtle); color: var(--success); }
+.due svg { width: 10px; height: 10px; }
+.loop.is-done .loop-title { color: var(--text-3); }
+
+/* ---------- tab bar (full width, 62 tall, 21 from the edges) and the + ---------- */
+.tabbar {
+  position: absolute; z-index: 10; left: 21px; right: 21px; bottom: 21px; height: 64px;
+  display: grid; grid-template-columns: repeat(4, 1fr); padding: 5px;
+  border-radius: 32px; background: var(--chrome);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: inset 0 0 0 1px var(--chrome-line), 0 10px 30px -12px rgba(var(--shadow-ink) / 0.3);
+}
+.tab { display: grid; justify-items: center; align-content: center; gap: 2px; border-radius: 27px; font-size: 11px; font-weight: 600; color: var(--text-3); }
+.tab svg { width: 25px; height: 25px; }
+.tab.on { background: var(--brand-subtle); color: var(--brand-strong); }
+.fab {
+  position: absolute; z-index: 11; right: 21px; bottom: 104px; width: 62px; height: 62px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff;
+  background: linear-gradient(180deg, #1da2ff, #0195ff 55%, #45b4ff);
+  box-shadow: inset 0 0 0 3px rgba(192, 229, 255, 0.55), 0 12px 24px -8px rgba(1, 149, 255, 0.6);
+}
+.fab svg { width: 26px; height: 26px; }
+.scroll-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; z-index: 9; background: linear-gradient(transparent, var(--page) 62%); }
+
+/* ---------- the add sheet over a dimmed Today ---------- */
+.dim { position: absolute; inset: 0; z-index: 12; background: var(--scrim); }
+.sheet {
+  position: absolute; z-index: 13; left: 0; right: 0; bottom: 0;
+  padding: 12px 20px 40px; border-radius: 42px 42px 0 0;
+  background: var(--raised); border-top: 1px solid var(--chrome-line);
+  display: grid; gap: 14px;
+}
+.sheet-handle { justify-self: center; width: 40px; height: 5px; border-radius: 3px; background: var(--line-strong); }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; margin-top: 8px; }
+.sheet-title { font-size: 30px; font-weight: 800; letter-spacing: -0.045em; }
+.sheet-sub { font-size: 18px; color: var(--text-3); margin-top: 4px; }
+.sheet-x { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--muted-bg); color: var(--text-2); }
+.sheet-x svg { width: 20px; height: 20px; }
+.type-row { display: flex; align-items: center; gap: 16px; padding: 18px 18px; border-radius: 26px; border: 1px solid var(--line); }
+.type-disc { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: #fff; flex: none; }
+.type-disc.mine { background: #0195ff; }
+.type-disc.theirs { background: #8ab4d8; }
+.type-disc svg { width: 28px; height: 28px; }
+.type-row b { display: block; font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
+.type-row span { font-size: 15px; color: var(--text-3); }
+.type-row > svg { width: 18px; height: 18px; margin-left: auto; color: var(--text-muted); }
+.type-row.pick { border-color: var(--blue-500); background: var(--brand-subtle); box-shadow: inset 0 0 0 1px var(--blue-500); }
+
+/* ---------- a loop's own page ---------- */
+.back-btn { position: absolute; z-index: 3; left: 20px; top: 62px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--raised); border: 1px solid var(--line); box-shadow: 0 3px 10px rgba(var(--shadow-ink) / 0.08); }
+.back-btn svg { width: 20px; height: 20px; }
+.lp { position: absolute; left: 16px; right: 16px; top: 122px; }
+.lp-hero {
+  position: relative; border-radius: 30px; padding: 20px; display: grid; gap: 8px;
+  border: 1px solid var(--line); background: linear-gradient(180deg, var(--brand-subtle), var(--raised) 85%);
+  box-shadow: 0 8px 22px rgba(var(--shadow-ink) / 0.08);
+  transition: background 400ms ease;
+}
+.lp.is-sealed .lp-hero { background: linear-gradient(180deg, var(--success-subtle), var(--raised) 85%); }
+.lp-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.lp-art { width: 76px; height: 76px; border-radius: 24px; display: grid; place-items: center; background: var(--raised); box-shadow: 0 4px 12px rgba(var(--shadow-ink) / 0.1); }
+.lp-art img { width: 60px; height: 60px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border-radius: 17px; font-size: 16px; font-weight: 600; background: var(--brand-subtle); color: #0e6fb8; }
+.badge svg { width: 16px; height: 16px; }
+.lp-title { font-size: 28px; font-weight: 800; letter-spacing: -0.6px; line-height: 1.18; }
+.lp.is-sealed .lp-title { color: var(--text-3); }
+.lp-who { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; color: var(--text-2); }
+.lp-face { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; background: #ede7fb; color: #6d3fd1; }
+.lp-status { margin-top: 12px; font-size: 32px; font-weight: 800; letter-spacing: -0.8px; color: var(--brand-strong); }
+.lp-status .when-done { display: none; color: var(--success); }
+.lp.is-sealed .lp-status .when-open { display: none; }
+.lp.is-sealed .lp-status .when-done { display: inline; }
+.lp-sub { font-size: 15px; font-weight: 500; color: var(--text-3); }
+.track { position: relative; margin-top: 12px; height: 8px; border-radius: 4px; background: var(--muted-bg); overflow: hidden; }
+.track i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 4px; background: var(--blue-500); transform: scaleX(0.72); transform-origin: left; transition: transform 600ms var(--ease-out), background-color 400ms ease; }
+.lp.is-sealed .track i { transform: scaleX(0.8); background: var(--green-500); }
+.track-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; font-weight: 500; color: var(--text-muted); }
+.lp-actions { display: grid; gap: 10px; margin-top: 20px; }
+.lp-btn { height: 58px; border-radius: 29px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; font-weight: 700; border: 0; cursor: pointer; }
+.lp-btn svg { width: 20px; height: 20px; }
+.lp-btn.primary { color: #fff; background: linear-gradient(180deg, #1da2ff, #0195ff 60%); box-shadow: inset 0 0 0 3px rgba(192, 229, 255, 0.55); }
+.lp-btn.quiet { background: var(--muted-bg); color: var(--text); }
+.lp-rows { margin-top: 20px; border-radius: 22px; border: 1px solid var(--line); background: var(--raised); }
+.lp-row { display: flex; align-items: center; gap: 12px; min-height: 54px; padding: 0 16px; font-size: 16px; font-weight: 500; }
+.lp-row + .lp-row { border-top: 1px solid var(--line); margin-left: 48px; padding-left: 0; }
+.lp-row svg { width: 20px; height: 20px; color: var(--text-3); }
+.lp-row span { margin-left: auto; color: var(--text-muted); }
+
+/* ---------- the seal (DoneSeal.tsx) ---------- */
+.seal-spot { position: absolute; left: 114px; top: 16px; width: 84px; height: 84px; pointer-events: none; }
+.seal-wax { position: absolute; inset: 0; opacity: 0; filter: drop-shadow(0 3px 5px rgba(46, 90, 6, 0.35)); }
+.seal-ring { position: absolute; inset: 0; border-radius: 50%; border: 3px solid #a2db40; opacity: 0; }
+.lp.is-sealed .seal-wax { opacity: 1; transform: rotate(-10deg); }
+.seal-mascot { position: absolute; left: 0; top: 0; width: 96px; height: 92px; transform-origin: 50% 100%; pointer-events: none; opacity: 0; }
+.seal-mascot img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.seal-mascot img.on { opacity: 1; }
+.seal-behind { z-index: 0; }
+.seal-front { z-index: 4; }
+.lp-hero { z-index: 1; }
+
+/* ---------- small reusable bits used outside the phone too ---------- */
+.cat { display: grid; justify-items: center; gap: 6px; width: 86px; flex: none; }
+.cat-tile { width: 72px; height: 72px; border-radius: 22px; display: grid; place-items: center; background: var(--raised); border: 1px solid var(--line); }
+.cat-tile img { width: 50px; height: 50px; }
+.cat span { font-size: 13px; font-weight: 600; color: var(--text-2); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-hero, .track i { transition: none; }
+}
