@@ -2,8 +2,8 @@
 
 The marketing site for Cloudia, the iPhone app for things still in motion.
 Static HTML, CSS and JavaScript with no dependencies: nothing to install, and
-nothing on the site comes from another company (no fonts, scripts, analytics
-or cookies). The privacy policy says so, so keep it that way.
+nothing on the site comes from another company (scripts, analytics, cookies),
+and its one font, Nunito (SIL OFL), is served from the site itself. The privacy policy says so, so keep it that way.
 
 ## Build
 
@@ -35,6 +35,8 @@ python3 -m http.server 4191 --directory dist
 - **The app is the source of truth.** Colours, radii and every number in the phone screens come from the app (`src/theme/tokens.ts`, `LoopCard.tsx`, `DoneSeal.tsx`, `OrbitHero.tsx`). Change the app first, then the site.
 - **Only claim what the app does today.** No reminders (notifications are off in the current build), no Pro features, no prices, no invented numbers or reviews.
 - **No em or en dashes** in any copy.
+- **Light by default.** Dark mode only when the visitor flips the switch; the choice stays in their browser (`localStorage`).
+- **Buttons are the app's Button:** primary = 3px rim `#c0e5ff -> #0195ff` around a fill `#0195ff -> #96d3ff`, 60 tall, 16 semibold.
 - **Motion** uses transform and opacity, runs only while on screen, and stops under Reduce Motion.
 - **Contrast:** brand blue `#0195ff` is for large text and UI only; small brand text uses `#0069b8`.
 

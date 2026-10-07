@@ -12,3 +12,20 @@ export function initNav() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
   document.addEventListener('click', (e) => { if (!e.target.closest('.nav')) set(false); });
 }
+
+/** The light / dark switch. Light is the default; a choice is remembered in this browser only. */
+export function initThemeSwitch() {
+  const sw = document.querySelector('.theme-switch');
+  if (!sw) return;
+  const root = document.documentElement;
+  const sync = () => sw.setAttribute('aria-checked', String(root.dataset.theme === 'dark'));
+  sync();
+  sw.addEventListener('click', () => {
+    const dark = root.dataset.theme !== 'dark';
+    if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#070d19' : '#ffffff');
+    document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', dark ? 'dark' : 'light');
+    try { localStorage.setItem('cloudia-theme', dark ? 'dark' : 'light'); } catch (e) { /* private mode: still switches */ }
+    sync();
+  });
+}

@@ -1,3 +1,13 @@
+/* Nunito (SIL Open Font License 1.1, assets/fonts/OFL.txt), self-hosted.
+   Apple devices use the system's SF Pro Rounded, the app's own font, and
+   never download this; everyone else gets the closest open rounded face. */
+@font-face {
+  font-family: "Nunito";
+  src: url(assets/fonts/Nunito.ttf) format("truetype");
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
 /* tastemaker: macro=long-scroll-narrative (+1 bento band) | nav=floating-glass-pill | hero=centred-type-over-phone-rising-from-clouds | footer=quiet-legal-row | mood=playful-calm | palette=Cloudia app tokens (src/theme/tokens.ts), not generated | contrast: text/bg 17.2, accent #0069b8/bg 5.7, brand #0195ff/bg 3.1 (large text + UI only) | critique: show 4, philosophy 4, hierarchy 4, specificity 5, restraint 4, variety 4 */
 
 /*
@@ -62,7 +72,7 @@
   --tint-rose: #fff1f2;
 
   /* type: the app's SF Rounded, reached through the system (never bundled) */
-  --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --fs-display: clamp(2.75rem, 1.4rem + 5.6vw, 5.75rem);
   --fs-h2: clamp(2.125rem, 1.3rem + 3.2vw, 3.75rem);
   --fs-h3: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
@@ -87,9 +97,10 @@
   color-scheme: light;
 }
 
-/* Cloudia at night: the app's navy night ramp, never grey */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+/* Cloudia at night: the app's navy night ramp, never grey. Light is the
+   default; the switch in the header sets data-theme="dark". */
+@media all {
+  :root[data-theme="dark"] {
     --page: var(--night-950);
     --raised: var(--night-850);
     --sunken: var(--night-900);

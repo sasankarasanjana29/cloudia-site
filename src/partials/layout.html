@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#070d19" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{title}}">
   <meta property="og:description" content="{{description}}">
@@ -22,6 +21,8 @@
     // hide-then-reveal only while the script really runs; if it fails to
     // load (an old browser, a blocked file), everything simply shows
     document.documentElement.classList.add('js');
+    // light unless the visitor chose dark here before (kept only in their own browser)
+    try { if (localStorage.getItem('cloudia-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
     setTimeout(function () { if (!window.cloudiaReady) document.documentElement.classList.remove('js'); }, 2500);
   </script>
   <script type="module" src="scripts/main.js?v={{jsv}}"></script>

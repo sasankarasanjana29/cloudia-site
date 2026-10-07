@@ -58,18 +58,18 @@
 @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
 @keyframes rise-phone { from { opacity: 0; transform: translateY(90px); } }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero { background: linear-gradient(180deg, var(--night-850) 0%, var(--page) 62%); }
+@media all {
+  :root[data-theme="dark"] .hero { background: linear-gradient(180deg, var(--night-850) 0%, var(--page) 62%); }
   /* at night the clouds are navy silhouettes cut from the same cloud art,
      not the daytime clouds dimmed into grey lumps */
-  :root:not([data-theme="light"]) .drift { display: none; }
-  :root:not([data-theme="light"]) .bank-back { opacity: 1; background: var(--bank-fill); -webkit-mask: var(--bank-mask); mask: var(--bank-mask); }
-  :root:not([data-theme="light"]) .bank-back {
+  :root[data-theme="dark"] .drift { display: none; }
+  :root[data-theme="dark"] .bank-back { opacity: 1; background: var(--bank-fill); -webkit-mask: var(--bank-mask); mask: var(--bank-mask); }
+  :root[data-theme="dark"] .bank-back {
     --bank-fill: var(--night-900);
     --bank-mask: url(assets/art/cloud.webp) 14% 100% / 380px auto no-repeat, url(assets/art/cloud.webp) 34% 70% / 460px auto no-repeat,
       url(assets/art/cloud.webp) 68% 80% / 420px auto no-repeat, url(assets/art/cloud.webp) 88% 100% / 360px auto no-repeat;
   }
-  :root:not([data-theme="light"]) .bank-front { --bank-fill: var(--page); background: var(--page); -webkit-mask: var(--scallops); mask: var(--scallops); filter: drop-shadow(0 -14px 30px rgba(88, 171, 254, 0.16)); }
+  :root[data-theme="dark"] .bank-front { --bank-fill: var(--page); background: var(--page); -webkit-mask: var(--scallops); mask: var(--scallops); filter: drop-shadow(0 -14px 30px rgba(88, 171, 254, 0.16)); }
 }
 @media (max-width: 420px) { .hero-phone { --sw: 270px; --k: 0.68702; --bz: 10px; } }
 
@@ -302,8 +302,8 @@
 .close-mascot { width: clamp(150px, 18vw, 220px); }
 .close-card h2 { color: #fff; max-width: 14ch; }
 .close-note { padding: 10px 20px; border-radius: var(--r-pill); background: #fff; color: #1b1b1b; font-weight: 700; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .close-card { background: linear-gradient(180deg, #0b4a8c, #1662ad 55%, #2d7cc4); }
+@media all {
+  :root[data-theme="dark"] .close-card { background: linear-gradient(180deg, #0b4a8c, #1662ad 55%, #2d7cc4); }
 }
 
 /* ---------- motion off ---------- */
