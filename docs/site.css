@@ -760,8 +760,8 @@ p { text-wrap: pretty; }
 .bento { grid-template-areas: "cats" "sky" "streak" "search" "swipe" "night"; }
 @media (min-width: 720px) {
   .bento { grid-template-columns: repeat(2, 1fr); grid-template-areas: "cats cats" "search swipe" "streak streak" "sky sky" "night night"; }
-  /* the night tile closes the grid as one wide band: words and sky left, the keypad right */
-  .tile-night { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 290px); gap: var(--s-6); align-items: stretch; }
+  /* the night tile closes the grid as one thin band: words and a card left, the sky right */
+  .tile-night { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: var(--s-6); align-items: stretch; }
 }
 /* tablets: the streak as a short band, and the four skies in one row */
 @media (min-width: 720px) and (max-width: 1039px) {
@@ -778,7 +778,6 @@ p { text-wrap: pretty; }
       "search search swipe swipe sky sky"
       "night night night night night night";
   }
-  .tile-night { grid-template-columns: minmax(0, 1fr) 290px; gap: var(--s-6); }
 }
 
 /* categories: two rows drifting past each other */
@@ -858,9 +857,9 @@ p { text-wrap: pretty; }
 .act.delete { background: linear-gradient(180deg, #ff6073, #ff2929); }
 .swipe-card { position: relative; z-index: 1; will-change: transform; }
 
-/* night: always dark, whatever the page is. The words and a night sky on
-   the left, the app's amount sheet on the right, typing an amount into the
-   card beside it. Surfaces step up from the tile so each layer reads. */
+/* night: always dark, whatever the page is. A thin band: the words and a
+   card on the left, the night sky on the right. Surfaces step up from the
+   tile so each layer reads. */
 .tile-night {
   --raised: #18253e; --sunken: #0d1628; --line: #22314f; --line-strong: #2f4264; --muted-bg: #22314f;
   --text: #eaf0f8; --text-2: #c9d4e4; --text-3: #9fb0c8; --text-muted: #7587a5;
@@ -868,8 +867,8 @@ p { text-wrap: pretty; }
   background: #0a1222; border-color: #18253e; color: var(--text);
 }
 .tile-night h3 { color: var(--text); }
-.night-main { display: flex; flex-direction: column; gap: var(--s-5); }
-.night-demo { margin-top: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.tile-night { min-height: 0; }
+.night-main { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-5); min-width: 0; }
 .night-card { min-width: 0; }
 .night-card .loop-text { grid-template-columns: minmax(0, 1fr); }
 .night-card .loop-meta { overflow: hidden; }
@@ -878,48 +877,10 @@ p { text-wrap: pretty; }
 .night-sky .moon-shade { fill: #070f24; }
 .night-sky img { position: relative; width: 88px; margin-top: 14px; }
 .night-card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
-.night-amt { opacity: 0; transform: translateX(-4px); transition: opacity 260ms ease, transform 320ms var(--ease-out); }
-.night-amt.is-on { opacity: 1; transform: none; }
-/* phones: the Night sky is already in the skies tile, so the band keeps just the card and the keypad */
-@media (max-width: 559px) { .night-sky { display: none; } }
-/* beside the keypad, the sky takes whatever height the sheet leaves */
-@media (min-width: 720px) {
-  .night-demo { flex: 1; grid-template-rows: minmax(120px, 1fr) auto; }
-  .night-sky { height: auto; }
-}
+/* phones: the Night sky is already in the skies tile, so the band keeps the words and the card */
+@media (max-width: 719px) { .night-sky { display: none; } }
+@media (min-width: 720px) { .night-sky { height: auto; min-height: 170px; } }
 
-/* amount.tsx: "How much?", the currency chip beside the number, a three
-   column keypad whose keys answer with a soft disc, and Add amount. Every
-   number is the app's, times --k, so it reads as the real sheet made small. */
-.amount-sheet {
-  --k: 0.72;
-  display: grid; gap: calc(18px * var(--k)); padding: calc(22px * var(--k)) 0 calc(20px * var(--k)); border-radius: calc(32px * var(--k));
-  background: var(--raised); border: 1px solid var(--line);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 60px -32px rgba(0, 0, 0, 0.7);
-}
-.as-head { display: flex; align-items: center; gap: calc(10px * var(--k)); padding: 0 calc(20px * var(--k)); }
-.as-head > div { flex: 1; min-width: 0; display: grid; gap: calc(2px * var(--k)); }
-.as-title { font-size: calc(26px * var(--k)); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--text); }
-.as-sub { font-size: calc(15px * var(--k)); font-weight: 500; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.as-close { flex: none; width: calc(40px * var(--k)); height: calc(40px * var(--k)); border-radius: 50%; display: grid; place-items: center; background: var(--muted-bg); color: var(--text-2); }
-.as-close svg { width: calc(20px * var(--k)); height: calc(20px * var(--k)); }
-.as-display { height: calc(92px * var(--k)); display: flex; align-items: center; justify-content: center; gap: calc(10px * var(--k)); padding: 0 calc(20px * var(--k)); }
-.as-cur { flex: none; display: inline-flex; align-items: center; gap: calc(4px * var(--k)); height: calc(40px * var(--k)); padding: 0 calc(12px * var(--k)); border-radius: var(--r-pill); background: var(--brand-subtle); color: var(--brand-strong); font-size: calc(18px * var(--k)); font-weight: 700; }
-.as-cur svg { width: calc(12px * var(--k)); height: calc(12px * var(--k)); transform: rotate(90deg); }
-.as-num { display: inline-flex; align-items: flex-end; font-size: calc(56px * var(--k)); line-height: 1; font-weight: 700; letter-spacing: -0.027em; color: var(--text); white-space: pre; }
-.as-num span { display: inline-block; }
-.as-zero { color: #4b5f82; }
-.as-pad { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 calc(28px * var(--k)); }
-.key { position: relative; height: calc(60px * var(--k)); display: grid; place-items: center; color: var(--text); }
-.key i { position: absolute; left: 50%; top: 50%; width: calc(64px * var(--k)); height: calc(52px * var(--k)); translate: -50% -50%; border-radius: calc(26px * var(--k)); background: #2f4264; opacity: 0; transform: scale(0.8); transition: opacity 180ms ease, transform 180ms ease; }
-.key b, .key svg { position: relative; transition: transform 180ms ease; }
-.key b { font-size: calc(28px * var(--k)); font-weight: 600; }
-.key svg { width: calc(24px * var(--k)); height: calc(24px * var(--k)); }
-.key.is-down i { opacity: 1; transform: none; transition-duration: 70ms; }
-.key.is-down b, .key.is-down svg { transform: scale(0.92); transition-duration: 70ms; }
-.as-add { margin: 0 calc(20px * var(--k)); min-height: calc(60px * var(--k)); font-size: calc(16px * var(--k)); cursor: default; transition: transform 140ms var(--ease-out), opacity 200ms ease; }
-.as-add.is-off { opacity: 0.45; }
-.as-add.is-down { --press: 0.97; }
 
 /* ---------- proof: privacy, with the real settings ---------- */
 .privacy-grid { display: grid; gap: var(--s-7); align-items: center; }
@@ -976,8 +937,10 @@ p { text-wrap: pretty; }
   background: var(--sky-day); text-align: center; display: grid; justify-items: center; gap: var(--s-4);
 }
 .close-air { position: absolute; inset: 0; z-index: -1; }
-.close-air .drift { opacity: 0.55; filter: none; }
-.close-air .d1 { top: 50%; }
+/* two big clouds, one low on the left and one high on the right, half out of the card */
+.close-air .drift { opacity: 0.55; filter: none; width: clamp(240px, 36vw, 520px); }
+.close-air .d1 { left: -12%; bottom: -14%; }
+.close-air .d2 { right: -12%; top: -12%; animation-direction: alternate-reverse; animation-duration: 54s; }
 .close-mascot { width: clamp(150px, 18vw, 220px); }
 .close-card h2 { color: #fff; max-width: 14ch; }
 .close-note { padding: 10px 20px; border-radius: var(--r-pill); background: #fff; color: #1b1b1b; font-weight: 700; }

@@ -1,8 +1,7 @@
 /**
  * The small live fragments in the features bento: the category marquee, the
- * skies, the search that types by itself, the swipe rows and the amount
- * keypad. Each one only moves while it is on screen, and holds still under
- * reduced motion.
+ * skies, the search that types by itself, and the swipe rows. Each one
+ * only moves while it is on screen, and holds still under reduced motion.
  */
 import { reducedMotion, whenVisible } from './motion.js';
 
@@ -130,61 +129,6 @@ function initSwipe() {
   });
 }
 
-/**
- * The amount sheet (amount.tsx) typing by itself: each key answers with its
- * soft disc on touch-down and the digit lands on release, dropping in. Add
- * amount puts the price on the card beside it; then the delete key clears it.
- */
-function initKeypad() {
-  const root = document.querySelector('[data-keypad]');
-  if (!root) return;
-  const num = root.querySelector('[data-amount]');
-  const add = root.querySelector('[data-add]');
-  const out = document.querySelector('[data-amount-out]');
-  const key = (k) => root.querySelector(`[data-key='${k}']`);
-  const AMOUNT = '12.99';
-  let text = '';
-  const draw = (drop) => {
-    if (!text) { num.innerHTML = '<span class="as-zero">0</span>'; add.classList.add('is-off'); return; }
-    num.textContent = '';
-    const head = document.createElement('span'); head.textContent = text.slice(0, -1);
-    const tail = document.createElement('span'); tail.textContent = text.slice(-1);
-    num.append(head, tail);
-    add.classList.remove('is-off');
-    if (drop) tail.animate([{ opacity: 0, transform: 'translateY(-14px)' }, { opacity: 1, transform: 'none' }], { duration: 140, easing: 'ease-out' });
-  };
-  if (reducedMotion()) { text = AMOUNT; draw(false); out?.classList.add('is-on'); return; }
-  draw(false);
-
-  // the script: [wait before, action]
-  const steps = [
-    ...[...AMOUNT].map((k, i) => [i ? 380 : 900, () => press(k)]),
-    [700, () => tap(add, () => out?.classList.add('is-on'))],
-    [2600, () => out?.classList.remove('is-on')],
-    ...[...AMOUNT].map((_, i) => [i ? 200 : 500, () => press('del')]),
-  ];
-  const tap = (el, done) => { el.classList.add('is-down'); later(() => { el.classList.remove('is-down'); done(); }, 120); };
-  const press = (k) => tap(key(k), () => { text = k === 'del' ? text.slice(0, -1) : text + k; draw(k !== 'del'); });
-
-  const timers = new Set(); let at = 0; let on = false;
-  const later = (fn, ms) => { const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); };
-  const run = () => {
-    if (!on) return;
-    if (at >= steps.length) { at = 0; later(run, 1200); return; }
-    const [wait, act] = steps[at];
-    later(() => { if (!on) return; act(); at += 1; run(); }, wait);
-  };
-  whenVisible(root, (vis) => {
-    if (vis && !on) { on = true; run(); }
-    else if (!vis && on) {
-      // start the next lap clean rather than mid-amount
-      on = false; timers.forEach(clearTimeout); timers.clear();
-      root.querySelectorAll('.is-down').forEach((el) => el.classList.remove('is-down'));
-      text = ''; at = 0; draw(false); out?.classList.remove('is-on');
-    }
-  });
-}
-
 function initSearch() {
   const root = document.querySelector('[data-search]');
   if (!root) return;
@@ -221,5 +165,4 @@ export function initDemos() {
   initSkies();
   initSwipe();
   initSearch();
-  initKeypad();
 }

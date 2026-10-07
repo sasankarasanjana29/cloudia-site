@@ -5,8 +5,8 @@
  * take over, and the tour picks up again after a quiet spell. Hovering or
  * focusing the control holds it. The seal plays each time Seal is chosen.
  */
-import { SealMoment } from './seal.js?v=511cf98402';
-import { reducedMotion, whenVisible } from './motion.js?v=511cf98402';
+import { SealMoment } from './seal.js?v=4f51bcf839';
+import { reducedMotion, whenVisible } from './motion.js?v=4f51bcf839';
 
 /** how long each step stays up; Seal gets longer so the stamp lands */
 const DWELL = [5200, 5200, 6800];
