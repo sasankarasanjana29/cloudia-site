@@ -2,8 +2,8 @@
 
 The marketing site for Cloudia, the iPhone app for things still in motion.
 Static HTML, CSS and JavaScript with no dependencies: nothing to install, and
-nothing on the site comes from another company (scripts, analytics, cookies),
-and its one font, Nunito (SIL OFL), is served from the site itself. The privacy policy says so, so keep it that way.
+nothing on the site comes from another company (no fonts, scripts, analytics
+or cookies). The privacy policy says so, so keep it that way.
 
 ## Build
 
