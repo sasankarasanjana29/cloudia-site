@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-page="privacy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy policy · Cloudia</title>
+  <meta name="description" content="What Cloudia and this website keep, where they keep it, and how you remove it. No ads, no tracking, no cookies.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Privacy policy · Cloudia">
+  <meta property="og:description" content="What Cloudia and this website keep, where they keep it, and how you remove it. No ads, no tracking, no cookies.">
+  <meta property="og:image" content="assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="site.css?v=b126dee075">
+  <!-- Nothing on this site comes from another company: no fonts, scripts,
+       analytics or cookies. Keep it that way, or update privacy.html. -->
+  <script>
+    // hide-then-reveal only while the script really runs; if it fails to
+    // load (an old browser, a blocked file), everything simply shows
+    document.documentElement.classList.add('js');
+    // light unless the visitor chose dark here before (kept only in their own browser)
+    try { if (localStorage.getItem('cloudia-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+    setTimeout(function () { if (!window.cloudiaReady) document.documentElement.classList.remove('js'); }, 2500);
+  </script>
+  <script type="module" src="scripts/main.js?v=2e6058781b"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+    <!-- The app's line icons (src/components/Icon.tsx), drawn once and reused. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.4a6 6 0 0 1 12 0c0 4 1.3 5.4 1.9 6a.6.6 0 0 1-.4 1H4.5a.6.6 0 0 1-.4-1c.6-.6 1.9-2 1.9-6Z"/><path d="M10 19.6a2.2 2.2 0 0 0 4 0"/></g></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5.5 12.5 4.2 4.2 8.8-9.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9.5 5.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19.5 12h-15m6.5-6.5L4.5 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11m0-11-11 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 5.6h13.2c.9 0 1.6.7 1.6 1.6v11.2c0 .9-.7 1.6-1.6 1.6H5.4c-.9 0-1.6-.7-1.6-1.6V7.2c0-.9.7-1.6 1.6-1.6Z"/><path d="M8.2 3.4v4.4M15.8 3.4v4.4M3.8 10.6h16.4"/></g></symbol>
+      <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 11V5.6a1.4 1.4 0 0 1 2.8 0M11.2 10.6V4.6a1.4 1.4 0 0 1 2.8 0v6M14 10.8V6.4a1.4 1.4 0 0 1 2.8 0V14"/><path d="M8.4 11V8.8a1.4 1.4 0 0 0-2.8 0v5.6c0 3.4 2.5 6.1 5.8 6.1s5.4-2.7 5.4-6.1"/></g></symbol>
+      <symbol id="i-hourglass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10M7 21h10"/><path d="M8 3v3.2c0 1.4.7 2.7 1.9 3.4L12 11l2.1-1.4A4 4 0 0 0 16 6.2V3"/><path d="M8 21v-3.2c0-1.4.7-2.7 1.9-3.4L12 13l2.1 1.4a4 4 0 0 1 1.9 3.4V21"/></g></symbol>
+      <symbol id="i-profile" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></g></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 10.5h13v9a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M8.2 10.5V7.6a3.8 3.8 0 0 1 7.6 0v2.9"/></g></symbol>
+      <symbol id="i-export" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.4V3.6m0 0L8.2 7.4M12 3.6l3.8 3.8"/><path d="M4.6 14.4v4.4c0 .9.7 1.6 1.6 1.6h11.6c.9 0 1.6-.7 1.6-1.6v-4.4"/></g></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.4h7.2l4.8 4.8v11.2c0 .7-.6 1.2-1.2 1.2H6.5c-.7 0-1.2-.6-1.2-1.2V4.6c0-.7.6-1.2 1.2-1.2Z"/><path d="M13.4 3.6v4.8h4.8M8.6 13h6.8M8.6 16.2h6.8"/></g></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 8.4h12m0 0-3.4-3.4M16.6 8.4 13.2 11.8"/><path d="M19.4 15.6h-12m0 0 3.4-3.4M7.4 15.6l3.4 3.4"/></g></symbol>
+      <symbol id="i-sync" viewBox="0 0 24 24"><path d="M7 17.5h9.3a4 4 0 0 0 .7-7.9 5.8 5.8 0 0 0-10.9-1.5A3.8 3.8 0 0 0 7 17.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-cash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 6.8h14.8c.9 0 1.6.7 1.6 1.6v7.2c0 .9-.7 1.6-1.6 1.6H4.6c-.9 0-1.6-.7-1.6-1.6V8.4c0-.9.7-1.6 1.6-1.6Z"/><circle cx="12" cy="12" r="2.4"/><path d="M6.4 10v4M17.6 10v4"/></g></symbol>
+      <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.6 3.8h6.6c1.1 0 2 .9 2 2v6.6c0 .5-.2 1-.6 1.4l-6.9 6.9a2 2 0 0 1-2.8 0l-5.6-5.6a2 2 0 0 1 0-2.8l6.9-6.9c.4-.4.9-.6 1.4-.6Z"/><circle cx="15.6" cy="8.4" r="1.4"/></g></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15M9.5 6.5V4.8A1.3 1.3 0 0 1 10.8 3.5h2.4a1.3 1.3 0 0 1 1.3 1.3v1.7"/><path d="M6.8 6.5 7.7 19a1.5 1.5 0 0 0 1.5 1.4h5.6a1.5 1.5 0 0 0 1.5-1.4l.9-12.5"/></g></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.6h-4.6"/></g></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-signal" viewBox="0 0 18 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></symbol>
+      <symbol id="i-battery" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="currentColor" opacity="0.45"/></symbol>
+    </defs>
+  </svg>
+
+    <header class="nav-shell">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Cloudia home">
+        <img src="assets/art/app-icon.webp" alt="" width="36" height="36">
+        <span>Cloudia</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#privacy">Privacy</a></li>
+        <li><a href="index.html#faq">Questions</a></li>
+      </ul>
+      <span class="nav-status">Coming soon</span>
+      <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="Dark mode" title="Dark mode">
+        <svg class="ts-sun" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.1M12 19.1v2.1M2.8 12h2.1M19.1 12h2.1M5.5 5.5l1.5 1.5M17 17l1.5 1.5M5.5 18.5 7 17M17 7l1.5-1.5"/></g></svg>
+        <svg class="ts-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span class="ts-knob"></span>
+      </button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <article class="doc">
+      <div class="doc-wrap">
+        <header class="doc-head">
+          <h1>Privacy policy</h1>
+          <p class="doc-meta">Last updated 7 October 2026</p>
+          <p class="doc-intro">Cloudia is an iPhone app and this website, both made by one independent developer, Sasanka Rasanjana (“we” on this page). This page explains what each of them keeps, where it is kept, and how you remove it. The short version: your loops live on your phone, nothing is tracked, and nothing is sold.</p>
+        </header>
+        <nav class="doc-toc" aria-label="On this page">
+          <p>On this page</p>
+          <ol>
+            <li><a href="#website">This website</a></li>
+            <li><a href="#phone">What stays on your phone</a></li>
+            <li><a href="#sync">If you turn on sync</a></li>
+            <li><a href="#reminders">Reminders</a></li>
+            <li><a href="#never">What we never do</a></li>
+            <li><a href="#others">Other people in your loops</a></li>
+            <li><a href="#delete">Keeping and deleting your data</a></li>
+            <li><a href="#rights">Your rights</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#changes">Changes</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ol>
+        </nav>
+        <div class="doc-body">
+          <section id="website">
+            <h2>1. This website</h2>
+            <p>This website sets no cookies, runs no analytics and loads nothing from other companies: no web fonts, and its scripts and images are all served from this site, and there is no embedded media. It does not ask for any information about you. If you switch to dark mode, that choice is kept in your own browser and never sent anywhere.</p>
+            <p>Like every website, it is delivered by a hosting provider, which may record standard technical details of each visit (such as your IP address, browser type, the page you asked for and the time) to deliver the site and keep it secure. Those records are kept by the host under its own policy, and we do not use them to identify you.</p>
+          </section>
+          <section id="phone">
+            <h2>2. What stays on your phone</h2>
+            <p>Everything you add to Cloudia: what each loop is, who it is with, amounts, dates and categories, plus your settings and your answers to the questions asked when you first open the app.</p>
+            <p>All of it is stored only on your device. It is not sent anywhere unless you turn on sync.</p>
+          </section>
+          <section id="sync">
+            <h2>3. If you turn on sync</h2>
+            <p>Sync is optional. If you create an account, Cloudia stores your email address and a copy of your loops with Supabase, a hosting provider that keeps the data on our behalf, so your loops can follow you to another device.</p>
+            <ul>
+              <li>Your password goes straight to Supabase, which stores it in scrambled (hashed) form. We never see it.</li>
+              <li>Your synced loops can only be read by your own signed-in account.</li>
+              <li>Supabase may store data in a different country from yours. It does so under its own data protection terms.</li>
+              <li>We use this data only to provide sync. The legal basis, where one is needed, is providing the service you asked for.</li>
+            </ul>
+          </section>
+          <section id="reminders">
+            <h2>4. Reminders</h2>
+            <p>The current version of Cloudia does not send notifications. If reminders come back, they will be scheduled on your phone by iOS, not sent through any server, and this page will say so first.</p>
+          </section>
+          <section id="never">
+            <h2>5. What we never do</h2>
+            <p>No ads, no analytics, no tracking across apps or websites, no selling or renting of your data, and no sharing with anyone except the hosting providers named above.</p>
+          </section>
+          <section id="others">
+            <h2>6. Other people in your loops</h2>
+            <p>Loops often name other people, like a friend who owes you money. Cloudia only stores those names for you. Please keep what you write about others fair and lawful, and leave out sensitive details you would not want stored.</p>
+          </section>
+          <section id="delete">
+            <h2>7. Keeping and deleting your data</h2>
+            <ul>
+              <li>On your phone, data stays until you remove it. Profile, then Delete everything, erases it, and so does deleting the app.</li>
+              <li>Synced data stays until you delete your account. Profile, then Sync across devices, then Delete account, removes your account and everything synced to it straight away. The hosting provider may keep encrypted backups for a short time before they expire.</li>
+              <li>Profile, then Export your loops, gives you a copy of your data at any time.</li>
+            </ul>
+          </section>
+          <section id="rights">
+            <h2>8. Your rights</h2>
+            <p>Wherever you live, you can see, copy, correct and delete your data, and object to how it is used. Most of this you can do yourself inside the app. These rights come from laws such as the GDPR in the European Union and the United Kingdom, the CCPA in California and the Personal Data Protection Act in Sri Lanka, and we give them to everyone.</p>
+            <p>You can also complain to the data protection authority where you live.</p>
+          </section>
+          <section id="security">
+            <h2>9. Security</h2>
+            <p>Synced data travels over encrypted connections (HTTPS), and your sign-in session is kept in the iOS Keychain. No method is perfect, so we only keep what the app needs.</p>
+          </section>
+          <section id="children">
+            <h2>10. Children</h2>
+            <p>Cloudia is not made for children. Please do not create an account if you are under 13, or under 16 where your local law sets that age.</p>
+          </section>
+          <section id="changes">
+            <h2>11. Changes</h2>
+            <p>If this policy changes, the new version will be here and in the app, with a new date at the top. A change that affects your data will be pointed out in the app before it applies.</p>
+          </section>
+          <section id="contact">
+            <h2>12. Contact</h2>
+            <p class="doc-note">A contact address will be published here before Cloudia is offered to the public. Until then, everything on this page can be done yourself inside the app.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+
+  </main>
+    <footer class="foot">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html" aria-label="Cloudia home">
+          <img src="assets/art/app-icon.webp" alt="" width="36" height="36">
+          <span>Cloudia</span>
+        </a>
+        <p class="small">For the things still in motion. Made by one person, Sasanka Rasanjana.</p>
+      </div>
+      <nav class="foot-links" aria-label="Legal">
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms of use</a>
+        <a href="licenses.html">Licences</a>
+      </nav>
+    </div>
+    <div class="wrap foot-fine">
+      <p>&copy; 2026 Sasanka Rasanjana. Cloudia, its mascot and artwork are not free to reuse.</p>
+      <p>iPhone is a trademark of Apple Inc. Cloudia is not made by or affiliated with Apple.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

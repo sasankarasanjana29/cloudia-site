@@ -53,3 +53,13 @@ node build.mjs
 
 Any static host works. `dist/` includes `.nojekyll` for GitHub Pages, and a
 `src/CNAME` file is copied across if a custom domain is added.
+
+## Publishing
+
+GitHub Pages serves the `docs/` folder of `main` at
+https://sasankarasanjana29.github.io/cloudia-site/. After any change:
+
+```bash
+node build.mjs docs
+git add -A && git commit -m "..." && git push
+```
