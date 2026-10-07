@@ -32,7 +32,7 @@ WANT: dict[str, int] = {
     # the seal moment, on its shared canvas (keeps its own size)
     **{f'mascot-seal-{p}': 0 for p in ['climb', 'jump', 'press', 'proud']},
     # the onboarding orbit, cut into pieces
-    **{f'orbit-{p}': 0 for p in ['cloud', 'bell', 'check', 'heart', 'hourglass']},
+    **{f'orbit-{p}': 0 for p in ['cloud', 'bell', 'check', 'heart', 'hourglass', 'bead']},
     'cloud': 0,
     # category and answer tiles
     **{f'answer-{a}': 192 for a in [

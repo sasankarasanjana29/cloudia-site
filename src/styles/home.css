@@ -82,10 +82,12 @@
 .source.is-in { animation: bob 7s ease-in-out infinite; animation-delay: calc(var(--delay, 0ms) * 8); }
 @keyframes bob { 50% { transform: translateY(-8px); } }
 .gather-stage .orbit { position: absolute; left: 50%; top: 50%; width: min(440px, 46%); aspect-ratio: 1; transform: translate(-50%, -50%); }
-.orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; stroke: var(--brand-line); }
+.orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* the art's ring: a glossy tube, a blue outline round a pale core */
+.orbit-ring .ring-out { stroke: #5ba9f0; }
+.orbit-ring .ring-in { stroke: #aedefd; }
 .orbit-cloud { position: absolute; left: 20.625%; top: 31.458%; width: 58.958%; z-index: 2; }
 .orbit-item { position: absolute; left: 0; top: 0; will-change: transform; }
-.orbit-item.bead { border-radius: 50%; background: var(--blue-100); box-shadow: inset 0 0 0 1px var(--brand-line); }
 .gather-caption { margin: var(--s-4) auto 0; max-width: 30ch; text-align: center; font-size: var(--fs-h3); line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
 
 /* tablets: the same picture, a little smaller */

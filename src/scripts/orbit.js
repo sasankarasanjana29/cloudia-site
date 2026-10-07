@@ -9,13 +9,13 @@ import { reducedMotion, whenVisible } from './motion.js';
 const SRC = 480;
 const RING = { cx: 245, cy: 249, rx: 214, ry: 142, tilt: 2.5 };
 const ICONS = [
-  { key: 'bell', w: 139, h: 131, at: 222 },
-  { key: 'check', w: 112, h: 111, at: 305 },
-  { key: 'hourglass', w: 117, h: 129, at: 50 },
-  { key: 'heart', w: 122, h: 105, at: 140 },
+  { key: 'bell', w: 138, h: 130, at: 222 },
+  { key: 'check', w: 113, h: 110, at: 305 },
+  { key: 'hourglass', w: 115, h: 131, at: 50 },
+  { key: 'heart', w: 120, h: 103, at: 140 },
 ];
 const BEADS = [178, 265, 0, 95];
-const BEAD = 22;
+const BEAD = 30;
 const LAP = 26000;
 
 function onRing(deg) {
@@ -30,7 +30,11 @@ export function initOrbit() {
   const root = document.querySelector('[data-orbit]');
   if (!root) return;
   const items = [
-    ...BEADS.map((at) => ({ at, w: BEAD, h: BEAD, el: Object.assign(document.createElement('span'), { className: 'orbit-item bead' }) })),
+    ...BEADS.map((at) => {
+      const img = Object.assign(document.createElement('img'), { className: 'orbit-item', src: 'assets/art/orbit-bead.webp', alt: '' });
+      img.width = BEAD; img.height = BEAD;
+      return { at, w: BEAD, h: BEAD, el: img };
+    }),
     ...ICONS.map((i) => {
       const img = Object.assign(document.createElement('img'), { className: 'orbit-item', src: `assets/art/orbit-${i.key}.webp`, alt: '' });
       img.width = i.w; img.height = i.h;
