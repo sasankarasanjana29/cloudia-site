@@ -9,6 +9,7 @@ import { initToday } from './today.js';
 import { initOrbit } from './orbit.js';
 import { initStory } from './story.js';
 import { initDemos } from './demos.js';
+import { initGather } from './gather.js';
 
 initNav();
 initThemeSwitch();
@@ -17,5 +18,6 @@ initToday();
 initOrbit();
 initStory();
 initDemos();
+initGather();
 
 window.cloudiaReady = true;
