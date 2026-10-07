@@ -64,10 +64,14 @@ def main() -> None:
         dst = OUT / f'{name}.webp'
         im.save(dst, 'WEBP', quality=88, method=6)
         total += dst.stat().st_size
-    # the app icon, as the favicon and home-screen icon
+    # the app icon. Home screens round it themselves, so they get the square
+    # 1024 (assets/icon.png); the favicon and the logo in the header and
+    # footer use the app's rounded copy.
+    square = Image.open(APP / 'assets' / 'icon.png').convert('RGB')
+    for size, fname in [(180, 'apple-touch-icon.png'), (512, 'icon-512.png')]:
+        square.resize((size, size), Image.LANCZOS).save(SITE / 'src' / 'assets' / fname, optimize=True)
     icon = Image.open(SRC / 'app-icon.png').convert('RGBA')
-    for size, fname in [(180, 'apple-touch-icon.png'), (512, 'icon-512.png'), (64, 'favicon.png')]:
-        icon.resize((size, size), Image.LANCZOS).save(SITE / 'src' / 'assets' / fname, optimize=True)
+    icon.resize((64, 64), Image.LANCZOS).save(SITE / 'src' / 'assets' / 'favicon.png', optimize=True)
     icon.resize((256, 256), Image.LANCZOS).save(OUT / 'app-icon.webp', 'WEBP', quality=90)
     print(f'{len(list(OUT.glob("*.webp")))} images, {total / 1024:.0f} KB')
 
