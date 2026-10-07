@@ -1,79 +1,88 @@
 /* The home page, top to bottom. */
 
-.hero, .scatter, .story, .film, .features, .privacy-band, .faq, .close { position: relative; }
-.scatter, .story, .features, .privacy-band, .faq { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
+.hero, .scatter, .how, .film, .features, .privacy-band, .faq, .close { position: relative; }
+.scatter, .how, .features, .privacy-band, .faq { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
 .scatter { padding-top: clamp(var(--s-6), 5vw, var(--s-8)); }
-.story { padding-top: clamp(var(--s-7), 6vw, var(--s-9)); }
 
-/* ---------- hook: a phone rising out of a cloud bank (after Abode) ---------- */
+/* ---------- hook: the words beside three real screens, standing in clouds
+   (after Aave's and Tiimo's fanned phones and Abode's cloud bank) ---------- */
 .hero {
-  padding-top: clamp(var(--s-6), 4.5vw, var(--s-8));
-  background: linear-gradient(180deg, var(--brand-subtle) 0%, var(--page) 62%);
+  padding: clamp(var(--s-6), 4vw, var(--s-8)) 0 clamp(var(--s-6), 4vw, var(--s-7));
+  background: linear-gradient(180deg, var(--brand-subtle) 0%, var(--page) 78%);
   overflow: clip;
 }
-.hero-air { position: absolute; inset: 0 0 auto; height: 70%; pointer-events: none; }
+.hero-air { position: absolute; inset: 0; pointer-events: none; }
 /* the cloud art is shaded cyan; on the page it reads teal, so it is
    desaturated to a soft white-blue */
 .drift { position: absolute; width: clamp(160px, 22vw, 300px); opacity: 0.75; filter: saturate(0.3) brightness(1.04); animation: drift 46s ease-in-out infinite alternate; }
-.drift.d1 { left: -4%; top: 6%; }
-.drift.d2 { right: -6%; top: 22%; width: clamp(180px, 26vw, 360px); animation-duration: 58s; animation-direction: alternate-reverse; }
-.drift.d3 { left: 18%; top: 54%; width: clamp(110px, 12vw, 170px); opacity: 0.45; animation-duration: 70s; }
+.drift.d1 { left: -5%; top: 4%; }
+.drift.d2 { right: -6%; top: 48%; width: clamp(180px, 24vw, 340px); animation-duration: 58s; animation-direction: alternate-reverse; }
 @keyframes drift { from { transform: translateX(-28px); } to { transform: translateX(36px); } }
 
-.hero-copy { position: relative; text-align: center; display: grid; justify-items: center; }
+.hero-grid { position: relative; display: grid; gap: var(--s-7); align-items: center; }
+.hero-copy { display: grid; justify-items: center; text-align: center; }
 .h1-line { display: block; }
 .h1-blue { color: var(--brand); }
-.hero-lead { max-width: 44ch; margin-top: var(--s-4); }
-.hero-cta { margin-top: var(--s-5); display: grid; justify-items: center; gap: var(--s-3); }
+.hero-lead { max-width: 44ch; margin-top: var(--s-5); }
+.hero-cta { margin-top: var(--s-6); display: grid; justify-items: center; gap: var(--s-3); }
 .hero-note { font-size: var(--fs-small); font-weight: 600; color: var(--text-3); }
 
-.hero-stage { position: relative; margin-top: clamp(var(--s-6), 4vw, var(--s-7)); height: clamp(560px, 62vw, 640px); display: flex; justify-content: center; }
-.hero-phone { z-index: 2; }
-.bank { position: absolute; left: 50%; width: max(1100px, 120%); transform: translateX(-50%); pointer-events: none; background-repeat: no-repeat; }
-.bank-back {
-  z-index: 1; bottom: 110px; height: 300px; opacity: 0.55; filter: saturate(0.3) brightness(1.04);
-  background-image: url(assets/art/cloud.webp), url(assets/art/cloud.webp), url(assets/art/cloud.webp), url(assets/art/cloud.webp);
-  background-size: 380px auto, 460px auto, 420px auto, 360px auto;
-  background-position: 14% 100%, 34% 70%, 68% 80%, 88% 100%;
+/* the fan: Today in front, Waiting and Profile tilted behind it */
+.hero-fan { position: relative; height: 660px; width: 100%; max-width: 660px; margin-inline: auto; }
+.fan-center { --sw: 268px; --k: 0.68193; --bz: 10px; position: absolute; left: 50%; top: 0; z-index: 3; transform: translateX(-50%); }
+.fan-side { --sw: 232px; --k: 0.59033; --bz: 9px; position: absolute; left: 50%; top: 58px; z-index: 1; }
+.fan-left { transform: translateX(calc(-50% - 172px)) rotate(-7deg); }
+.fan-right { transform: translateX(calc(-50% + 172px)) rotate(7deg); }
+.fan-side .screen::after { content: ""; position: absolute; inset: 0; background: rgba(var(--shadow-ink) / 0.04); }
+.fan-clouds {
+  /* the app's cloud edge again, low: the phones stand in it rather than drown */
+  position: absolute; z-index: 4; left: -30%; right: -30%; bottom: -36px; height: 150px;
+  background: var(--page);
+  -webkit-mask: var(--puffs); mask: var(--puffs);
+  filter: drop-shadow(0 -10px 22px rgba(1, 149, 255, 0.14));
+  --puffs:
+    radial-gradient(circle 70px at 6% 104px, #000 98%, transparent 100%),
+    radial-gradient(circle 92px at 18% 110px, #000 98%, transparent 100%),
+    radial-gradient(circle 76px at 30% 98px, #000 98%, transparent 100%),
+    radial-gradient(circle 98px at 42% 112px, #000 98%, transparent 100%),
+    radial-gradient(circle 82px at 53% 100px, #000 98%, transparent 100%),
+    radial-gradient(circle 96px at 64% 110px, #000 98%, transparent 100%),
+    radial-gradient(circle 78px at 76% 100px, #000 98%, transparent 100%),
+    radial-gradient(circle 92px at 88% 110px, #000 98%, transparent 100%),
+    radial-gradient(circle 70px at 97% 104px, #000 98%, transparent 100%),
+    linear-gradient(#000, #000) 0 100px / 100% 100% no-repeat;
 }
-.bank-front {
-  /* the app's cloud edge (Today's sky), as one opaque scalloped bank the
-     phone rises out of: cloud art here let the screen show through */
-  z-index: 3; bottom: -2px; height: 170px;
-  background: var(--bank-fill, var(--page));
-  -webkit-mask: var(--scallops); mask: var(--scallops);
-  filter: drop-shadow(0 -14px 28px rgba(1, 149, 255, 0.14));
-  --scallops:
-    radial-gradient(circle 90px at 3% 120px, #000 98%, transparent 100%),
-    radial-gradient(circle 120px at 15% 128px, #000 98%, transparent 100%),
-    radial-gradient(circle 96px at 28% 120px, #000 98%, transparent 100%),
-    radial-gradient(circle 130px at 41% 134px, #000 98%, transparent 100%),
-    radial-gradient(circle 104px at 49% 118px, #000 98%, transparent 100%),
-    radial-gradient(circle 112px at 56% 128px, #000 98%, transparent 100%),
-    radial-gradient(circle 100px at 69% 120px, #000 98%, transparent 100%),
-    radial-gradient(circle 124px at 83% 128px, #000 98%, transparent 100%),
-    radial-gradient(circle 92px at 97% 120px, #000 98%, transparent 100%),
-    linear-gradient(#000, #000) 0 112px / 100% 100% no-repeat;
-}
+
 .js .hero [data-rise] { animation: rise 900ms var(--ease-out) both; animation-delay: var(--delay, 0ms); }
-.js .hero .hero-phone[data-rise] { animation: rise-phone 1200ms var(--ease-out) both; animation-delay: var(--delay, 0ms); }
+.js .fan-center { animation: rise-center 1100ms var(--ease-out) 200ms both; }
+.js .fan-left { animation: fan-left 1100ms var(--ease-out) 420ms both; }
+.js .fan-right { animation: fan-right 1100ms var(--ease-out) 420ms both; }
 @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
-@keyframes rise-phone { from { opacity: 0; transform: translateY(90px); } }
+@keyframes rise-center { from { opacity: 0; transform: translateX(-50%) translateY(70px); } }
+@keyframes fan-left { from { opacity: 0; transform: translateX(-50%) translateY(70px) rotate(0deg); } }
+@keyframes fan-right { from { opacity: 0; transform: translateX(-50%) translateY(70px) rotate(0deg); } }
+
+@media (min-width: 1024px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-6); min-height: min(760px, calc(100svh - 96px)); }
+  .hero-copy { justify-items: start; text-align: left; }
+  .hero-cta { justify-items: start; }
+  .hero h1 { font-size: clamp(2.75rem, 0.9rem + 2.9vw, 4rem); }
+}
+@media (min-width: 1180px) {
+  .hero .h1-line { white-space: nowrap; }
+}
+@media (max-width: 700px) {
+  /* the whole fan, scaled as one picture around the centre so the screens
+     keep their proportions; the negative margin gives back the scaled-away height */
+  .hero-fan { --fan: 0.62; width: 660px; max-width: none; left: 50%; margin: 0 0 calc(660px * (var(--fan) - 1)) -330px; transform: scale(var(--fan)); transform-origin: 50% 0; }
+}
+@media (max-width: 380px) { .hero-fan { --fan: 0.56; } }
 
 @media all {
-  :root[data-theme="dark"] .hero { background: linear-gradient(180deg, var(--night-850) 0%, var(--page) 62%); }
-  /* at night the clouds are navy silhouettes cut from the same cloud art,
-     not the daytime clouds dimmed into grey lumps */
+  :root[data-theme="dark"] .hero { background: linear-gradient(180deg, var(--night-850) 0%, var(--page) 78%); }
   :root[data-theme="dark"] .drift { display: none; }
-  :root[data-theme="dark"] .bank-back { opacity: 1; background: var(--bank-fill); -webkit-mask: var(--bank-mask); mask: var(--bank-mask); }
-  :root[data-theme="dark"] .bank-back {
-    --bank-fill: var(--night-900);
-    --bank-mask: url(assets/art/cloud.webp) 14% 100% / 380px auto no-repeat, url(assets/art/cloud.webp) 34% 70% / 460px auto no-repeat,
-      url(assets/art/cloud.webp) 68% 80% / 420px auto no-repeat, url(assets/art/cloud.webp) 88% 100% / 360px auto no-repeat;
-  }
-  :root[data-theme="dark"] .bank-front { --bank-fill: var(--page); background: var(--page); -webkit-mask: var(--scallops); mask: var(--scallops); filter: drop-shadow(0 -14px 30px rgba(88, 171, 254, 0.16)); }
+  :root[data-theme="dark"] .fan-clouds { filter: drop-shadow(0 -10px 26px rgba(88, 171, 254, 0.16)); }
 }
-@media (max-width: 420px) { .hero-phone { --sw: 270px; --k: 0.68702; --bz: 10px; } }
 
 /* ---------- problem: where loose ends live now ---------- */
 .scatter-grid { display: grid; gap: var(--s-7); align-items: center; }
@@ -113,30 +122,64 @@
 .orbit-item.bead { border-radius: 50%; background: var(--blue-100); box-shadow: inset 0 0 0 1px var(--brand-line); }
 .orbit-caption { max-width: 30ch; font-size: var(--fs-h3); line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
 
-/* ---------- solution: the story with a pinned phone ---------- */
-.story-title { text-align: center; max-width: 18ch; margin-inline: auto; }
-.story-grid { margin-top: var(--s-6); }
-.steps { display: grid; gap: var(--s-8); counter-reset: none; }
-.step { display: grid; gap: var(--s-4); justify-items: center; text-align: center; }
-.step p { max-width: 40ch; color: var(--text-3); font-size: 1.125rem; }
-.step strong { color: var(--text); }
-.step-num { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-subtle); color: var(--brand-strong); font-weight: 800; }
-.step-phone { margin-top: var(--s-4); }
-.replay { min-height: 48px; font-size: 1.0625rem; padding: 0 var(--s-5); }
-.story-stage { display: none; }
-
-@media (min-width: 960px) {
-  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-8); align-items: start; }
-  .steps { gap: 0; }
-  .step { min-height: 58vh; align-content: center; justify-items: start; text-align: left; opacity: 0.32; transition: opacity 400ms ease; }
-  .step.is-on { opacity: 1; }
-  .step-phone { display: none; }
-  .story-stage { display: flex; justify-content: center; position: sticky; top: max(84px, calc(50vh - 350px)); }
-  .stage-phone .screen { position: relative; }
-  .stage-screen { position: absolute; inset: 0; opacity: 0; transform: scale(0.985); transition: opacity 320ms ease, transform 420ms var(--ease-out); }
-  .stage-screen.is-on { opacity: 1; transform: none; }
+/* ---------- solution: three steps beside one phone (Apple-style feature
+   switcher). It advances by itself, and any step can be chosen. ---------- */
+.how-grid { display: grid; gap: var(--s-7); align-items: center; }
+.how-copy { display: grid; gap: var(--s-6); }
+.how-copy h2 { max-width: 14ch; }
+.how-steps { display: grid; gap: var(--s-2); }
+.how-step {
+  position: relative; display: grid; grid-template-columns: auto 1fr; gap: var(--s-4); align-items: start;
+  width: 100%; padding: var(--s-4) var(--s-5) var(--s-5); border: 0; border-radius: var(--r-panel); text-align: left; cursor: pointer;
+  background: transparent; color: var(--text); overflow: hidden;
+  transition: background-color 220ms ease;
 }
-@media (min-width: 960px) and (max-height: 760px) { .story-stage { top: 80px; } }
+.how-step.is-on { background: var(--sunken); box-shadow: inset 0 0 0 1px var(--line); }
+@media (hover: hover) and (pointer: fine) { .how-step:not(.is-on):hover { background: var(--sunken); } }
+.hs-num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--muted-bg); color: var(--text-3); transition: background-color 220ms ease, color 220ms ease; }
+.how-step.is-on .hs-num { background: var(--brand-subtle); color: var(--brand-strong); }
+.hs-body { display: grid; padding-top: 6px; }
+.hs-body b { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text-3); transition: color 220ms ease; }
+.how-step.is-on .hs-body b { color: var(--text); }
+.hs-text { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--ease-out); }
+.hs-text > span { overflow: hidden; color: var(--text-3); font-size: 1.0625rem; }
+.hs-text strong { color: var(--text); }
+.how-step.is-on .hs-text { grid-template-rows: 1fr; }
+.how-step.is-on .hs-text > span { padding-top: var(--s-2); }
+.hs-bar { position: absolute; left: var(--s-5); right: var(--s-5); bottom: 10px; height: 3px; border-radius: 2px; background: var(--line-strong); opacity: 0; }
+.hs-bar i { position: absolute; inset: 0; border-radius: 2px; background: var(--brand); transform: scaleX(0); transform-origin: left; }
+.how-step.is-on .hs-bar { opacity: 1; }
+.how-step.is-on .hs-bar i { animation: step-fill var(--step-ms, 6500ms) linear forwards; }
+.how-steps.is-paused .hs-bar i, .how-steps.is-still .hs-bar { animation-play-state: paused; }
+.how-steps.is-still .hs-bar { display: none; }
+@keyframes step-fill { to { transform: scaleX(1); } }
+
+/* the phone on a patch of sky (after Jomo's cloud panels) */
+.how-stage {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; place-items: center; padding: clamp(var(--s-5), 4vw, var(--s-7)) var(--s-4);
+  border-radius: var(--r-section);
+  background: linear-gradient(180deg, var(--brand-subtle), var(--tint-blue) 60%, var(--page));
+  border: 1px solid var(--line);
+}
+.stage-air { position: absolute; inset: 0; z-index: -1; }
+.stage-air .d1 { top: 10%; left: -12%; }
+.stage-air .d2 { top: 62%; right: -14%; }
+.stage-phone .screen { position: relative; }
+.stage-screen { position: absolute; inset: 0; opacity: 0; transition: opacity 280ms ease; }
+.stage-screen.is-on { opacity: 1; }
+@media (min-width: 960px) {
+  .how-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-8); }
+}
+/* narrow screens: title, then the phone, then the steps right under it */
+@media (max-width: 959px) {
+  .how-grid { gap: var(--s-5); }
+  .how-copy { display: contents; }
+  .how-copy h2 { order: 1; }
+  .how-stage { order: 2; }
+  .how-steps { order: 3; }
+}
+@media (max-width: 420px) { .stage-phone { --sw: 250px; --k: 0.63613; --bz: 9px; } }
 
 /* ---------- the seal, frame by frame ---------- */
 .film { padding-block: clamp(var(--s-6), 5vw, var(--s-8)); }
@@ -311,7 +354,8 @@
 /* ---------- motion off ---------- */
 @media (prefers-reduced-motion: reduce) {
   .drift, .answer.is-in, .marquee-row, .swipe-card, .caret { animation: none !important; }
-  .js .hero [data-rise], .js .hero .hero-phone[data-rise] { animation: none; }
+  .js .hero [data-rise], .js .fan-center, .js .fan-left, .js .fan-right { animation: none; }
   .swipe-card { transform: translateX(-156px); }
-  .stage-screen { transition: opacity 150ms ease; transform: none !important; }
+  .stage-screen { transition: opacity 150ms ease; }
+  .hs-text { transition: none; }
 }

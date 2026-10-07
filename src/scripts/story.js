@@ -1,43 +1,64 @@
 /**
- * "How it works": the step crossing the middle of the screen lights up and
- * the pinned phone shows its screen (wide screens). The seal plays the first
- * time its screen comes into view, and the replay button runs it again.
+ * "How it works": three steps beside one phone. The active step's bar fills
+ * and the next step follows when it is full; any step can be chosen. It only
+ * advances while on screen and not hovered, never under Reduce Motion, and
+ * the seal plays each time the third step comes up.
  */
 import { SealMoment } from './seal.js';
+import { reducedMotion, whenVisible } from './motion.js';
 
 export function initStory() {
-  const steps = [...document.querySelectorAll('.step')];
-  if (!steps.length) return;
+  const list = document.querySelector('[data-how]');
+  if (!list) return;
+  const tabs = [...list.querySelectorAll('.how-step')];
   const screens = [...document.querySelectorAll('.stage-screen')];
-  const moments = [...document.querySelectorAll('[data-seal-page]')].map((p) => new SealMoment(p));
-  const stageMoment = moments.find((m) => m.page.closest('.stage-screen'));
-  const wide = window.matchMedia('(min-width: 960px)');
+  const stage = document.getElementById('how-stage');
+  const page = document.querySelector('.how-stage [data-seal-page]');
+  const seal = page ? new SealMoment(page) : null;
+  const still = reducedMotion();
+  let current = 0;
+  let sealTimer = 0;
+  if (still) list.classList.add('is-still');
 
-  const show = (i) => {
-    steps.forEach((s, k) => s.classList.toggle('is-on', k === i));
+  const show = (i, focus = false) => {
+    current = i;
+    tabs.forEach((t, k) => {
+      const on = k === i;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      // restart the bar: a fresh animation each time the step comes up
+      const bar = t.querySelector('.hs-bar i');
+      if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+    });
     screens.forEach((s, k) => s.classList.toggle('is-on', k === i));
-    if (i === 2 && wide.matches && stageMoment && !stageMoment.played) setTimeout(() => stageMoment.play(), 450);
+    stage?.setAttribute('aria-labelledby', tabs[i].id);
+    if (focus) tabs[i].focus();
+    clearTimeout(sealTimer);
+    if (i === 2 && seal) { seal.reset(); sealTimer = setTimeout(() => seal.play(), 420); }
   };
-  show(0);
 
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) show(Number(e.target.dataset.step));
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  steps.forEach((s) => io.observe(s));
-
-  // narrow screens: each step has its own phone; play when it is in view
-  for (const m of moments) {
-    if (m === stageMoment) continue;
-    const phone = m.page.closest('.step-phone');
-    if (!phone) continue;
-    const once = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting) && !wide.matches) { once.disconnect(); setTimeout(() => m.play(), 300); }
-    }, { threshold: 0.65 });
-    once.observe(phone);
-  }
-
-  document.querySelector('[data-seal-replay]')?.addEventListener('click', () => {
-    if (wide.matches) { show(2); stageMoment?.play(); }
-    else moments.find((m) => m !== stageMoment)?.play();
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(i));
+    // a full bar moves on to the next step
+    t.querySelector('.hs-bar i')?.addEventListener('animationend', () => { if (!still && i === current) show((i + 1) % tabs.length); });
   });
+  // arrow keys move between steps, as in any tab list
+  list.addEventListener('keydown', (e) => {
+    const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    show((current + d + tabs.length) % tabs.length, true);
+  });
+
+  const pause = (p) => list.classList.toggle('is-paused', p);
+  let visible = false; let hovered = false;
+  const sync = () => pause(!visible || hovered);
+  whenVisible(list, (v) => { visible = v; sync(); }, { threshold: 0.3 });
+  for (const el of [list, stage]) {
+    el?.addEventListener('pointerenter', () => { hovered = true; sync(); });
+    el?.addEventListener('pointerleave', () => { hovered = false; sync(); });
+  }
+  pause(true);
+  show(0);
 }

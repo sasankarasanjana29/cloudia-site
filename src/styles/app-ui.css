@@ -229,6 +229,56 @@
 .seal-front { z-index: 4; }
 .lp-hero { z-index: 1; }
 
+/* ---------- tab screens: Waiting and Profile ---------- */
+.tab-title { position: absolute; left: 20px; right: 20px; top: 62px; display: flex; justify-content: space-between; align-items: flex-start; }
+.tt-title { font-size: 30px; font-weight: 800; letter-spacing: -0.7px; }
+.tt-title.big { font-size: 34px; letter-spacing: -0.9px; }
+.tt-sub { font-size: 15px; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+.round-btn.soft { width: 46px; height: 46px; background: var(--muted-bg); color: var(--text); }
+.faces { position: absolute; top: 140px; left: 20px; right: 0; display: flex; gap: 14px; }
+.face { width: 70px; display: grid; justify-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-muted); white-space: nowrap; position: relative; }
+.ring { width: 64px; height: 64px; border-radius: 50%; padding: 2.5px; display: block; }
+.ring.late { background: linear-gradient(135deg, #ff6073, #ff9029); }
+.ring.soon { background: linear-gradient(135deg, #0195ff, #96d3ff); }
+.ring.calm { background: var(--line-strong); }
+.ring-gap { display: block; width: 100%; height: 100%; border-radius: 50%; padding: 2.5px; background: var(--page); }
+.avatar { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; font-size: 17px; font-weight: 800; background: var(--bg); color: var(--fg); }
+.face-badge { position: absolute; right: 2px; top: -2px; min-width: 22px; height: 22px; border-radius: 11px; padding: 0 5px; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 800; background: var(--text); color: var(--page); border: 2px solid var(--page); }
+.nudge { position: absolute; top: 246px; left: 20px; right: 20px; display: flex; align-items: center; gap: 12px; padding: 12px 10px 12px 14px; border-radius: 18px; background: var(--raised); border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(var(--shadow-ink) / 0.06); }
+.nudge-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red-500); flex: none; }
+.nudge-text { flex: 1; display: grid; gap: 2px; }
+.nudge-text b { font-size: 15px; font-weight: 600; }
+.nudge-text span { font-size: 13px; color: var(--text-muted); }
+.nudge-btn { height: 34px; padding: 0 14px; border-radius: 17px; display: grid; place-items: center; font-size: 14px; font-weight: 700; background: var(--brand-subtle); color: var(--brand-strong); }
+.waiting-list { top: 330px; }
+
+.sky-card { position: absolute; top: 140px; left: 20px; right: 20px; height: 196px; border-radius: 26px; padding: 18px 20px; overflow: hidden; color: #fff; background: var(--sky-now, var(--sky-day)); box-shadow: 0 16px 30px -18px rgba(1, 149, 255, 0.7); }
+.sc-top { display: flex; align-items: baseline; gap: 10px; }
+.sc-top b { font-size: 52px; line-height: 1; font-weight: 800; letter-spacing: -0.04em; }
+.sc-top span { font-size: 18px; font-weight: 700; }
+.sc-line { margin-top: 8px; font-size: 15px; font-weight: 600; opacity: 0.92; max-width: 60%; }
+.sky-card img { position: absolute; right: 8px; top: 10px; width: 120px; }
+.sc-week { position: absolute; left: 16px; right: 16px; bottom: 14px; display: flex; justify-content: space-between; padding: 8px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.22); font-size: 11px; font-weight: 700; }
+.sc-week span { display: grid; justify-items: center; gap: 3px; }
+.sc-week i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.7); }
+.sc-week .ok i { background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 12.5 4 4 8-8.6' fill='none' stroke='%230195ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; border-color: #fff; }
+.sc-week .now i { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45); }
+.pf-rows { position: absolute; top: 356px; left: 20px; right: 20px; display: grid; gap: 12px; }
+.pf-group { border-radius: 22px; border: 1px solid var(--line); background: var(--raised); overflow: hidden; }
+.pf-group .lp-row .chev { width: 16px; height: 16px; margin-left: 8px; color: var(--text-muted); }
+.pf-group .lp-row span.accent { color: var(--brand-strong); font-weight: 700; }
+.mini-faces { display: flex; margin-left: 0 !important; }
+.mini-faces i { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 800; background: var(--bg); color: var(--fg); border: 2px solid var(--raised); margin-left: -6px; }
+.mini-faces i:first-child { margin-left: 0; }
+.pf-pro { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 22px; background: var(--brand-subtle); border: 1px solid var(--brand-line); }
+.pro-tile { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: linear-gradient(180deg, #0195ff, #96d3ff); }
+.pro-tile svg { width: 20px; height: 20px; }
+.pf-pro div { flex: 1; display: grid; }
+.pf-pro b { font-size: 17px; color: var(--brand-strong); font-weight: 700; }
+.pf-pro span { font-size: 14px; color: var(--text-3); }
+.pf-pro .chev { width: 16px; height: 16px; color: var(--brand-strong); }
+.pf-head { margin: 8px 0 -4px 4px; font-size: 15px; font-weight: 600; color: var(--text-muted); }
+
 /* ---------- small reusable bits used outside the phone too ---------- */
 .cat { display: grid; justify-items: center; gap: 6px; width: 86px; flex: none; }
 .cat-tile { width: 72px; height: 72px; border-radius: 22px; display: grid; place-items: center; background: var(--raised); border: 1px solid var(--line); }

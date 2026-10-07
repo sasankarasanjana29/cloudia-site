@@ -4,27 +4,31 @@
       <div class="hero-air" aria-hidden="true">
         <img class="drift d1" src="assets/art/cloud.webp" alt="" width="669" height="432">
         <img class="drift d2" src="assets/art/cloud.webp" alt="" width="669" height="432">
-        <img class="drift d3" src="assets/art/cloud.webp" alt="" width="669" height="432">
       </div>
-      <div class="wrap hero-copy">
-        <h1 id="hero-title">
-          <span class="h1-line" data-rise>You said you would.</span>
-          <span class="h1-line h1-blue" data-rise style="--delay: 90ms">They said they would.</span>
-        </h1>
-        <p class="lead hero-lead" data-rise style="--delay: 180ms">Cloudia keeps track of the loops still open in your life: the refund you are owed, the reply you promised, the money a friend still has. When one closes, Cloudia seals it.</p>
-        <div class="hero-cta" data-rise style="--delay: 260ms">
-          <a class="btn btn-primary" href="#how">See how it works</a>
-          <p class="hero-note">Free, for iPhone. Coming soon.</p>
-        </div>
-      </div>
-      <div class="hero-stage">
-        <div class="bank bank-back" aria-hidden="true"></div>
-        <figure class="phone phone--lg hero-phone" data-rise style="--delay: 340ms" role="img" aria-label="Cloudia's Today screen: a blue sky with Cloudia at the top, this week's days with coloured dots, and the loops that need you today.">
-          <div class="screen" aria-hidden="true">
-<!-- include:phone-today -->
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title">
+            <span class="h1-line" data-rise>You said you would.</span>
+            <span class="h1-line h1-blue" data-rise style="--delay: 90ms">They said they would.</span>
+          </h1>
+          <p class="lead hero-lead" data-rise style="--delay: 180ms">Cloudia keeps track of the loops still open in your life: the refund you are owed, the reply you promised, the money a friend still has. When one closes, Cloudia seals it.</p>
+          <div class="hero-cta" data-rise style="--delay: 260ms">
+            <a class="btn btn-primary" href="#how">See how it works</a>
+            <p class="hero-note">Free, for iPhone. Coming soon.</p>
           </div>
-        </figure>
-        <div class="bank bank-front" aria-hidden="true"></div>
+        </div>
+        <div class="hero-fan" role="img" aria-label="Three Cloudia screens: Waiting, with who owes you what; Today, with Cloudia in a blue sky and what is due; and Profile, with a four day run of days in the clear.">
+          <div class="phone fan-side fan-left" aria-hidden="true"><div class="screen">
+<!-- include:phone-waiting -->
+          </div></div>
+          <div class="phone fan-side fan-right" aria-hidden="true"><div class="screen">
+<!-- include:phone-profile -->
+          </div></div>
+          <div class="phone fan-center" aria-hidden="true"><div class="screen">
+<!-- include:phone-today -->
+          </div></div>
+          <div class="fan-clouds" aria-hidden="true"></div>
+        </div>
       </div>
     </section>
 
@@ -52,42 +56,36 @@
     </section>
 
     <!-- ============ solution, how it works ============ -->
-    <section class="story" id="how" aria-labelledby="how-title">
-      <div class="wrap">
-        <h2 id="how-title" class="story-title" data-reveal>Two kinds of loops. One place for both.</h2>
-      </div>
-      <div class="wrap story-grid">
-        <ol class="steps">
-          <li class="step" data-step="0">
-            <span class="step-num">1</span>
-            <h3>Add it in a few taps</h3>
-            <p>Pick <strong>My turn</strong> for something you promised, or <strong>Waiting</strong> for something someone owes you. Add who it is with, an amount if there is one, and a day.</p>
-            <figure class="phone step-phone" aria-hidden="true"><div class="screen">
-<!-- include:phone-add -->
-            </div></figure>
-          </li>
-          <li class="step" data-step="1">
-            <span class="step-num">2</span>
-            <h3>See what needs you today</h3>
-            <p>Today puts what is due first and what is late in red. The week strip marks every day: red for late, blue for due, green for done.</p>
-            <figure class="phone step-phone" aria-hidden="true"><div class="screen">
-<!-- include:phone-today -->
-            </div></figure>
-          </li>
-          <li class="step" data-step="2">
-            <span class="step-num">3</span>
-            <h3>Close it with a seal</h3>
-            <p>Tap <strong>It arrived</strong> or <strong>Mark as done</strong>, and Cloudia climbs onto the card and presses a green wax seal into it. Your phone taps along with her.</p>
-            <button class="btn btn-secondary replay" type="button" data-seal-replay>Play the seal again</button>
-            <figure class="phone step-phone" aria-hidden="true"><div class="screen">
-<!-- include:phone-loop -->
-            </div></figure>
-          </li>
-        </ol>
-        <div class="story-stage" aria-hidden="true">
-          <div class="phone phone--lg stage-phone">
+    <section class="how" id="how" aria-labelledby="how-title">
+      <div class="wrap how-grid">
+        <div class="how-copy">
+          <h2 id="how-title" data-reveal>Two kinds of loops. One place for both.</h2>
+          <div class="how-steps" role="tablist" aria-label="How Cloudia works" data-how>
+            <button class="how-step is-on" type="button" role="tab" id="how-tab-0" aria-selected="true" aria-controls="how-stage" data-step="0">
+              <span class="hs-num">1</span>
+              <span class="hs-body"><b>Add it in a few taps</b><span class="hs-text"><span>Pick <strong>My turn</strong> for something you promised, or <strong>Waiting</strong> for something someone owes you. Add who it is with, an amount if there is one, and a day.</span></span></span>
+              <i class="hs-bar" aria-hidden="true"><i></i></i>
+            </button>
+            <button class="how-step" type="button" role="tab" id="how-tab-1" aria-selected="false" aria-controls="how-stage" data-step="1">
+              <span class="hs-num">2</span>
+              <span class="hs-body"><b>See what needs you today</b><span class="hs-text"><span>Today puts what is due first and what is late in red. The week strip marks every day: red for late, blue for due, green for done.</span></span></span>
+              <i class="hs-bar" aria-hidden="true"><i></i></i>
+            </button>
+            <button class="how-step" type="button" role="tab" id="how-tab-2" aria-selected="false" aria-controls="how-stage" data-step="2">
+              <span class="hs-num">3</span>
+              <span class="hs-body"><b>Close it with a seal</b><span class="hs-text"><span>Tap <strong>It arrived</strong> or <strong>Mark as done</strong>, and Cloudia climbs onto the card and presses a green wax seal into it. Your phone taps along with her.</span></span></span>
+              <i class="hs-bar" aria-hidden="true"><i></i></i>
+            </button>
+          </div>
+        </div>
+        <div class="how-stage" id="how-stage" role="tabpanel" aria-labelledby="how-tab-0" data-reveal>
+          <div class="stage-air" aria-hidden="true">
+            <img class="drift d1" src="assets/art/cloud.webp" alt="" width="669" height="432">
+            <img class="drift d2" src="assets/art/cloud.webp" alt="" width="669" height="432">
+          </div>
+          <div class="phone stage-phone" aria-hidden="true">
             <div class="screen">
-              <div class="stage-screen" data-screen="0">
+              <div class="stage-screen is-on" data-screen="0">
 <!-- include:phone-add -->
               </div>
               <div class="stage-screen" data-screen="1">
