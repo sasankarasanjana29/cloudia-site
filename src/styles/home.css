@@ -4,46 +4,49 @@
 .scatter, .how, .features, .privacy-band, .faq { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
 .scatter { padding-top: clamp(var(--s-6), 5vw, var(--s-8)); }
 
-/* ---------- hook: Today's sky with the words centred and one phone
-   rising into the cloud edge. Nothing else. ---------- */
-.hero {
-  /* the sky runs up behind the floating header (72 = its 12 gap + 60 bar),
-     then fades into the page instead of ending on an edge */
-  --nav-h: 72px;
-  color: #fff; overflow: clip;
-  margin-top: calc(-1 * var(--nav-h));
-  padding-top: calc(var(--nav-h) + clamp(var(--s-7), 6vw, var(--s-9)));
-  background: linear-gradient(180deg, #0195ff 0%, #2aa3ff 38%, #7cc6ff 64%, #c9e7ff 82%, var(--page) 100%);
+/* ---------- hook: an inset rounded panel, centred words, three screens
+   cut cleanly by the panel's bottom (after Aave) ---------- */
+.hero { padding: var(--s-3) var(--s-3) 0; }
+@media (min-width: 720px) { .hero { padding: var(--s-4) var(--s-5) 0; } }
+.hero-panel {
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: var(--r-section);
+  padding-top: clamp(var(--s-7), 5vw, var(--s-8));
+  background: radial-gradient(120% 80% at 50% 0%, var(--page) 0%, var(--blue-100) 45%, #cfe8ff 100%);
 }
-.hero-copy { display: grid; justify-items: center; text-align: center; }
-.hero h1 { color: #fff; font-size: clamp(2.6rem, 1.2rem + 4vw, 4.4rem); }
-.h1-line { display: block; }
-.h1-soft { color: var(--blue-200); }
-.hero-lead { margin-top: var(--s-5); max-width: 34ch; font-size: var(--fs-lead); line-height: 1.5; color: rgba(255, 255, 255, 0.95); }
-.hero-cta { margin-top: var(--s-6); }
-/* on the blue, the app's button in white with brand text */
-.btn-white { background: #fff; color: var(--blue-700); box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.35); }
-@media (hover: hover) and (pointer: fine) { .btn-white:hover { background: var(--blue-100); } }
+.hero-copy { display: grid; justify-items: center; text-align: center; padding-inline: var(--s-4); }
+.hero h1 { font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.2rem); }
+.h1-blue { color: var(--brand); }
+.hero-lead { margin-top: var(--s-4); max-width: 40ch; font-size: var(--fs-lead); line-height: 1.5; color: var(--text-3); }
+.hero-cta { margin-top: var(--s-5); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-3); }
+.hero-cta .btn { min-height: 52px; }
+.hero-cta .btn-secondary { background: var(--raised); }
 
-/* the phone shows its sky, Cloudia, the week and the chips, then sinks into the edge */
-.hero-stage { position: relative; margin-top: clamp(var(--s-7), 5vw, var(--s-8)); padding-bottom: 96px; display: flex; justify-content: center; }
-/* a softer, shorter shadow that ends inside the hero: the default one ran
-   past the section and was cut into a visible box */
-.hero-phone { box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.14), 0 30px 60px -24px rgba(var(--shadow-ink) / 0.35); }
-.hero-phone { --sw: 300px; --k: 0.74627; --bz: 11px; }
+.hero-phones { position: relative; height: clamp(360px, 40vw, 520px); margin-top: clamp(var(--s-6), 4vw, var(--s-7)); }
+.hero-phones .phone { position: absolute; left: 50%; top: 0; }
+.hp-center { --sw: 290px; --k: 0.72139; --bz: 11px; z-index: 2; transform: translateX(-50%); }
+.hp-side { --sw: 262px; --k: 0.65174; --bz: 10px; z-index: 1; top: 44px !important; }
+.hp-left { transform: translateX(calc(-50% - 250px)); }
+.hp-right { transform: translateX(calc(-50% + 250px)); }
 
-.js .hero [data-rise] { animation: rise 900ms var(--ease-out) both; animation-delay: var(--delay, 0ms); }
-.js .hero-phone { animation: rise-phone 1100ms var(--ease-out) 320ms both; }
-@keyframes rise { from { opacity: 0; transform: translateY(22px); } }
-@keyframes rise-phone { from { opacity: 0; transform: translateY(80px); } }
+.js .hero [data-rise] { animation: rise 800ms var(--ease-out) both; animation-delay: var(--delay, 0ms); }
+.js .hp-center { animation: rise-c 1000ms var(--ease-out) 250ms both; }
+.js .hp-left { animation: rise-l 1000ms var(--ease-out) 400ms both; }
+.js .hp-right { animation: rise-r 1000ms var(--ease-out) 400ms both; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@keyframes rise-c { from { opacity: 0; transform: translateX(-50%) translateY(60px); } }
+@keyframes rise-l { from { opacity: 0; transform: translateX(calc(-50% - 250px)) translateY(60px); } }
+@keyframes rise-r { from { opacity: 0; transform: translateX(calc(-50% + 250px)) translateY(60px); } }
 @keyframes drift { from { transform: translateX(-28px); } to { transform: translateX(36px); } }
 .drift { position: absolute; width: clamp(160px, 22vw, 300px); opacity: 0.85; animation: drift 46s ease-in-out infinite alternate; }
 
-@media (max-width: 560px) {
-  .hero-phone { --sw: 260px; --k: 0.64677; --bz: 10px; }
+@media (max-width: 760px) {
+  .hp-side { display: none; }
+  .hp-center { --sw: 260px; --k: 0.64677; --bz: 10px; }
+  .hero-phones { height: 380px; }
 }
 @media all {
-  :root[data-theme="dark"] .hero { background: linear-gradient(180deg, #0b4a8c 0%, #1662ad 38%, #14406b 68%, var(--page) 100%); }
+  :root[data-theme="dark"] .hero-panel { background: radial-gradient(120% 80% at 50% 0%, var(--night-850) 0%, #0e2442 55%, #13335c 100%); }
 }
 
 /* ---------- problem: where loose ends live now ---------- */
@@ -295,7 +298,7 @@
 /* ---------- motion off ---------- */
 @media (prefers-reduced-motion: reduce) {
   .drift, .answer.is-in, .marquee-row, .swipe-card, .caret { animation: none !important; }
-  .js .hero [data-rise], .js .hero-phone { animation: none; }
+  .js .hero [data-rise], .js .hero-phones .phone { animation: none; }
   .swipe-card { transform: translateX(-156px); }
   .stage-screen { transition: opacity 150ms ease; }
   .cap, .cap.is-on, .seg-btn { transition: none; }

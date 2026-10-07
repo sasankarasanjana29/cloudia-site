@@ -1,22 +1,26 @@
 <!--meta {"title": "Cloudia: for the things still in motion", "description": "Cloudia keeps track of what you are waiting on and what you promised: refunds, replies, callbacks, money a friend owes you. Coming soon to iPhone."} -->
-    <!-- ============ hook: Today's sky, the words, one phone ============ -->
+    <!-- ============ hook: an inset panel, the words, three screens (after Aave) ============ -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="wrap hero-copy">
-        <h1 id="hero-title">
-          <span class="h1-line" data-rise>You said you would.</span>
-          <span class="h1-line h1-soft" data-rise style="--delay: 90ms">They said they would.</span>
-        </h1>
-        <p class="hero-lead" data-rise style="--delay: 180ms">Cloudia keeps track of every loop still open, and seals it when it closes.</p>
-        <div class="hero-cta" data-rise style="--delay: 260ms">
-          <a class="btn btn-white" href="#how">See how it works</a>
-        </div>
-      </div>
-      <div class="hero-stage">
-        <figure class="phone hero-phone" role="img" aria-label="Cloudia's Today screen: Cloudia in a blue sky, this week's days with coloured dots, and the loops that need you today.">
-          <div class="screen" aria-hidden="true">
-<!-- include:phone-today -->
+      <div class="hero-panel">
+        <div class="hero-copy">
+          <h1 id="hero-title" data-rise>You said you would.<br><span class="h1-blue">They said they would.</span></h1>
+          <p class="hero-lead" data-rise style="--delay: 120ms">Cloudia keeps track of every loop still open, and seals it when it closes.</p>
+          <div class="hero-cta" data-rise style="--delay: 220ms">
+            <a class="btn btn-primary" href="#how">See how it works</a>
+            <a class="btn btn-secondary" href="#features">Features</a>
           </div>
-        </figure>
+        </div>
+        <div class="hero-phones" role="img" aria-label="Three Cloudia screens: adding a loop, Today with what needs you, and a loop's own page.">
+          <div class="phone hp-side hp-left" aria-hidden="true"><div class="screen">
+<!-- include:phone-add -->
+          </div></div>
+          <div class="phone hp-side hp-right" aria-hidden="true"><div class="screen">
+<!-- include:phone-loop -->
+          </div></div>
+          <div class="phone hp-center" aria-hidden="true"><div class="screen">
+<!-- include:phone-today -->
+          </div></div>
+        </div>
       </div>
     </section>
 
