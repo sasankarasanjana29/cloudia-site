@@ -1,8 +1,7 @@
 /* The home page, top to bottom. */
 
-.hero, .scatter, .how, .features, .privacy-band, .faq, .close { position: relative; }
-.scatter, .how, .features, .privacy-band, .faq { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
-.scatter { padding-top: clamp(var(--s-6), 5vw, var(--s-8)); }
+.hero, .gather, .how, .features, .privacy-band, .faq, .close { position: relative; }
+.how, .features, .privacy-band, .faq { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
 
 /* ---------- hook: an inset rounded panel, centred words, three screens
    cut cleanly by the panel's bottom (after Aave) ---------- */
@@ -58,43 +57,45 @@
   :root[data-theme="dark"] .hero-panel { background: radial-gradient(120% 80% at 50% 0%, var(--night-850) 0%, #0e2442 55%, #13335c 100%); }
 }
 
-/* ---------- problem: where loose ends live now ---------- */
-.scatter-grid { display: grid; gap: var(--s-7); align-items: center; }
-.scatter-copy { display: grid; gap: var(--s-5); max-width: 560px; }
-.scatter-copy .lead { max-width: 44ch; }
-.scatter-board { position: relative; height: 340px; }
-.answer {
-  position: absolute; display: flex; align-items: center; gap: var(--s-3);
-  padding: 14px 22px 14px 14px; border-radius: var(--r-card);
+/* ---------- problem and answer in one: the four places loose ends live
+   now sit around the edge, and dashed lines carry them into Cloudia's orbit ---------- */
+.gather { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
+.gather-head { display: grid; justify-items: center; text-align: center; gap: var(--s-4); }
+.gather-head h2 { max-width: 16ch; }
+.gather-head .lead { max-width: 46ch; }
+.gather-stage { position: relative; height: 460px; margin-top: var(--s-6); }
+.gather-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gather-lines path { fill: none; stroke: var(--brand-line); stroke-width: 2; stroke-dasharray: 6 8; vector-effect: non-scaling-stroke; animation: flow 1.6s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -28; } }
+.source {
+  position: absolute; z-index: 2; display: flex; align-items: center; gap: var(--s-3);
+  padding: 12px 20px 12px 12px; border-radius: var(--r-card);
   background: var(--raised); border: 1px solid var(--line);
-  font-weight: 700; font-size: 1.125rem; letter-spacing: -0.02em;
+  font-weight: 700; font-size: 1.0625rem; letter-spacing: -0.02em; white-space: nowrap;
   box-shadow: 0 18px 40px -22px rgba(var(--shadow-ink) / 0.35);
 }
-.answer img { width: 56px; height: 56px; }
-.answer.a1 { left: 4%; top: 8%; rotate: -6deg; }
-.answer.a2 { right: 6%; top: 0; rotate: 5deg; }
-.answer.a3 { left: 14%; bottom: 10%; rotate: 4deg; }
-.answer.a4 { right: 2%; bottom: 22%; rotate: -4deg; }
-.answer.is-in { animation: bob 7s ease-in-out infinite; animation-delay: calc(var(--delay, 0ms) * 8); }
+.source img { width: 48px; height: 48px; }
+.source.s1 { left: 2%; top: 13%; rotate: -5deg; }
+.source.s2 { left: 0; top: 70%; rotate: 4deg; }
+.source.s3 { right: 2%; top: 13%; rotate: 5deg; }
+.source.s4 { right: 0; top: 70%; rotate: -4deg; }
+.source.is-in { animation: bob 7s ease-in-out infinite; animation-delay: calc(var(--delay, 0ms) * 8); }
 @keyframes bob { 50% { transform: translateY(-8px); } }
-/* narrow screens: the same four notes, tilted on a 2 x 2 grid so none hides another */
-@media (max-width: 899px) {
-  .scatter-board { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-3); padding: var(--s-2); }
-  .answer { position: static; flex-direction: column; align-items: flex-start; gap: var(--s-2); padding: var(--s-4); font-size: 1rem; }
-  .answer.a2, .answer.a3 { translate: 0 14px; }
-}
-@media (min-width: 900px) {
-  .scatter-grid { grid-template-columns: 1fr 1fr; }
-  .scatter-board { height: 380px; }
-}
-
-.orbit-row { margin-top: clamp(var(--s-6), 5vw, var(--s-8)); display: grid; justify-items: center; gap: var(--s-5); text-align: center; }
-.orbit { position: relative; width: min(100%, 520px); aspect-ratio: 1; }
+.gather-stage .orbit { position: absolute; left: 50%; top: 50%; width: min(440px, 46%); aspect-ratio: 1; transform: translate(-50%, -50%); }
 .orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; stroke: var(--brand-line); }
 .orbit-cloud { position: absolute; left: 20.625%; top: 31.458%; width: 58.958%; z-index: 2; }
 .orbit-item { position: absolute; left: 0; top: 0; will-change: transform; }
 .orbit-item.bead { border-radius: 50%; background: var(--blue-100); box-shadow: inset 0 0 0 1px var(--brand-line); }
-.orbit-caption { max-width: 30ch; font-size: var(--fs-h3); line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+.gather-caption { margin: var(--s-4) auto 0; max-width: 30ch; text-align: center; font-size: var(--fs-h3); line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+
+/* narrow screens: the four places as a 2 x 2 grid, then the orbit, no lines */
+@media (max-width: 860px) {
+  .gather-stage { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+  .gather-lines { display: none; }
+  .source { position: static; rotate: 0deg; padding: 10px 14px 10px 10px; font-size: 0.9375rem; }
+  .source img { width: 40px; height: 40px; }
+  .gather-stage .orbit { position: relative; left: auto; top: auto; transform: none; grid-column: 1 / -1; width: min(100%, 420px); margin: var(--s-4) auto 0; }
+}
 
 /* ---------- solution: the app's segmented control above one phone ---------- */
 .how-title { text-align: center; max-width: 16ch; margin-inline: auto; }
@@ -306,7 +307,7 @@
 
 /* ---------- motion off ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .cl, .drift, .answer.is-in, .marquee-row, .swipe-card, .caret { animation: none !important; }
+  .cl, .drift, .source.is-in, .gather-lines path, .marquee-row, .swipe-card, .caret { animation: none !important; }
   .js .hero [data-rise], .js .hero-phones .phone { animation: none; }
   .swipe-card { transform: translateX(-156px); }
   .stage-screen { transition: opacity 150ms ease; }
