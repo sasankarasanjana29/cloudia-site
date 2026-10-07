@@ -763,7 +763,7 @@ p { text-wrap: pretty; }
   .bento { grid-template-columns: repeat(2, 1fr); grid-template-areas: "cats cats" "search swipe" "sky seal" "streak streak" "night night"; }
   .tile-sky .mini-sky { aspect-ratio: auto; min-height: 140px; }
   /* the night tile closes the grid as one wide band: words and sky left, the keypad right */
-  .tile-night { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); align-items: stretch; }
+  .tile-night { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 290px); gap: var(--s-6); align-items: stretch; }
 }
 /* tablets: the seal's poses two by two beside the skies, and the streak as a short band */
 @media (min-width: 720px) and (max-width: 1039px) {
@@ -780,7 +780,7 @@ p { text-wrap: pretty; }
       "streak streak streak seal seal seal"
       "night night night night night night";
   }
-  .tile-night { grid-template-columns: minmax(0, 1fr) minmax(340px, 400px); gap: var(--s-7); }
+  .tile-night { grid-template-columns: minmax(0, 1fr) 290px; gap: var(--s-6); }
 }
 
 /* categories: two rows drifting past each other */
@@ -888,47 +888,51 @@ p { text-wrap: pretty; }
 .night-card { min-width: 0; }
 .night-card .loop-text { grid-template-columns: minmax(0, 1fr); }
 .night-card .loop-meta { overflow: hidden; }
-.night-sky { position: relative; height: 150px; border-radius: var(--r-card); background: linear-gradient(180deg, #070f24, #0f1c42 55%, #1c2c62); display: grid; place-items: center; overflow: hidden; }
+.night-sky { position: relative; height: 120px; border-radius: var(--r-card); background: linear-gradient(180deg, #070f24, #0f1c42 55%, #1c2c62); display: grid; place-items: center; overflow: hidden; }
 .night-sky .sky-sun { right: -6%; width: 34%; margin-top: -9%; }
 .night-sky .moon-shade { fill: #070f24; }
-.night-sky img { position: relative; width: 104px; margin-top: 22px; }
+.night-sky img { position: relative; width: 88px; margin-top: 14px; }
 .night-card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
 .night-amt { opacity: 0; transform: translateX(-4px); transition: opacity 260ms ease, transform 320ms var(--ease-out); }
 .night-amt.is-on { opacity: 1; transform: none; }
+/* phones: the Night sky is already in the skies tile, so the band keeps just the card and the keypad */
+@media (max-width: 559px) { .night-sky { display: none; } }
 /* beside the keypad, the sky takes whatever height the sheet leaves */
 @media (min-width: 720px) {
-  .night-demo { flex: 1; grid-template-rows: minmax(190px, 1fr) auto; }
+  .night-demo { flex: 1; grid-template-rows: minmax(120px, 1fr) auto; }
   .night-sky { height: auto; }
 }
 
 /* amount.tsx: "How much?", the currency chip beside the number, a three
-   column keypad whose keys answer with a soft disc, and Add amount */
+   column keypad whose keys answer with a soft disc, and Add amount. Every
+   number is the app's, times --k, so it reads as the real sheet made small. */
 .amount-sheet {
-  display: grid; gap: 18px; padding: 22px 0 20px; border-radius: 32px;
+  --k: 0.72;
+  display: grid; gap: calc(18px * var(--k)); padding: calc(22px * var(--k)) 0 calc(20px * var(--k)); border-radius: calc(32px * var(--k));
   background: var(--raised); border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 60px -32px rgba(0, 0, 0, 0.7);
 }
-.as-head { display: flex; align-items: center; gap: 10px; padding: 0 20px; }
-.as-head > div { flex: 1; min-width: 0; display: grid; gap: 2px; }
-.as-title { font-size: 26px; font-weight: 700; letter-spacing: -0.7px; line-height: 1.2; color: var(--text); }
-.as-sub { font-size: 15px; font-weight: 500; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.as-close { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--muted-bg); color: var(--text-2); }
-.as-close svg { width: 20px; height: 20px; }
-.as-display { height: 92px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 20px; }
-.as-cur { flex: none; display: inline-flex; align-items: center; gap: 4px; height: 40px; padding: 0 12px; border-radius: var(--r-pill); background: var(--brand-subtle); color: var(--brand-strong); font-size: 18px; font-weight: 700; }
-.as-cur svg { width: 12px; height: 12px; transform: rotate(90deg); }
-.as-num { display: inline-flex; align-items: flex-end; font-size: 56px; line-height: 1; font-weight: 700; letter-spacing: -1.5px; color: var(--text); white-space: pre; }
+.as-head { display: flex; align-items: center; gap: calc(10px * var(--k)); padding: 0 calc(20px * var(--k)); }
+.as-head > div { flex: 1; min-width: 0; display: grid; gap: calc(2px * var(--k)); }
+.as-title { font-size: calc(26px * var(--k)); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--text); }
+.as-sub { font-size: calc(15px * var(--k)); font-weight: 500; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.as-close { flex: none; width: calc(40px * var(--k)); height: calc(40px * var(--k)); border-radius: 50%; display: grid; place-items: center; background: var(--muted-bg); color: var(--text-2); }
+.as-close svg { width: calc(20px * var(--k)); height: calc(20px * var(--k)); }
+.as-display { height: calc(92px * var(--k)); display: flex; align-items: center; justify-content: center; gap: calc(10px * var(--k)); padding: 0 calc(20px * var(--k)); }
+.as-cur { flex: none; display: inline-flex; align-items: center; gap: calc(4px * var(--k)); height: calc(40px * var(--k)); padding: 0 calc(12px * var(--k)); border-radius: var(--r-pill); background: var(--brand-subtle); color: var(--brand-strong); font-size: calc(18px * var(--k)); font-weight: 700; }
+.as-cur svg { width: calc(12px * var(--k)); height: calc(12px * var(--k)); transform: rotate(90deg); }
+.as-num { display: inline-flex; align-items: flex-end; font-size: calc(56px * var(--k)); line-height: 1; font-weight: 700; letter-spacing: -0.027em; color: var(--text); white-space: pre; }
 .as-num span { display: inline-block; }
 .as-zero { color: #4b5f82; }
-.as-pad { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 28px; }
-.key { position: relative; height: 60px; display: grid; place-items: center; color: var(--text); }
-.key i { position: absolute; left: 50%; top: 50%; width: 64px; height: 52px; margin: -26px 0 0 -32px; border-radius: 26px; background: #2f4264; opacity: 0; transform: scale(0.8); transition: opacity 180ms ease, transform 180ms ease; }
+.as-pad { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 calc(28px * var(--k)); }
+.key { position: relative; height: calc(60px * var(--k)); display: grid; place-items: center; color: var(--text); }
+.key i { position: absolute; left: 50%; top: 50%; width: calc(64px * var(--k)); height: calc(52px * var(--k)); translate: -50% -50%; border-radius: calc(26px * var(--k)); background: #2f4264; opacity: 0; transform: scale(0.8); transition: opacity 180ms ease, transform 180ms ease; }
 .key b, .key svg { position: relative; transition: transform 180ms ease; }
-.key b { font-size: 28px; font-weight: 600; }
-.key svg { width: 24px; height: 24px; }
+.key b { font-size: calc(28px * var(--k)); font-weight: 600; }
+.key svg { width: calc(24px * var(--k)); height: calc(24px * var(--k)); }
 .key.is-down i { opacity: 1; transform: none; transition-duration: 70ms; }
 .key.is-down b, .key.is-down svg { transform: scale(0.92); transition-duration: 70ms; }
-.as-add { margin: 0 20px; cursor: default; transition: transform 140ms var(--ease-out), opacity 200ms ease; }
+.as-add { margin: 0 calc(20px * var(--k)); min-height: calc(60px * var(--k)); font-size: calc(16px * var(--k)); cursor: default; transition: transform 140ms var(--ease-out), opacity 200ms ease; }
 .as-add.is-off { opacity: 0.45; }
 .as-add.is-down { --press: 0.97; }
 
