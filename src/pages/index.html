@@ -17,15 +17,14 @@
             <p class="hero-note">Free, for iPhone. Coming soon.</p>
           </div>
         </div>
-        <div class="hero-art" role="img" aria-label="Cloudia's Today screen, with three loops floating out of it: a bank callback a day late, sending Mum the photos today, and a refund for a jacket due tomorrow. Cloudia peeks over the top of the phone.">
+        <div class="hero-art" role="img" aria-label="Cloudia's Today screen, with two loops lifting out of it: sending Mum the photos today, and a bank callback a day late. Cloudia peeks over the top of the phone.">
           <div class="hero-scale">
             <img class="hero-peek" src="assets/art/mascot-peeking.webp" alt="" width="110" height="105">
             <div class="phone hero-phone" aria-hidden="true"><div class="screen">
 <!-- include:phone-today -->
             </div></div>
-            <div class="loop float-card c1" aria-hidden="true"><div class="loop-art"><img src="assets/art/answer-appointments-and-callbacks.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hourglass"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Bank callback</span><span class="due late">1d late</span></div><div class="loop-meta">The bank</div></div></div>
-            <div class="loop mine float-card c2" aria-hidden="true"><div class="loop-art"><img src="assets/art/answer-friends-and-family.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Send Mum the photos</span><span class="due today">Today</span></div><div class="loop-meta">Mum</div></div></div>
-            <div class="loop float-card c3" aria-hidden="true"><div class="loop-art"><img src="assets/art/answer-refunds-and-returns.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hourglass"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Refund for the jacket</span><span class="due soon">Tomorrow</span></div><div class="loop-meta">Online store · <b>$129</b></div></div></div>
+            <div class="loop mine float-card c1" aria-hidden="true"><div class="loop-art"><img src="assets/art/answer-friends-and-family.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Send Mum the photos</span><span class="due today">Today</span></div><div class="loop-meta">Mum</div></div></div>
+            <div class="loop float-card c2" aria-hidden="true"><div class="loop-art"><img src="assets/art/answer-appointments-and-callbacks.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hourglass"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Bank callback</span><span class="due late">1d late</span></div><div class="loop-meta">The bank</div></div></div>
           </div>
         </div>
       </div>
@@ -91,20 +90,6 @@
             <li><b>A close you can feel</b><span>A seal on the card, and taps in your hand.</span></li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ the seal, frame by frame ============ -->
-    <section class="film" aria-labelledby="film-title">
-      <div class="wrap">
-        <h2 id="film-title" data-reveal>Every closed loop gets a seal.</h2>
-        <p class="lead film-lead" data-reveal style="--delay: 80ms">Closing something deserves a moment. It takes Cloudia under two seconds, and you can feel each beat in your hand.</p>
-        <ol class="film-strip">
-          <li data-reveal><img src="assets/art/mascot-seal-climb.webp" alt="Cloudia climbing up behind the card, stamp in hand" width="144" height="138"><b>Climb</b><span>A soft tick as her hand catches the edge</span></li>
-          <li data-reveal style="--delay: 90ms"><img src="assets/art/mascot-seal-jump.webp" alt="Cloudia jumping with the stamp held over her head" width="144" height="138"><b>Hop</b><span>A light tap as she jumps</span></li>
-          <li data-reveal style="--delay: 180ms"><img src="assets/art/mascot-seal-press.webp" alt="Cloudia squashed flat, pressing the stamp down" width="144" height="138"><b>Press</b><span>A heavy thunk, then the wax spreads in three soft pulses</span></li>
-          <li data-reveal style="--delay: 270ms"><img src="assets/art/mascot-seal-proud.webp" alt="Cloudia standing proud, saluting, stamp at her side" width="144" height="138"><b>Salute</b><span>The success buzz, as she stands over her seal</span></li>
-        </ol>
       </div>
     </section>
 
@@ -176,11 +161,30 @@
           </article>
 
           <article class="tile tile-swipe" data-reveal>
-            <div class="tile-copy"><h3>Swipe to act</h3><p>Slide a card to mark it done or snooze it, without opening it.</p></div>
-            <div class="swipe-demo" aria-hidden="true">
-              <div class="swipe-actions"><span class="act snooze"><svg><use href="#i-refresh"/></svg>Snooze</span><span class="act done"><svg><use href="#i-check"/></svg>Done</span></div>
-              <div class="loop mine swipe-card"><div class="loop-art"><img src="assets/art/answer-bill-due.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Pay the electricity bill</span><span class="due today">Today</span></div><div class="loop-meta">Power company · <b>$48</b></div></div></div>
+            <div class="tile-copy"><h3>Swipe to act</h3><p>Slide a card to act on it without opening it. Each kind of loop gets its own two actions.</p></div>
+            <div class="swipes" aria-hidden="true">
+              <div class="swipe-row">
+                <div class="swipe-actions"><span class="act snooze"><svg><use href="#i-refresh"/></svg>Snooze</span><span class="act done"><svg><use href="#i-check"/></svg>Done</span></div>
+                <div class="loop mine swipe-card live"><div class="loop-art"><img src="assets/art/answer-bill-due.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Pay the electricity bill</span><span class="due today">Today</span></div><div class="loop-meta">Power company · <b>$48</b></div></div></div>
+              </div>
+              <div class="swipe-row">
+                <div class="swipe-actions"><span class="act nudge"><svg><use href="#i-bell"/></svg>Nudge</span><span class="act done"><svg><use href="#i-check"/></svg>Arrived</span></div>
+                <div class="loop swipe-card open"><div class="loop-art"><img src="assets/art/answer-package-in-transit.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hourglass"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Headphones delivery</span><span class="due">Sat</span></div><div class="loop-meta">Online store</div></div></div>
+              </div>
+              <div class="swipe-row">
+                <div class="loop swipe-card"><div class="loop-art"><img src="assets/art/answer-money-lent.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hourglass"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Dinner money from Kasun</span><span class="due">12 Oct</span></div><div class="loop-meta">Kasun · <b>$18</b></div></div></div>
+              </div>
             </div>
+          </article>
+
+          <article class="tile tile-seal" data-reveal style="--delay: 80ms">
+            <div class="tile-copy"><h3>Every closed loop gets a seal</h3><p>Cloudia climbs onto the card and stamps it, in under two seconds. You feel each beat in your hand.</p></div>
+            <ol class="seal-strip">
+              <li><img src="assets/art/mascot-seal-climb.webp" alt="Cloudia climbing up behind the card, stamp in hand" width="96" height="92"><b>Climb</b><span>a soft tick</span></li>
+              <li><img src="assets/art/mascot-seal-jump.webp" alt="Cloudia jumping with the stamp over her head" width="96" height="92"><b>Hop</b><span>a light tap</span></li>
+              <li><img src="assets/art/mascot-seal-press.webp" alt="Cloudia squashed flat, pressing the stamp down" width="96" height="92"><b>Press</b><span>a heavy thunk</span></li>
+              <li><img src="assets/art/mascot-seal-proud.webp" alt="Cloudia standing proud and saluting" width="96" height="92"><b>Salute</b><span>the success buzz</span></li>
+            </ol>
           </article>
 
           <article class="tile tile-night" data-reveal style="--delay: 80ms">

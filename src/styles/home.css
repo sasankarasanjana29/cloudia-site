@@ -1,6 +1,6 @@
 /* The home page, top to bottom. */
 
-.hero, .scatter, .how, .film, .features, .privacy-band, .faq, .close { position: relative; }
+.hero, .scatter, .how, .features, .privacy-band, .faq, .close { position: relative; }
 .scatter, .how, .features, .privacy-band, .faq { padding-block: clamp(var(--s-7), 6vw, var(--s-9)); }
 .scatter { padding-top: clamp(var(--s-6), 5vw, var(--s-8)); }
 
@@ -29,14 +29,15 @@
 .btn-white { background: #fff; color: var(--blue-700); box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.35); }
 @media (hover: hover) and (pointer: fine) { .btn-white:hover { background: var(--blue-100); } }
 
-.hero-art { position: relative; height: 640px; }
-.hero-scale { position: absolute; left: 50%; top: 0; width: 560px; height: 640px; margin-left: -280px; transform-origin: 50% 0; }
-.hero-phone { --sw: 290px; --k: 0.73791; --bz: 11px; position: absolute; left: 50%; top: 40px; z-index: 2; transform: translateX(-50%); }
-.hero-peek { position: absolute; z-index: 4; width: 110px; left: calc(50% + 66px); top: -8px; }
-.float-card { position: absolute; z-index: 3; width: 318px; color: var(--text); text-align: left; transform: scale(1.12) rotate(var(--r, 0deg)); box-shadow: 0 24px 40px -18px rgba(13, 43, 69, 0.45); animation: float 7s ease-in-out infinite; }
-.float-card.c1 { left: -30px; top: 190px; --r: -4deg; }
-.float-card.c2 { right: -6px; top: 330px; --r: 3deg; animation-delay: -2.4s; }
-.float-card.c3 { left: -8px; top: 470px; --r: -2deg; animation-delay: -4.8s; }
+.hero-art { position: relative; height: 700px; }
+.hero-scale { position: absolute; left: 50%; top: 0; width: 560px; height: 700px; margin-left: -280px; transform-origin: 50% 0; }
+.hero-phone { --sw: 290px; --k: 0.72139; --bz: 11px; position: absolute; left: 50%; top: 40px; z-index: 2; transform: translateX(-50%); }
+.hero-peek { position: absolute; z-index: 4; width: 104px; left: calc(50% + 62px); top: -6px; }
+.float-card { position: absolute; z-index: 3; width: 290px; color: var(--text); text-align: left; transform: rotate(var(--r, 0deg)); box-shadow: 0 22px 40px -16px rgba(13, 43, 69, 0.45); animation: float 7s ease-in-out infinite; }
+/* each one lifts out of the phone's own card on the same row */
+.float-card.c1 { left: 92px; top: 410px; --r: -3deg; }
+.float-card.c2 { left: 196px; top: 486px; --r: 2.5deg; animation-delay: -2.4s; }
+.float-card.c3 { left: 104px; top: 590px; --r: -2deg; animation-delay: -4.8s; }
 @keyframes float { 50% { translate: 0 -8px; } }
 .hero-edge {
   /* the app's cloud edge, the Today header's bottom, as the hero's floor */
@@ -61,7 +62,7 @@
 .js .float-card.c3 { animation-delay: 760ms, 1.8s; }
 @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
 @keyframes rise-phone { from { opacity: 0; transform: translateX(-50%) translateY(60px); } }
-@keyframes card-in { from { opacity: 0; transform: scale(1.04) rotate(var(--r, 0deg)) translateY(24px); } }
+@keyframes card-in { from { opacity: 0; transform: rotate(0deg) translateY(10px); } }
 
 @media (min-width: 1024px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-7); }
@@ -72,7 +73,7 @@
 @media (min-width: 1180px) { .hero .h1-line { white-space: nowrap; } }
 @media (max-width: 620px) {
   /* the phone and its cards, scaled as one picture */
-  .hero-art { height: calc(640px * var(--fit)); --fit: 0.66; }
+  .hero-art { height: calc(700px * var(--fit)); --fit: 0.66; }
   .hero-scale { transform: scale(var(--fit)); }
 }
 @media (max-width: 380px) { .hero-art { --fit: 0.58; } }
@@ -154,24 +155,9 @@
   .how-side span { color: var(--text-3); }
 }
 @media (max-width: 420px) {
-  .how-phone { --sw: 250px; --k: 0.63613; --bz: 9px; }
+  .how-phone { --sw: 250px; --k: 0.62189; --bz: 9px; }
   .seg-btn { padding: 0 14px; font-size: 1rem; }
 }
-
-/* ---------- the seal, frame by frame ---------- */
-.film { padding-block: clamp(var(--s-6), 5vw, var(--s-8)); }
-.film > .wrap {
-  border-radius: var(--r-section); padding: clamp(var(--s-7), 6vw, var(--s-8)) clamp(var(--s-5), 4vw, var(--s-8));
-  background: linear-gradient(180deg, var(--tint-green), var(--page));
-  border: 1px solid var(--line); text-align: center;
-}
-.film-lead { max-width: 46ch; margin: var(--s-4) auto 0; }
-.film-strip { margin-top: var(--s-7); display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-5); }
-.film-strip li { display: grid; justify-items: center; gap: var(--s-2); }
-.film-strip img { width: 144px; height: auto; aspect-ratio: 96 / 92; padding: var(--s-3); border-radius: var(--r-panel); background: var(--raised); border: 1px solid var(--line); box-sizing: content-box; }
-.film-strip b { font-size: 1.25rem; letter-spacing: -0.02em; margin-top: var(--s-2); }
-.film-strip span { color: var(--text-3); font-size: var(--fs-small); max-width: 24ch; }
-@media (min-width: 860px) { .film-strip { grid-template-columns: repeat(4, 1fr); } }
 
 /* ---------- features: a bento of live fragments (after Abode) ---------- */
 .features h2 { text-align: center; max-width: 16ch; margin-inline: auto; }
@@ -197,7 +183,10 @@
   .tile-cats { grid-column: span 4; }
   .tile-sky { grid-column: span 2; grid-row: span 2; }
   .tile-streak, .tile-search { grid-column: span 2; }
-  .tile-swipe, .tile-night { grid-column: span 3; }
+  .tile-swipe, .tile-seal { grid-column: span 3; }
+  /* the night tile closes the grid as one wide band: words left, the dark screen right */
+  .tile-night { grid-column: 1 / -1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); align-items: center; }
+  .tile-night .night-demo { margin-top: 0; }
 }
 
 /* categories: two rows drifting past each other */
@@ -242,16 +231,28 @@
 .search-results .loop { transition: opacity 220ms ease, transform 260ms var(--ease-out); }
 .search-results .loop.is-hidden { opacity: 0.25; transform: scale(0.98); }
 
-/* swipe to act */
-.swipe-demo { position: relative; margin-top: auto; height: 78px; }
-.swipe-actions { position: absolute; right: 0; top: 0; bottom: 0; display: flex; gap: 6px; }
-.act { width: 72px; border-radius: var(--r-card); display: grid; place-items: center; align-content: center; gap: 4px; color: #fff; font-size: 0.75rem; font-weight: 700; }
+/* swipe to act: three cards, three states, the app's per-type actions */
+.swipes { margin-top: auto; display: grid; gap: var(--s-3); }
+.swipe-row { position: relative; height: 78px; }
+.swipe-actions { position: absolute; right: 0; top: 0; bottom: 0; width: 150px; display: flex; justify-content: flex-end; gap: 6px; }
+.act { flex: none; width: 72px; border-radius: var(--r-card); display: grid; place-items: center; align-content: center; gap: 4px; color: #fff; font-size: 0.75rem; font-weight: 700; }
 .act svg { width: 22px; height: 22px; }
 .act.snooze { background: linear-gradient(160deg, var(--orange-300), var(--orange-500)); }
 .act.done { background: linear-gradient(160deg, var(--green-300), var(--green-600)); }
-.swipe-card { position: relative; z-index: 1; animation: swipe 5.2s var(--ease-in-out) infinite; }
-.swipe-demo.is-paused .swipe-card { animation-play-state: paused; }
+.act.nudge { background: linear-gradient(160deg, var(--blue-400), var(--blue-600)); }
+.swipe-card { position: relative; z-index: 1; }
+.swipe-card.open { transform: translateX(-156px); }
+.swipe-card.live { animation: swipe 5.2s var(--ease-in-out) infinite; }
+.swipes.is-paused .swipe-card.live { animation-play-state: paused; }
 @keyframes swipe { 0%, 22% { transform: none; } 38%, 64% { transform: translateX(-156px); } 80%, 100% { transform: none; } }
+
+/* the seal, as a tile */
+.tile-seal { background: var(--tint-green); }
+.seal-strip { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-2); }
+.seal-strip li { display: grid; justify-items: center; text-align: center; gap: 2px; }
+.seal-strip img { width: 100%; max-width: 104px; height: auto; aspect-ratio: 96 / 92; padding: 8px; box-sizing: content-box; border-radius: var(--r-panel); background: var(--raised); border: 1px solid var(--line); margin-bottom: var(--s-2); }
+.seal-strip b { font-size: 1rem; }
+.seal-strip span { font-size: 0.875rem; color: var(--text-3); }
 
 /* night: always dark, whatever the page is */
 .tile-night {

@@ -14,7 +14,7 @@ function initMarquee() {
 }
 
 function initSwipe() {
-  const d = document.querySelector('.swipe-demo');
+  const d = document.querySelector('.swipes');
   if (d) whenVisible(d, (on) => d.classList.toggle('is-paused', !on));
 }
 

@@ -1,13 +1,13 @@
 /*
  * Cloudia's screens, rebuilt in HTML so they stay sharp, follow light and
- * dark mode and can move. Every screen is laid out on the iPhone's own
- * 393 x 852 point canvas with the app's numbers (LoopCard, tab bar, sky
- * hero), then scaled into the frame by --k.
+ * dark mode and can move. Every screen is laid out on the app's own
+ * 402 x 874 design frame (iPhone 17) with the app's numbers, measured off the
+ * simulator, then scaled into the frame by --k (= screen width / 402).
  */
 
 /* ---------- the phone ---------- */
 .phone {
-  --sw: 280px; --k: 0.71247; --bz: 10px;
+  --sw: 280px; --k: 0.69652; --bz: 10px;
   position: relative; flex: none;
   width: calc(var(--sw) + 2 * var(--bz));
   padding: var(--bz);
@@ -19,84 +19,94 @@
     0 30px 60px -20px rgba(var(--shadow-ink) / 0.35),
     0 60px 120px -40px rgba(var(--shadow-ink) / 0.35);
 }
-.phone--lg { --sw: 310px; --k: 0.78880; --bz: 11px; }
-.phone--sm { --sw: 236px; --k: 0.60051; --bz: 9px; }
+.phone--lg { --sw: 310px; --k: 0.77114; --bz: 11px; }
+.phone--sm { --sw: 236px; --k: 0.58706; --bz: 9px; }
 .screen {
   position: relative; overflow: hidden;
-  width: var(--sw); height: calc(852px * var(--k));
+  width: var(--sw); height: calc(874px * var(--k));
   border-radius: calc(55px * var(--k));
   background: var(--page);
   isolation: isolate;
+  /* the corner clip leaves a hairline of the page colour against the bezel
+     on some screens; this keeps the clip inside the glass */
+  clip-path: inset(0 round calc(55px * var(--k)));
 }
 .canvas {
   position: absolute; left: 0; top: 0;
-  width: 393px; height: 852px;
+  width: 402px; height: 874px;
   transform: scale(var(--k)); transform-origin: 0 0;
   font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); text-align: left;
 }
 .island {
   position: absolute; z-index: 30; left: 50%; top: 11px;
-  width: 124px; height: 36px; margin-left: -62px;
+  width: 126px; height: 37px; margin-left: -63px;
   border-radius: 20px; background: #000;
 }
 .statusbar {
   position: absolute; z-index: 29; left: 0; right: 0; top: 0; height: 54px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 30px 0 46px; font-size: 17px; font-weight: 600; letter-spacing: -0.02em;
-  color: var(--text);
+  padding: 6px 30px 0 52px; font-size: 17px; font-weight: 600; letter-spacing: -0.02em;
+  color: #1b1b1b;
 }
-.statusbar.on-sky { color: #fff; }
+[data-theme="dark"] .statusbar { color: #fff; }
 .statusbar svg { height: 13px; width: auto; }
 .statusbar .sb-icons { display: flex; gap: 6px; align-items: center; }
 
-/* ---------- Today: the sky hero ---------- */
+/* ---------- Today's head (measured off the app, iPhone 17, points) ---------- */
 .sky {
-  position: absolute; left: 0; right: 0; top: 0; height: 214px;
-  background: var(--sky-now, var(--sky-day));
-  overflow: hidden;
+  position: absolute; left: 0; right: 0; top: 0; height: 212px;
+  background: linear-gradient(180deg, #0195ff 0%, #38aaff 55%, #96d3ff 100%);
 }
-.sky-cloud { position: absolute; width: 150px; opacity: 0.55; }
-.sky-cloud.c1 { left: -50px; top: 96px; width: 140px; }
-.sky-cloud.c2 { right: -56px; top: 88px; width: 160px; }
-.sky-edge {
-  /* the app's cloud edge: a row of white bumps the list scrolls out of */
-  position: absolute; left: -24px; right: -24px; bottom: -2px; height: 46px;
-  background:
-    radial-gradient(circle at 48px 60px, var(--page) 42px, transparent 43px) 0 0 / 104px 46px repeat-x,
-    linear-gradient(var(--page), var(--page)) 0 38px / 100% 10px no-repeat;
-}
-.sky-head { position: absolute; left: 22px; right: 130px; top: 70px; z-index: 2; color: #fff; }
-.sky-date { font-size: 16px; font-weight: 600; opacity: 0.92; }
-.sky-title { font-size: 25px; font-weight: 800; letter-spacing: -0.04em; margin-top: 2px; }
-.sky-btns { position: absolute; right: 20px; top: 79px; z-index: 2; display: flex; gap: 10px; }
-.round-btn {
-  width: 50px; height: 50px; border-radius: 50%; background: #fff;
-  display: grid; place-items: center; color: #1b1b1b;
-}
-.round-btn svg { width: 22px; height: 22px; }
-.sky-mascot { position: absolute; left: 50%; top: 128px; width: 118px; margin-left: -59px; z-index: 3; }
+[data-theme="dark"] .sky { background: linear-gradient(180deg, #0b4a8c, #1662ad 55%, #2d7cc4); }
+.sky-cloud { position: absolute; width: 96px; }
+.sky-cloud.c1 { left: -30px; top: 118px; }
+.sky-cloud.c2 { right: -28px; top: 122px; transform: scaleX(-1); }
+/* the app's CloudEdge: a faint back row and a solid front row, 64 tall */
+/* reaches 6pt past the sky: scaled down, the sky's bottom lands between two
+   pixels and that row blends into a pale line (the app's CloudEdge has the
+   same note) */
+.sky-edge { position: absolute; left: 0; bottom: -6px; width: 402px; height: 72px; display: block; }
+.edge-back { fill: var(--page); opacity: 0.35; }
+.edge-front { fill: var(--page); }
+.sky-date { position: absolute; left: 20px; top: 82px; font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, 0.95); }
+.sky-title { position: absolute; left: 20px; top: 101px; font-size: 22px; font-weight: 700; letter-spacing: -0.4px; color: #fff; }
+.sky-btns { position: absolute; right: 20px; top: 84px; display: flex; gap: 8px; }
+.round-btn { width: 44px; height: 44px; border-radius: 50%; background: #fff; display: grid; place-items: center; color: #1b1b1b; }
+.round-btn svg { width: 20px; height: 20px; }
+.sky-mascot { position: absolute; left: 139px; top: 132px; width: 124px; z-index: 2; }
 
-.month { position: absolute; top: 240px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 64px; font-size: 26px; font-weight: 800; letter-spacing: -0.04em; }
-.month svg { width: 22px; height: 22px; color: var(--text-2); }
-.week { position: absolute; top: 284px; left: 10px; right: 10px; display: grid; grid-template-columns: repeat(7, 1fr); }
-.day { display: grid; justify-items: center; gap: 2px; padding: 10px 0 12px; border-radius: 26px; color: var(--text-muted); }
-.day b { font-size: 21px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
-.day span { font-size: 14px; font-weight: 500; }
+.month { position: absolute; top: 250px; left: 0; right: 0; height: 36px; display: flex; justify-content: center; align-items: center; gap: 44px; font-size: 26px; font-weight: 700; letter-spacing: -0.6px; }
+.month svg { width: 20px; height: 20px; color: #1b1b1b; }
+[data-theme="dark"] .month svg { color: var(--text); }
+.month svg.flip { transform: scaleX(-1); }
+.week { position: absolute; top: 297px; left: 19.6px; width: 362px; display: grid; grid-template-columns: repeat(7, 1fr); }
+.day { position: relative; height: 72px; display: grid; justify-items: center; align-content: center; gap: 1px; color: var(--text-muted); }
+.day span:first-child { font-size: 15px; font-weight: 500; }
+.day b { font-size: 22px; font-weight: 600; line-height: 1.15; color: var(--text); }
 .day.is-past b { color: var(--text-muted); }
-.day.is-today { background: var(--brand-subtle); }
-.day.is-today b, .day.is-today span { color: var(--brand-strong); }
+.day.is-today b, .day.is-today span:first-child { color: var(--blue-500); }
+.day.is-today::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 0; width: 48px; height: 72px; margin-left: -24px; border-radius: 24px; background: var(--brand-subtle); }
+.day.is-today::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 28px; height: 3.5px; margin-left: -14px; border-radius: 2px; background: var(--line-strong); }
 .dots { display: flex; gap: 3px; height: 6px; align-items: center; margin-top: 4px; }
 .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-subtle); }
 .dots i.due { background: var(--blue-500); }
 .dots i.late { background: var(--red-500); }
 .dots i.done { background: var(--green-500); }
 
-.chips { position: absolute; top: 388px; left: 20px; right: 0; display: flex; gap: 8px; }
-.chip { height: 38px; padding: 0 18px; border-radius: 19px; background: var(--muted-bg); display: grid; place-items: center; font-size: 16px; font-weight: 500; color: var(--text); }
-.chip.on { background: var(--blue-500); color: #fff; font-weight: 600; }
+.chips { position: absolute; top: 399px; left: 20px; right: 0; display: flex; gap: 8px; }
+.chip { height: 36px; padding: 0 18px; border-radius: 18px; background: var(--muted-bg); display: grid; place-items: center; font-size: 17px; font-weight: 500; color: var(--text); }
+.chip.on { background: var(--blue-500); color: #fff; font-weight: 600; padding: 0 22px; }
 
+/* the list, at the app's positions */
+.list-pill { position: absolute; left: 20px; }
+.list-pill.p1 { top: 468px; }
+.list-pill.p2 { top: 710px; }
+.list-card { position: absolute; left: 20px; right: 20px; }
+.list-card.k1 { top: 512px; }
+.list-card.k2 { top: 610px; }
+.list-card.k3 { top: 754px; }
 .list { position: absolute; top: 446px; left: 20px; right: 20px; display: grid; gap: 12px; }
-.pill-head { justify-self: start; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 15px; font-size: 15px; font-weight: 600; }
+.pill-head { justify-self: start; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 14px; font-size: 15px; font-weight: 600; }
 .pill-head::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .pill-head.late { background: var(--danger-subtle); color: var(--red-500); }
 .pill-head.now { background: var(--brand-subtle); color: var(--brand-strong); }
@@ -134,17 +144,17 @@
 
 /* ---------- tab bar (full width, 62 tall, 21 from the edges) and the + ---------- */
 .tabbar {
-  position: absolute; z-index: 10; left: 21px; right: 21px; bottom: 21px; height: 64px;
-  display: grid; grid-template-columns: repeat(4, 1fr); padding: 5px;
-  border-radius: 32px; background: var(--chrome);
+  position: absolute; z-index: 10; left: 20px; right: 20px; bottom: 22px; height: 61px;
+  display: grid; grid-template-columns: repeat(4, 1fr); padding: 4px;
+  border-radius: 31px; background: var(--chrome);
   -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
   box-shadow: inset 0 0 0 1px var(--chrome-line), 0 10px 30px -12px rgba(var(--shadow-ink) / 0.3);
 }
 .tab { display: grid; justify-items: center; align-content: center; gap: 2px; border-radius: 27px; font-size: 11px; font-weight: 600; color: var(--text-3); }
-.tab svg { width: 25px; height: 25px; }
+.tab svg { width: 24px; height: 24px; }
 .tab.on { background: var(--brand-subtle); color: var(--brand-strong); }
 .fab {
-  position: absolute; z-index: 11; right: 21px; bottom: 104px; width: 62px; height: 62px; border-radius: 50%;
+  position: absolute; z-index: 11; right: 20px; bottom: 106px; width: 59px; height: 59px; border-radius: 50%;
   display: grid; place-items: center; color: #fff;
   border: 3px solid transparent;
   background: linear-gradient(180deg, #0195ff, #96d3ff) padding-box, linear-gradient(180deg, #c0e5ff, #0195ff) border-box;
@@ -155,26 +165,30 @@
 
 /* ---------- the add sheet over a dimmed Today ---------- */
 .dim { position: absolute; inset: 0; z-index: 12; background: var(--scrim); }
+.add-screen .statusbar { z-index: 11; }
+[data-theme="dark"] .sheet { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); }
 .sheet {
   position: absolute; z-index: 13; left: 0; right: 0; bottom: 0;
   padding: 12px 20px 40px; border-radius: 42px 42px 0 0;
-  background: var(--raised); border-top: 1px solid var(--chrome-line);
+  background: var(--raised);
   display: grid; gap: 14px;
 }
 .sheet-handle { justify-self: center; width: 40px; height: 5px; border-radius: 3px; background: var(--line-strong); }
 .sheet-head { display: flex; align-items: flex-start; justify-content: space-between; margin-top: 8px; }
-.sheet-title { font-size: 30px; font-weight: 800; letter-spacing: -0.045em; }
-.sheet-sub { font-size: 18px; color: var(--text-3); margin-top: 4px; }
+.sheet-title { font-size: 28px; font-weight: 700; letter-spacing: -0.6px; }
+.sheet-sub { font-size: 16px; color: var(--text-3); margin-top: 4px; }
 .sheet-x { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--muted-bg); color: var(--text-2); }
 .sheet-x svg { width: 20px; height: 20px; }
-.type-row { display: flex; align-items: center; gap: 16px; padding: 18px 18px; border-radius: 26px; border: 1px solid var(--line); }
-.type-disc { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: #fff; flex: none; }
+.type-row { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 20px; border: 1px solid var(--line); }
+/* TypeRow.tsx: a 44 disc with a white 22 glyph, 17 semibold title, 13 body */
+.type-row .type-disc { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #fff; flex: none; }
 .type-disc.mine { background: #0195ff; }
 .type-disc.theirs { background: #8ab4d8; }
-.type-disc svg { width: 28px; height: 28px; }
-.type-row b { display: block; font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
-.type-row span { font-size: 15px; color: var(--text-3); }
-.type-row > svg { width: 18px; height: 18px; margin-left: auto; color: var(--text-muted); }
+.type-row .type-disc svg { width: 22px; height: 22px; }
+.type-text { flex: 1; display: grid; gap: 2px; }
+.type-text b { font-size: 17px; font-weight: 600; color: var(--text); }
+.type-text span { font-size: 13px; color: var(--text-2); }
+.type-row > svg { width: 18px; height: 18px; color: var(--text-muted); }
 .type-row.pick { border-color: var(--blue-500); background: var(--brand-subtle); box-shadow: inset 0 0 0 1px var(--blue-500); }
 
 /* ---------- a loop's own page ---------- */
@@ -228,56 +242,6 @@
 .seal-behind { z-index: 0; }
 .seal-front { z-index: 4; }
 .lp-hero { z-index: 1; }
-
-/* ---------- tab screens: Waiting and Profile ---------- */
-.tab-title { position: absolute; left: 20px; right: 20px; top: 62px; display: flex; justify-content: space-between; align-items: flex-start; }
-.tt-title { font-size: 30px; font-weight: 800; letter-spacing: -0.7px; }
-.tt-title.big { font-size: 34px; letter-spacing: -0.9px; }
-.tt-sub { font-size: 15px; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
-.round-btn.soft { width: 46px; height: 46px; background: var(--muted-bg); color: var(--text); }
-.faces { position: absolute; top: 140px; left: 20px; right: 0; display: flex; gap: 14px; }
-.face { width: 70px; display: grid; justify-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-muted); white-space: nowrap; position: relative; }
-.ring { width: 64px; height: 64px; border-radius: 50%; padding: 2.5px; display: block; }
-.ring.late { background: linear-gradient(135deg, #ff6073, #ff9029); }
-.ring.soon { background: linear-gradient(135deg, #0195ff, #96d3ff); }
-.ring.calm { background: var(--line-strong); }
-.ring-gap { display: block; width: 100%; height: 100%; border-radius: 50%; padding: 2.5px; background: var(--page); }
-.avatar { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; font-size: 17px; font-weight: 800; background: var(--bg); color: var(--fg); }
-.face-badge { position: absolute; right: 2px; top: -2px; min-width: 22px; height: 22px; border-radius: 11px; padding: 0 5px; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 800; background: var(--text); color: var(--page); border: 2px solid var(--page); }
-.nudge { position: absolute; top: 246px; left: 20px; right: 20px; display: flex; align-items: center; gap: 12px; padding: 12px 10px 12px 14px; border-radius: 18px; background: var(--raised); border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(var(--shadow-ink) / 0.06); }
-.nudge-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red-500); flex: none; }
-.nudge-text { flex: 1; display: grid; gap: 2px; }
-.nudge-text b { font-size: 15px; font-weight: 600; }
-.nudge-text span { font-size: 13px; color: var(--text-muted); }
-.nudge-btn { height: 34px; padding: 0 14px; border-radius: 17px; display: grid; place-items: center; font-size: 14px; font-weight: 700; background: var(--brand-subtle); color: var(--brand-strong); }
-.waiting-list { top: 330px; }
-
-.sky-card { position: absolute; top: 140px; left: 20px; right: 20px; height: 196px; border-radius: 26px; padding: 18px 20px; overflow: hidden; color: #fff; background: var(--sky-now, var(--sky-day)); box-shadow: 0 16px 30px -18px rgba(1, 149, 255, 0.7); }
-.sc-top { display: flex; align-items: baseline; gap: 10px; }
-.sc-top b { font-size: 52px; line-height: 1; font-weight: 800; letter-spacing: -0.04em; }
-.sc-top span { font-size: 18px; font-weight: 700; }
-.sc-line { margin-top: 8px; font-size: 15px; font-weight: 600; opacity: 0.92; max-width: 60%; }
-.sky-card img { position: absolute; right: 8px; top: 10px; width: 120px; }
-.sc-week { position: absolute; left: 16px; right: 16px; bottom: 14px; display: flex; justify-content: space-between; padding: 8px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.22); font-size: 11px; font-weight: 700; }
-.sc-week span { display: grid; justify-items: center; gap: 3px; }
-.sc-week i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.7); }
-.sc-week .ok i { background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 12.5 4 4 8-8.6' fill='none' stroke='%230195ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; border-color: #fff; }
-.sc-week .now i { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45); }
-.pf-rows { position: absolute; top: 356px; left: 20px; right: 20px; display: grid; gap: 12px; }
-.pf-group { border-radius: 22px; border: 1px solid var(--line); background: var(--raised); overflow: hidden; }
-.pf-group .lp-row .chev { width: 16px; height: 16px; margin-left: 8px; color: var(--text-muted); }
-.pf-group .lp-row span.accent { color: var(--brand-strong); font-weight: 700; }
-.mini-faces { display: flex; margin-left: 0 !important; }
-.mini-faces i { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 800; background: var(--bg); color: var(--fg); border: 2px solid var(--raised); margin-left: -6px; }
-.mini-faces i:first-child { margin-left: 0; }
-.pf-pro { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 22px; background: var(--brand-subtle); border: 1px solid var(--brand-line); }
-.pro-tile { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: linear-gradient(180deg, #0195ff, #96d3ff); }
-.pro-tile svg { width: 20px; height: 20px; }
-.pf-pro div { flex: 1; display: grid; }
-.pf-pro b { font-size: 17px; color: var(--brand-strong); font-weight: 700; }
-.pf-pro span { font-size: 14px; color: var(--text-3); }
-.pf-pro .chev { width: 16px; height: 16px; color: var(--brand-strong); }
-.pf-head { margin: 8px 0 -4px 4px; font-size: 15px; font-weight: 600; color: var(--text-muted); }
 
 /* ---------- small reusable bits used outside the phone too ---------- */
 .cat { display: grid; justify-items: center; gap: 6px; width: 86px; flex: none; }
