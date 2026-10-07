@@ -58,9 +58,6 @@
   background: linear-gradient(180deg, #0195ff 0%, #38aaff 55%, #96d3ff 100%);
 }
 [data-theme="dark"] .sky { background: linear-gradient(180deg, #0b4a8c, #1662ad 55%, #2d7cc4); }
-.sky-cloud { position: absolute; width: 96px; }
-.sky-cloud.c1 { left: -30px; top: 128px; }
-.sky-cloud.c2 { right: -28px; top: 130px; transform: scaleX(-1); }
 /* the app's CloudEdge: a faint back row and a solid front row, 64 tall */
 /* reaches 6pt past the sky: scaled down, the sky's bottom lands between two
    pixels and that row blends into a pale line (the app's CloudEdge has the
@@ -89,9 +86,9 @@
 .day.is-today::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 28px; height: 3.5px; margin-left: -14px; border-radius: 2px; background: var(--line-strong); }
 .dots { display: flex; gap: 3px; height: 6px; align-items: center; margin-top: 4px; }
 .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-subtle); }
-.dots i.due { background: var(--blue-500); }
-.dots i.late { background: var(--red-500); }
-.dots i.done { background: var(--green-500); }
+.dots i.d-due { background: var(--blue-500); }
+.dots i.d-late { background: var(--red-500); }
+.dots i.d-done { background: var(--green-500); }
 
 .chips { position: absolute; top: 399px; left: 20px; right: 0; display: flex; gap: 8px; }
 .chip { height: 36px; padding: 0 18px; border-radius: 18px; background: var(--muted-bg); display: grid; place-items: center; font-size: 17px; font-weight: 500; color: var(--text); }

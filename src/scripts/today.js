@@ -34,7 +34,7 @@ export function initToday() {
       const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
       const day = document.createElement('div');
       day.className = `day${i < 0 ? ' is-past' : ''}${i === 0 ? ' is-today' : ''}`;
-      const dots = (DOTS[i] ?? []).map((k) => `<i class="${k}"></i>`).join('') || '<i></i>';
+      const dots = (DOTS[i] ?? []).map((k) => `<i class="d-${k}"></i>`).join('') || '<i></i>';
       day.innerHTML = `<span>${short.format(d)}</span><b>${d.getDate()}</b><span class="dots">${dots}</span>`;
       week.append(day);
     }
