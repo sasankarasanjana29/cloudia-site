@@ -14,6 +14,15 @@
   padding-top: clamp(var(--s-7), 5vw, var(--s-8));
   background: radial-gradient(120% 80% at 50% 0%, var(--page) 0%, var(--blue-100) 45%, #cfe8ff 100%);
 }
+.hero-air { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* soft white clouds drifting slowly behind everything (desaturated: the art reads teal on light blue) */
+.cl { position: absolute; opacity: 0.8; filter: saturate(0.25) brightness(1.06); animation: float-cloud 40s ease-in-out infinite alternate; }
+.cl1 { width: clamp(150px, 18vw, 260px); left: 3%; top: 10%; }
+.cl2 { width: clamp(170px, 20vw, 300px); right: 2%; top: 4%; animation-duration: 52s; animation-direction: alternate-reverse; }
+.cl3 { width: clamp(110px, 12vw, 180px); left: 10%; top: 52%; opacity: 0.6; animation-duration: 60s; }
+.cl4 { width: clamp(120px, 14vw, 200px); right: 8%; top: 48%; opacity: 0.65; animation-duration: 46s; animation-direction: alternate-reverse; }
+@keyframes float-cloud { from { transform: translate(-24px, 0); } to { transform: translate(32px, -10px); } }
+:root[data-theme="dark"] .cl { opacity: 0.12; }
 .hero-copy { display: grid; justify-items: center; text-align: center; padding-inline: var(--s-4); }
 .hero h1 { font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.2rem); }
 .h1-blue { color: var(--brand); }
@@ -297,7 +306,7 @@
 
 /* ---------- motion off ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .drift, .answer.is-in, .marquee-row, .swipe-card, .caret { animation: none !important; }
+  .cl, .drift, .answer.is-in, .marquee-row, .swipe-card, .caret { animation: none !important; }
   .js .hero [data-rise], .js .hero-phones .phone { animation: none; }
   .swipe-card { transform: translateX(-156px); }
   .stage-screen { transition: opacity 150ms ease; }
