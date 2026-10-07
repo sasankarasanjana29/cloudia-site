@@ -127,7 +127,7 @@
 .seg-btn {
   display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 22px; border: 0; border-radius: var(--r-pill);
   background: transparent; color: var(--text-3); font-size: 1.0625rem; font-weight: 700; cursor: pointer;
-  transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 .seg-btn span { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; background: var(--line-strong); color: var(--text-3); }
 .seg-btn.is-on { background: var(--raised); color: var(--text); box-shadow: 0 2px 8px rgba(var(--shadow-ink) / 0.12); }
