@@ -7,9 +7,13 @@
 /* ---------- hook: Today's sky with the words centred and one phone
    rising into the cloud edge. Nothing else. ---------- */
 .hero {
+  /* the sky runs up behind the floating header (72 = its 12 gap + 60 bar),
+     then fades into the page instead of ending on an edge */
+  --nav-h: 72px;
   color: #fff; overflow: clip;
-  padding-top: clamp(var(--s-7), 6vw, var(--s-9));
-  background: linear-gradient(180deg, #0195ff 0%, #38aaff 62%, #96d3ff 100%);
+  margin-top: calc(-1 * var(--nav-h));
+  padding-top: calc(var(--nav-h) + clamp(var(--s-7), 6vw, var(--s-9)));
+  background: linear-gradient(180deg, #0195ff 0%, #2aa3ff 38%, #7cc6ff 64%, #c9e7ff 82%, var(--page) 100%);
 }
 .hero-copy { display: grid; justify-items: center; text-align: center; }
 .hero h1 { color: #fff; font-size: clamp(2.6rem, 1.2rem + 4vw, 4.4rem); }
@@ -22,10 +26,14 @@
 @media (hover: hover) and (pointer: fine) { .btn-white:hover { background: var(--blue-100); } }
 
 /* the phone shows its sky, Cloudia, the week and the chips, then sinks into the edge */
-.hero-stage { position: relative; height: clamp(330px, 32vw, 420px); margin-top: clamp(var(--s-7), 5vw, var(--s-8)); overflow: hidden; display: flex; justify-content: center; }
+.hero-stage {
+  position: relative; height: clamp(360px, 34vw, 460px); margin-top: clamp(var(--s-7), 5vw, var(--s-8));
+  overflow: hidden; display: flex; justify-content: center;
+  /* the phone fades out with the sky */
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
 .hero-phone { --sw: 300px; --k: 0.74627; --bz: 11px; }
-.hero-edge { position: relative; z-index: 2; display: block; width: 100%; height: clamp(48px, 5vw, 72px); margin-top: calc(-1 * clamp(48px, 5vw, 72px) + 6px); }
-.hero-edge .edge-front { fill: var(--page); }
 
 .js .hero [data-rise] { animation: rise 900ms var(--ease-out) both; animation-delay: var(--delay, 0ms); }
 .js .hero-phone { animation: rise-phone 1100ms var(--ease-out) 320ms both; }
@@ -36,10 +44,10 @@
 
 @media (max-width: 560px) {
   .hero-phone { --sw: 260px; --k: 0.64677; --bz: 10px; }
-  .hero-stage { height: 300px; }
+  .hero-stage { height: 320px; }
 }
 @media all {
-  :root[data-theme="dark"] .hero { background: linear-gradient(180deg, #0a213b 0%, #0b4a8c 60%, #1662ad 100%); }
+  :root[data-theme="dark"] .hero { background: linear-gradient(180deg, #0b4a8c 0%, #1662ad 38%, #14406b 68%, var(--page) 100%); }
 }
 
 /* ---------- problem: where loose ends live now ---------- */
