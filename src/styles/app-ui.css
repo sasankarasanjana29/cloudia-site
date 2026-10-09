@@ -199,7 +199,7 @@
 /* ---------- the add sheet's second step (add.tsx), shown when it plays ---------- */
 .sheet { transition: transform 420ms var(--ease-sheet); }
 .sheet-steps { display: grid; }
-.sheet-step { grid-area: 1 / 1; display: grid; gap: 14px; align-content: start; }
+.sheet-step { grid-area: 1 / 1; align-self: start; display: grid; gap: 14px; align-content: start; }
 .step-form { display: none; gap: 18px; }
 .sheet.has-form .step-form { display: grid; opacity: 0; visibility: hidden; transform: translateX(24px); }
 .sheet.on-form .step-form { opacity: 1; visibility: visible; transform: none; transition: opacity 260ms ease, transform 260ms var(--ease-out); }
