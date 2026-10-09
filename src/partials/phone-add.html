@@ -1,13 +1,30 @@
           <div class="canvas add-screen">
 <!-- include:today-top -->
+<!-- include:today-list -->
+            <div class="scroll-fade"></div>
+            <span class="fab"><svg><use href="#i-plus"/></svg></span>
+<!-- include:tabbar-today -->
             <div class="dim"></div>
-            <div class="sheet">
+            <div class="sheet" data-sheet>
               <span class="sheet-handle"></span>
+              <div class="sheet-steps">
+                <div class="sheet-step step-type">
               <div class="sheet-head">
                 <div><p class="sheet-title">Add something</p><p class="sheet-sub">What kind of thing is it?</p></div>
                 <span class="sheet-x"><svg><use href="#i-close"/></svg></span>
               </div>
               <div class="type-row" data-type-row="mine"><span class="type-disc mine"><svg><use href="#i-hand"/></svg></span><div class="type-text"><b>My turn</b><span>I need to do something</span></div><svg><use href="#i-chevron"/></svg></div>
               <div class="type-row" data-type-row="theirs"><span class="type-disc theirs"><svg><use href="#i-hourglass"/></svg></span><div class="type-text"><b>Waiting</b><span>Someone needs to respond to me</span></div><svg><use href="#i-chevron"/></svg></div>
+                </div>
+                <div class="sheet-step step-form">
+                  <div class="sheet-head"><p class="sheet-title">What did you promise?</p><span class="sheet-x"><svg><use href="#i-close"/></svg></span></div>
+                  <div class="ff"><b>What</b><div class="ff-in" data-in="what"><span data-text></span><i class="ff-caret"></i><span class="ff-ph">Reply to landlord</span></div></div>
+                  <div class="ff"><b>For who</b><div class="ff-in" data-in="who"><span data-text></span><i class="ff-caret"></i><span class="ff-ph">Mr Perera</span></div></div>
+                  <span class="add-amount"><svg><use href="#i-plus"/></svg>Add an amount</span>
+                  <div class="ff"><b>When</b><div class="rail"><span class="wpill" data-when>Today</span><span class="wpill">Tomorrow</span><span class="wpill">In a few days</span><span class="wpill">Next week</span><span class="wpill">No deadline</span></div></div>
+                  <div class="ff"><div class="cat-head"><b>Category</b><span>View all</span></div><div class="rail cat-rail"><span class="cat-cell" data-cat><span class="cat-sq"><img src="assets/art/answer-bill-due.webp" alt="" width="34" height="34"></span><span>Bills</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-package-in-transit.webp" alt="" width="34" height="34"></span><span>Deliveries</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-waiting-on-reply.webp" alt="" width="34" height="34"></span><span>Chasing</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-reply-i-owe.webp" alt="" width="34" height="34"></span><span>Replies</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-refunds-and-returns.webp" alt="" width="34" height="34"></span><span>Refunds</span></span></div></div>
+                  <span class="btn btn-primary form-add is-off" data-add-btn>Add to Cloudia</span>
+                </div>
+              </div>
             </div>
           </div>

@@ -27,7 +27,7 @@ const dataUri = (path) => {
 };
 
 // one classic script from the modules, dependencies first
-const ORDER = ['motion', 'nav', 'reveal', 'today', 'seal', 'story', 'orbit', 'demos', 'gather', 'main'];
+const ORDER = ['motion', 'nav', 'reveal', 'today', 'seal', 'howto', 'story', 'orbit', 'demos', 'gather', 'main'];
 let js = ORDER.map((m) => readFileSync(join(ROOT, 'src', 'scripts', `${m}.js`), 'utf8')
   .replace(/^import .*$/gm, '')
   .replace(/^export /gm, '')).join('\n');

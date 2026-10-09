@@ -6,10 +6,11 @@
  * focusing the control holds it. The seal plays each time Seal is chosen.
  */
 import { SealMoment } from './seal.js';
+import { AddMoment, DayWalk } from './howto.js';
 import { reducedMotion, whenVisible } from './motion.js';
 
-/** how long each step stays up; Seal gets longer so the stamp lands */
-const DWELL = [5200, 5200, 6800];
+/** how long each step stays up: long enough for its little story to finish */
+const DWELL = [11800, 10200, 6800];
 /** after a tap, wait this long before touring again */
 const RESUME = 12000;
 
@@ -23,6 +24,9 @@ export function initStory() {
   const panel = document.getElementById('how-panel');
   const page = document.querySelector('.how-phone [data-seal-page]');
   const seal = page ? new SealMoment(page) : null;
+  const addCanvas = document.querySelector('.how-phone .add-screen');
+  const dayCanvas = document.querySelector('.how-phone .today-screen');
+  const players = [addCanvas && new AddMoment(addCanvas), dayCanvas && new DayWalk(dayCanvas)];
   let current = 0;
   let sealTimer = 0;
 
@@ -48,7 +52,9 @@ export function initStory() {
     if (focus) tabs[i].focus();
     clearTimeout(sealTimer);
     seal?.reset();
+    players.forEach((p) => p?.reset());
     if (i === 2 && seal) sealTimer = setTimeout(() => seal.play(), 360);
+    else if (players[i] && !reducedMotion()) sealTimer = setTimeout(() => players[i].play(), 360);
   };
 
   // the tour: only while on screen, held while a pointer or keyboard focus is on the control

@@ -7,6 +7,8 @@
 const MASCOT = { dawn: 'greeting', day: 'working', dusk: 'completed', night: 'all-clear' };
 /* a believable week: done behind, one late yesterday, due ahead */
 const DOTS = { '-3': ['done'], '-2': ['done', 'done'], '-1': ['late'], 0: ['due'], 1: ['due'], 2: [], 3: ['due'] };
+/* the strip is a wheel: three days past the right edge, so it can glide */
+const AHEAD = 6;
 
 export function phaseAt(hour) {
   if (hour >= 5 && hour < 8) return 'dawn';
@@ -30,7 +32,7 @@ export function initToday() {
 
   document.querySelectorAll('[data-week]').forEach((week) => {
     week.innerHTML = '';
-    for (let i = -3; i <= 3; i += 1) {
+    for (let i = -3; i <= AHEAD; i += 1) {
       const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
       const day = document.createElement('div');
       day.className = `day${i < 0 ? ' is-past' : ''}${i === 0 ? ' is-today' : ''}`;

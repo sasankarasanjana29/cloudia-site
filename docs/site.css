@@ -309,14 +309,18 @@ p { text-wrap: pretty; }
 .month svg { width: 20px; height: 20px; color: #1b1b1b; }
 [data-theme="dark"] .month svg { color: var(--text); }
 .month svg.flip { transform: scaleX(-1); }
-.week { position: absolute; top: 297px; left: 19.6px; width: 362px; display: grid; grid-template-columns: repeat(7, 1fr); }
+/* the date strip is a wheel (the app's): a fixed lens over the middle cell,
+   and the days glide under it; the track carries a few days past the edge */
+.week { position: absolute; z-index: 1; top: 297px; left: 19.6px; width: 362px; overflow: hidden; display: flex; }
+.week .day { flex: none; width: calc(362px / 7); transition: transform 460ms var(--ease-sheet); }
+.week-lens { position: absolute; top: 297px; left: calc(19.6px + 3 * 362px / 7 + (362px / 7 - 48px) / 2); width: 48px; height: 72px; border-radius: 24px; background: var(--brand-subtle); }
+.week-lens::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 28px; height: 3.5px; margin-left: -14px; border-radius: 2px; background: var(--line-strong); }
+.day.is-picked:not(.is-today) b { color: var(--text); }
 .day { position: relative; height: 72px; display: grid; justify-items: center; align-content: center; gap: 1px; color: var(--text-muted); }
 .day span:first-child { font-size: 15px; font-weight: 500; }
 .day b { font-size: 22px; font-weight: 600; line-height: 1.15; color: var(--text); }
 .day.is-past b { color: var(--text-muted); }
 .day.is-today b, .day.is-today span:first-child { color: var(--blue-500); }
-.day.is-today::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 0; width: 48px; height: 72px; margin-left: -24px; border-radius: 24px; background: var(--brand-subtle); }
-.day.is-today::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 28px; height: 3.5px; margin-left: -14px; border-radius: 2px; background: var(--line-strong); }
 .dots { display: flex; gap: 3px; height: 6px; align-items: center; margin-top: 4px; }
 .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-subtle); }
 .dots i.d-due { background: var(--blue-500); }
@@ -419,6 +423,76 @@ p { text-wrap: pretty; }
 .type-text span { font-size: 13px; color: var(--text-2); }
 .type-row > svg { width: 18px; height: 18px; color: var(--text-muted); }
 .type-row.pick { border-color: var(--blue-500); background: var(--brand-subtle); box-shadow: inset 0 0 0 1px var(--blue-500); }
+
+/* ---------- the add sheet's second step (add.tsx), shown when it plays ---------- */
+.sheet { transition: transform 420ms var(--ease-sheet); }
+.sheet-steps { display: grid; }
+.sheet-step { grid-area: 1 / 1; display: grid; gap: 14px; align-content: start; }
+.step-form { display: none; gap: 18px; }
+.sheet.has-form .step-form { display: grid; opacity: 0; visibility: hidden; transform: translateX(24px); }
+.sheet.on-form .step-form { opacity: 1; visibility: visible; transform: none; transition: opacity 260ms ease, transform 260ms var(--ease-out); }
+.sheet.on-form .step-type { opacity: 0; visibility: hidden; transition: opacity 140ms ease, visibility 0s 140ms; }
+.step-form .sheet-title { font-size: 26px; letter-spacing: -0.7px; }
+.ff { display: grid; gap: 8px; }
+.ff > b, .cat-head b { font-size: 16px; font-weight: 600; color: var(--text); }
+.ff-in { display: flex; align-items: center; height: 50px; padding: 0 10px 0 16px; border-radius: 16px; border: 2px solid var(--line-strong); background: var(--raised); font-size: 16px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; }
+.ff-in.is-on { border-color: #19a0ff; box-shadow: 0 0 0 3px var(--brand-subtle); }
+.ff-ph { color: var(--text-muted); }
+.ff-in [data-text]:not(:empty) ~ .ff-ph { display: none; }
+.ff-caret { display: none; width: 2px; height: 20px; margin: 0 1px; background: #19a0ff; }
+.ff-in.is-on .ff-caret { display: block; animation: blink 1s steps(1) infinite; }
+.add-amount { display: inline-flex; align-items: center; gap: 6px; justify-self: start; font-size: 15px; font-weight: 600; color: var(--brand); }
+.add-amount svg { width: 16px; height: 16px; }
+.rail { display: flex; gap: 8px; margin: 0 -20px; padding: 0 20px; overflow: hidden; }
+.wpill { flex: none; padding: 9px 12px; border-radius: 20px; background: var(--muted-bg); font-size: 14px; color: var(--text); transition: background-color 160ms ease, color 160ms ease; }
+.wpill.is-on { background: var(--brand); color: #fff; font-weight: 600; }
+.cat-head { display: flex; align-items: center; justify-content: space-between; }
+.cat-head span { font-size: 15px; font-weight: 600; color: var(--brand); }
+.cat-rail { gap: 10px; padding-top: 2px; }
+.cat-cell { flex: none; width: 68px; display: grid; justify-items: center; gap: 6px; font-size: 14px; color: var(--text-2); }
+.cat-sq { width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; background: var(--sunken); border: 2px solid transparent; transition: background-color 160ms ease, border-color 160ms ease; }
+.cat-sq img { width: 34px; height: 34px; }
+.cat-cell.is-on .cat-sq { background: var(--brand-subtle); border-color: var(--brand); }
+.form-add { width: 100%; min-height: 56px; margin-top: 2px; }
+.form-add.is-off { opacity: 0.45; }
+.form-add.is-down { --press: 0.97; }
+.type-row, .wpill, .cat-sq { will-change: auto; }
+.dim { transition: opacity 280ms ease; }
+.add-screen.is-closed .dim { opacity: 0; }
+.add-screen.is-closed .sheet { transform: translateY(105%) !important; }
+/* a reset: put things back without playing the way there */
+.no-anim, .no-anim * { transition: none !important; }
+/* a finger: a soft ring where the demo taps */
+.tap { position: absolute; z-index: 40; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: rgba(1, 149, 255, 0.22); box-shadow: 0 0 0 2px rgba(1, 149, 255, 0.35); pointer-events: none; animation: tap 520ms var(--ease-out) forwards; }
+@keyframes tap { from { opacity: 0; transform: scale(0.6); } 30% { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(1.15); } }
+/* the new loop arriving in Today */
+.list-card.k-new { top: 512px; animation: card-in 520ms var(--ease-out) both; }
+.list-card.k-new::after { content: ""; position: absolute; inset: -1px; border-radius: 22px; box-shadow: 0 0 0 2px var(--brand); opacity: 0; animation: ring 1600ms ease 200ms; }
+@keyframes card-in { from { opacity: 0; transform: translateY(-14px) scale(0.98); } }
+@keyframes ring { 20% { opacity: 1; } to { opacity: 0; } }
+.list-layer .list-card, .list-layer .list-pill { transition: transform 420ms var(--ease-sheet); }
+.list-layer { position: absolute; inset: 0; transition: opacity 240ms ease, transform 300ms var(--ease-out); }
+
+/* ---------- a chosen day (DayHeader, DayEmpty): the strip's day view ---------- */
+.day-layer { position: absolute; left: 20px; right: 20px; top: 462px; display: grid; gap: 14px; align-content: start; opacity: 0; transform: translateY(8px); transition: opacity 240ms ease, transform 300ms var(--ease-out); pointer-events: none; }
+/* the outgoing view clears before the incoming one arrives, so the lists never overlap */
+.day-layer.is-on, .list-layer:not(.is-off) { opacity: 1; transform: none; transition-delay: 160ms; }
+.list-layer.is-off { opacity: 0; transform: translateY(8px); }
+.dh { display: flex; align-items: center; gap: 10px; }
+.dh b { font-size: 20px; line-height: 24px; font-weight: 700; letter-spacing: -0.4px; color: var(--text); white-space: nowrap; }
+.dh span { padding: 4px 10px; border-radius: 999px; background: var(--brand-subtle); color: var(--brand); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.day-layer .pill-head { justify-self: start; }
+.day-layer .loop { position: relative; }
+.de { display: grid; justify-items: center; gap: 6px; padding: 24px 20px; border-radius: 26px; background: var(--sunken); text-align: center; }
+.de-disc { width: 36px; height: 36px; margin-bottom: 4px; border-radius: 50%; display: grid; place-items: center; background: var(--success); color: #fff; }
+.de-disc svg { width: 18px; height: 18px; }
+.de b { font-size: 18px; font-weight: 700; color: var(--text); }
+.de p { font-size: 14px; color: var(--text-muted); }
+.de-next { justify-self: stretch; margin-top: 12px; display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; background: var(--raised); box-shadow: 0 3px 10px rgba(13, 43, 69, 0.06); text-align: left; }
+.de-next div { flex: 1; display: grid; gap: 1px; }
+.de-next small { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.de-next strong { font-size: 16px; font-weight: 600; color: var(--text); }
+.de-next svg { width: 18px; height: 18px; color: var(--text-muted); }
 
 /* ---------- a loop's own page ---------- */
 .back-btn { position: absolute; z-index: 3; left: 20px; top: 62px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--raised); border: 1px solid var(--line); box-shadow: 0 3px 10px rgba(var(--shadow-ink) / 0.08); }
