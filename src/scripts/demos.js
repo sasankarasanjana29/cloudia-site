@@ -47,11 +47,17 @@ function initSwipe() {
   if (!root) return;
   const rows = [...root.querySelectorAll('.swipe-row')].map((row) => ({
     row, card: row.querySelector('.swipe-card'), tray: row.querySelector('.swipe-tray'), tiles: [...row.querySelectorAll('.act')],
+    bye: row.querySelector('.bye'),
   }));
+  const tile = root.closest('.tile');
   let s = 1; let W = 362;
   const measure = () => {
     W = rows[0].row.clientWidth || 362;
     s = Math.min(1, W / 362);
+    root.style.setProperty('--s', String(s));
+    // she leans in from the tile's own left edge, as from the screen's in the app
+    const inset = rows[0].row.getBoundingClientRect().left - tile.getBoundingClientRect().left;
+    rows.forEach((r) => { if (r.bye) r.bye.style.left = `${-inset}px`; });
     root.style.setProperty('--tile', `${78 * s}px`);
     root.style.setProperty('--gap', `${8 * s}px`);
   };
@@ -68,6 +74,16 @@ function initSwipe() {
     const leave = 1 - clamp01(extra / (80 * s * 0.85));
     const cover = (n - 1) * (tile + gap) * (1 - leave);
     r.card.style.transform = `translateX(${x.toFixed(1)}px)`;
+    if (r.bye) {
+      // ARM_EXTRA is 80: she is all the way out a little past the point it will delete
+      // and leaves with the row once it is deleted
+      const commit = clamp01((travel - (open + 100 * s)) / Math.max(1, W + 40 - open - 100 * s));
+      const out = clamp01(extra / (80 * s * 1.2)) * (1 - commit);
+      const armed = extra > 80 * s;
+      const wave = armed ? Math.sin(performance.now() / 230) * 5.5 - 1.5 : 0;
+      r.bye.style.opacity = out > 0 ? '1' : '0';
+      r.bye.style.transform = `translateX(${((out - 1) * 68 * s).toFixed(1)}px) rotate(${wave.toFixed(2)}deg)`;
+    }
     r.tiles.forEach((el, i) => {
       const at = lead + tile * (n - i) + gap * (n - 1 - i);
       const enter = clamp01((travel - (at - 56 * s)) / (56 * s));

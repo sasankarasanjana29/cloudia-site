@@ -4,7 +4,7 @@
  * and stretch, same pose swaps. The phone canvas is laid out in iPhone
  * points, so the numbers carry over unchanged.
  */
-import { interpolate, reducedMotion } from './motion.js?v=322d01a3f3';
+import { interpolate, reducedMotion } from './motion.js?v=7f022f551b';
 
 const MS = { up: 300, crouch: 380, takeoff: 440, apex: 600, hit: 760, lift: 960, top: 1060, stand: 1140, leave: 1480, over: 1620, end: 1820 };
 const BOX = { w: 96, h: 92 };

@@ -5,9 +5,9 @@
  * take over, and the tour picks up again after a quiet spell. Hovering or
  * focusing the control holds it. The seal plays each time Seal is chosen.
  */
-import { SealMoment } from './seal.js?v=322d01a3f3';
-import { AddMoment, DayWalk } from './howto.js?v=322d01a3f3';
-import { reducedMotion, whenVisible } from './motion.js?v=322d01a3f3';
+import { SealMoment } from './seal.js?v=7f022f551b';
+import { AddMoment, DayWalk } from './howto.js?v=7f022f551b';
+import { reducedMotion, whenVisible } from './motion.js?v=7f022f551b';
 
 /** how long each step stays up: long enough for its little story to finish */
 const DWELL = [34000, 10200, 6800];

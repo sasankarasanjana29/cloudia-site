@@ -28,7 +28,7 @@ WANT: dict[str, int] = {
     **{f'mascot-{m}': 640 for m in [
         'all-clear', 'calendar', 'completed', 'good-news', 'greeting', 'milestone',
         'reminder', 'working', 'peeking', 'neutral', 'care', 'writing',
-        'listening', 'noted',
+        'listening', 'noted', 'thumbs-up', 'bye',
     ]},
     # the seal moment, on its shared canvas (keeps its own size)
     **{f'mascot-seal-{p}': 0 for p in ['climb', 'jump', 'press', 'proud']},

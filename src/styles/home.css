@@ -326,6 +326,14 @@
 .night-card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
 /* phones: the Night sky is already in the skies tile, so the band keeps the words and the card */
 @media (max-width: 719px) { .night-sky { display: none; } }
+/* on a phone the night sky panel is left out, but Cloudia stays: alone in the corner */
+.night-peek { display: none; }
+@media (max-width: 719px) {
+  .night-peek { display: block; position: absolute; top: 14px; right: 14px; width: 72px; height: auto; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)); }
+  .tile-night .tile-copy h3 { padding-right: 76px; }
+}
+/* SwipeableLoopCard's ByeCloudia: past open she leans in from the edge, waving her red handkerchief */
+.swipe-row .bye { position: absolute; z-index: 2; top: 50%; width: calc(68px * var(--s, 1)); height: auto; margin-top: calc(-23px * var(--s, 1)); transform-origin: left center; opacity: 0; pointer-events: none; }
 @media (min-width: 720px) { .night-sky { height: auto; min-height: 170px; } }
 
 

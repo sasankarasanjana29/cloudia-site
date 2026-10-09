@@ -114,7 +114,8 @@ export class AddMoment extends Player {
     const card = document.createElement('div');
     card.className = `loop${mine ? ' mine' : ''} list-card k-new`;
     card.style.top = `${top}px`;
-    card.innerHTML = html;
+    // CardCheer.tsx: a small thumbs-up Cloudia perches on the new card, holds a beat, and goes
+    card.innerHTML = `${html}<img class="cheer" src="assets/art/mascot-thumbs-up.webp" alt="" width="50" height="34">`;
     this.canvas.querySelector('[data-list]').append(card);
   }
 

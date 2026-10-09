@@ -270,6 +270,17 @@
 .list-card.k-new { top: 512px; animation: card-in 520ms var(--ease-out) both; }
 .list-card.k-new::after { content: ""; position: absolute; inset: -1px; border-radius: 22px; box-shadow: 0 0 0 2px var(--brand); opacity: 0; animation: ring 1600ms ease 200ms; }
 @keyframes card-in { from { opacity: 0; transform: translateY(-14px) scale(0.98); } }
+/* CardCheer.tsx: 34 tall on the card's top edge near the right; waits for the
+   card's entrance (0.42 s), pops in with a little give, holds, leaves quicker */
+.list-card .cheer { position: absolute; z-index: 2; right: 22px; top: -26px; width: 50px; height: 34px; transform-origin: bottom; opacity: 0; pointer-events: none; animation: cheer 2220ms linear both; }
+@keyframes cheer {
+  0%, 19% { opacity: 0; transform: translateY(12px) scale(0.6); }
+  30% { opacity: 1; transform: translateY(-2px) scale(1.06); animation-timing-function: ease-out; }
+  38% { transform: translateY(1px) scale(0.98); }
+  45%, 90% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(8px); }
+}
+@media (prefers-reduced-motion: reduce) { .list-card .cheer { animation-name: cheer-still; } @keyframes cheer-still { 0%, 19% { opacity: 0; } 27%, 90% { opacity: 1; } 100% { opacity: 0; } } }
 @keyframes ring { 20% { opacity: 1; } to { opacity: 0; } }
 .list-layer .list-card, .list-layer .list-pill { transition: transform 420ms var(--ease-sheet); }
 .list-layer { position: absolute; inset: 0; transition: opacity 240ms ease, transform 300ms var(--ease-out); }
