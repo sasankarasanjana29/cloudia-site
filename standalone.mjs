@@ -33,12 +33,14 @@ let js = ORDER.map((m) => readFileSync(join(ROOT, 'src', 'scripts', `${m}.js`), 
   .replace(/^export /gm, '')).join('\n');
 // images the script creates: point them at the inlined copies
 const art = Object.fromEntries(readdirSync(join(BUILD, 'assets', 'art'))
-  .filter((f) => f.startsWith('orbit-') || f.startsWith('mascot-'))
+  .filter((f) => f.startsWith('orbit-') || f.startsWith('mascot-') || ['answer-bill-due.webp', 'answer-refunds-and-returns.webp'].includes(f))
   .map((f) => [f.replace('.webp', ''), dataUri(`assets/art/${f}`)]));
 js = js
   .replace("'assets/art/orbit-bead.webp'", "ART['orbit-bead']")
   .replace('`assets/art/orbit-${i.key}.webp`', "ART['orbit-' + i.key]")
-  .replace('`assets/art/mascot-${MASCOT[phase]}.webp`', "ART['mascot-' + MASCOT[phase]]");
+  .replace('`assets/art/mascot-${MASCOT[phase]}.webp`', "ART['mascot-' + MASCOT[phase]]")
+  // the day views (howto.js) build their card images from a name
+  .replace('assets/art/answer-${l.art}.webp', "${ART['answer-' + l.art]}");
 js = `(function () {\nconst ART = ${JSON.stringify(art)};\n${js}\n})();`;
 
 // the phone frame and any other image the styles point at, inlined too
@@ -52,7 +54,7 @@ for (const page of readdirSync(BUILD).filter((f) => f.endsWith('.html') && !f.st
     .replace(/<link rel="stylesheet" href="site\.css[^"]*">/, () => `<style>${css}</style>`)
     .replace(/<script type="module" src="scripts\/main\.js[^"]*"><\/script>/, '')
     .replace('</body>', () => `<script>${js}</script>\n</body>`)
-    .replace(/(src|href|content)="(assets\/[^"]+\.(?:webp|png))"/g, (_, attr, p) => `${attr}="${dataUri(p)}"`);
+    .replace(/(src|href|content)="(assets\/[^"$]+\.(?:webp|png))"/g, (_, attr, p) => `${attr}="${dataUri(p)}"`);
   writeFileSync(join(OUT, page), html);
 }
 rmSync(BUILD, { recursive: true, force: true });
