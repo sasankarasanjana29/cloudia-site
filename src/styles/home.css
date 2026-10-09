@@ -32,8 +32,8 @@
 
 .hero-phones { position: relative; height: clamp(360px, 40vw, 520px); margin-top: clamp(var(--s-6), 4vw, var(--s-7)); }
 .hero-phones .phone { position: absolute; left: 50%; top: 0; }
-.hp-center { --sw: 290px; --k: 0.72139; --bz: 11px; z-index: 2; transform: translateX(-50%); }
-.hp-side { --sw: 262px; --k: 0.65174; --bz: 10px; z-index: 1; top: 44px !important; }
+.hp-center { --sw: 290px; --k: 0.72139; z-index: 2; transform: translateX(-50%); }
+.hp-side { --sw: 262px; --k: 0.65174; z-index: 1; top: 44px !important; }
 .hp-left { transform: translateX(calc(-50% - 250px)); }
 .hp-right { transform: translateX(calc(-50% + 250px)); }
 
@@ -50,7 +50,7 @@
 
 @media (max-width: 760px) {
   .hp-side { display: none; }
-  .hp-center { --sw: 260px; --k: 0.64677; --bz: 10px; }
+  .hp-center { --sw: 260px; --k: 0.64677; }
   .hero-phones { height: 380px; }
 }
 @media all {
@@ -159,7 +159,7 @@
   .how-side span { color: var(--text-3); }
 }
 @media (max-width: 420px) {
-  .how-phone { --sw: 250px; --k: 0.62189; --bz: 9px; }
+  .how-phone { --sw: 250px; --k: 0.62189; }
   .seg-btn { padding: 0 14px; font-size: 1rem; }
 }
 

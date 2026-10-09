@@ -41,7 +41,9 @@ js = js
   .replace('`assets/art/mascot-${MASCOT[phase]}.webp`', "ART['mascot-' + MASCOT[phase]]");
 js = `(function () {\nconst ART = ${JSON.stringify(art)};\n${js}\n})();`;
 
-const css = readFileSync(join(BUILD, 'site.css'), 'utf8');
+// the phone frame and any other image the styles point at, inlined too
+const css = readFileSync(join(BUILD, 'site.css'), 'utf8')
+  .replace(/url\("(assets\/[^"]+\.(?:svg|webp|png))"\)/g, (_, p) => `url("${dataUri(p)}")`);
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 for (const page of readdirSync(BUILD).filter((f) => f.endsWith('.html') && !f.startsWith('_'))) {
