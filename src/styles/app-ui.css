@@ -17,11 +17,9 @@
   position: relative; flex: none;
   width: calc(var(--sw) * 450 / 402);
   aspect-ratio: 450 / 920;
-  border-radius: 15.6% / 7.6%;
-  box-shadow:
-    0 2px 2px rgba(var(--shadow-ink) / 0.06),
-    0 30px 60px -20px rgba(var(--shadow-ink) / 0.35),
-    0 60px 120px -40px rgba(var(--shadow-ink) / 0.35);
+  /* the shadow follows the bezel itself; a box-shadow on the box drew a
+     pale band where the side buttons leave the image see-through */
+  filter: drop-shadow(0 24px 30px rgba(var(--shadow-ink) / 0.22)) drop-shadow(0 50px 60px rgba(var(--shadow-ink) / 0.18));
 }
 .phone::after {
   content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
