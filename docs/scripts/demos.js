@@ -3,7 +3,7 @@
  * skies, the search that types by itself, and the swipe rows. Each one
  * only moves while it is on screen, and holds still under reduced motion.
  */
-import { reducedMotion, whenVisible } from './motion.js?v=7f022f551b';
+import { reducedMotion, whenVisible } from './motion.js?v=8e3b931cd6';
 
 function initMarquee() {
   const m = document.querySelector('.marquee');
@@ -49,15 +49,11 @@ function initSwipe() {
     row, card: row.querySelector('.swipe-card'), tray: row.querySelector('.swipe-tray'), tiles: [...row.querySelectorAll('.act')],
     bye: row.querySelector('.bye'),
   }));
-  const tile = root.closest('.tile');
   let s = 1; let W = 362;
   const measure = () => {
     W = rows[0].row.clientWidth || 362;
     s = Math.min(1, W / 362);
     root.style.setProperty('--s', String(s));
-    // she leans in from the tile's own left edge, as from the screen's in the app
-    const inset = rows[0].row.getBoundingClientRect().left - tile.getBoundingClientRect().left;
-    rows.forEach((r) => { if (r.bye) r.bye.style.left = `${-inset}px`; });
     root.style.setProperty('--tile', `${78 * s}px`);
     root.style.setProperty('--gap', `${8 * s}px`);
   };

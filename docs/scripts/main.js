@@ -3,13 +3,13 @@
  * does nothing if the page does not have it, so the legal pages pay only
  * for the nav and the reveals.
  */
-import { initNav, initThemeSwitch } from './nav.js?v=7f022f551b';
-import { initReveal } from './reveal.js?v=7f022f551b';
-import { initToday } from './today.js?v=7f022f551b';
-import { initOrbit } from './orbit.js?v=7f022f551b';
-import { initStory } from './story.js?v=7f022f551b';
-import { initDemos } from './demos.js?v=7f022f551b';
-import { initGather } from './gather.js?v=7f022f551b';
+import { initNav, initThemeSwitch } from './nav.js?v=8e3b931cd6';
+import { initReveal } from './reveal.js?v=8e3b931cd6';
+import { initToday } from './today.js?v=8e3b931cd6';
+import { initOrbit } from './orbit.js?v=8e3b931cd6';
+import { initStory } from './story.js?v=8e3b931cd6';
+import { initDemos } from './demos.js?v=8e3b931cd6';
+import { initGather } from './gather.js?v=8e3b931cd6';
 
 initNav();
 initThemeSwitch();

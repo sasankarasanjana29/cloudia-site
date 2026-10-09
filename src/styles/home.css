@@ -333,7 +333,9 @@
   .tile-night .tile-copy h3 { padding-right: 76px; }
 }
 /* SwipeableLoopCard's ByeCloudia: past open she leans in from the edge, waving her red handkerchief */
-.swipe-row .bye { position: absolute; z-index: 2; top: 50%; width: calc(68px * var(--s, 1)); height: auto; margin-top: calc(-23px * var(--s, 1)); transform-origin: left center; opacity: 0; pointer-events: none; }
+/* inside the Delete tile, which clips her: she leans in from its left edge */
+.act.delete { position: relative; overflow: hidden; }
+.act .bye { position: absolute; z-index: 0; left: 0; top: 50%; width: calc(68px * var(--s, 1)); height: auto; margin-top: calc(-23px * var(--s, 1)); transform-origin: left center; opacity: 0; pointer-events: none; }
 @media (min-width: 720px) { .night-sky { height: auto; min-height: 170px; } }
 
 
