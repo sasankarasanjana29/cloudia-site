@@ -4,9 +4,9 @@
               <!-- Home's two corner clouds (DriftingClouds at 0.46, heroGeometry HERO_CLOUDS) -->
               <img class="sky-cloud l" src="assets/art/cloud.webp" alt="" width="96" height="62">
               <img class="sky-cloud r" src="assets/art/cloud.webp" alt="" width="96" height="62">
-              <!-- the app's CloudEdge (src/components/CloudEdge.tsx), its own path at the 402 design scale -->
+              <!-- the app's CloudEdge (src/components/CloudEdge.tsx), its own path at the 402 design scale;
+                   Home draws only the front row (back={false}), so the faint back row is left out -->
               <svg class="sky-edge" viewBox="0 0 402 72" preserveAspectRatio="none" aria-hidden="true">
-                <path class="edge-back" d="M -6 72 L -6 24 A 38.4 38.4 0 0 1 58 34 A 37.2 37.2 0 0 1 120 38 A 33.6 33.6 0 0 1 176 39 A 32.4 32.4 0 0 1 230 39 A 34.8 34.8 0 0 1 288 38 A 36.0 36.0 0 0 1 348 34 A 37.2 37.2 0 0 1 410 24 L 410 72 Z"/>
                 <path class="edge-front" d="M -34 72 L -34 38 A 38.4 38.4 0 0 1 30 52 A 34.8 34.8 0 0 1 88 56 A 37.2 37.2 0 0 1 150 58 A 30.6 30.6 0 0 1 201 58 A 34.2 34.2 0 0 1 258 58 A 34.8 34.8 0 0 1 316 56 A 37.2 37.2 0 0 1 378 52 A 34.8 34.8 0 0 1 436 38 L 436 72 Z"/>
               </svg>
             </div>
