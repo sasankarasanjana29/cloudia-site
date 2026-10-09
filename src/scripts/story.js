@@ -10,7 +10,7 @@ import { AddMoment, DayWalk } from './howto.js';
 import { reducedMotion, whenVisible } from './motion.js';
 
 /** how long each step stays up: long enough for its little story to finish */
-const DWELL = [11800, 10200, 6800];
+const DWELL = [19500, 10200, 6800];
 /** after a tap, wait this long before touring again */
 const RESUME = 12000;
 

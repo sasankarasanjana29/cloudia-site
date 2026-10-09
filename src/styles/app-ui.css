@@ -216,6 +216,23 @@
 .add-amount { display: inline-flex; align-items: center; gap: 6px; justify-self: start; font-size: 15px; font-weight: 600; color: var(--brand); }
 .add-amount svg { width: 16px; height: 16px; }
 .rail { display: flex; gap: 8px; margin: 0 -20px; padding: 0 20px; overflow: hidden; }
+.ff-amount { display: none; }
+.sheet.has-amount .ff-amount { display: grid; animation: rise 260ms var(--ease-out); }
+.sheet.has-amount .add-amount { display: none; }
+.ff-cur { flex: none; display: grid; place-items: center; height: 30px; min-width: 40px; margin: 0 10px 0 -6px; padding: 0 10px; border-radius: 15px; background: var(--brand-subtle); color: var(--brand-strong); font-size: 15px; font-weight: 700; }
+/* categories.tsx: a 78% sheet over its own scrim, on top of the add sheet */
+.cat-dim { z-index: 14; opacity: 0; transition: opacity 260ms ease; }
+.cat-sheet { z-index: 15; height: 78%; padding: 12px 20px 0; gap: 20px; align-content: start; transform: translateY(105%); transition: transform 420ms var(--ease-sheet); }
+.add-screen.on-picker .cat-dim { opacity: 1; }
+.add-screen.on-picker .cat-sheet { transform: none; }
+.cat-sheet-head { display: flex; align-items: center; justify-content: space-between; }
+.cat-sheet-head p { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.cat-done { height: 40px; padding: 0 16px; border-radius: 20px; display: grid; place-items: center; background: var(--muted-bg); font-size: 15px; font-weight: 600; color: var(--text); }
+.cat-search { display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 20px; border-radius: 25px; border: 2px solid var(--line-strong); font-size: 16px; color: var(--text-muted); }
+.cat-search svg { width: 20px; height: 20px; }
+.cat-group { font-size: 12px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); margin-bottom: -8px; }
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 10px; }
+.cat-grid .cat-cell { width: auto; }
 .wpill { flex: none; padding: 9px 12px; border-radius: 20px; background: var(--muted-bg); font-size: 14px; color: var(--text); transition: background-color 160ms ease, color 160ms ease; }
 .wpill.is-on { background: var(--brand); color: #fff; font-weight: 600; }
 .cat-head { display: flex; align-items: center; justify-content: space-between; }

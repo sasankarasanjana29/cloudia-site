@@ -2,8 +2,10 @@
  * The other two steps of "How it works", played the way the app behaves:
  *
  * AddMoment (add.tsx): tap My turn, the sheet grows into the form, the title
- * and the person are typed, Today and Bills are picked, Add to Cloudia is
- * pressed, the sheet drops away and the new loop arrives in Today.
+ * and the person are typed, an amount is added, Today is picked, View all
+ * opens the category picker and Bills is chosen there, Add to Cloudia is
+ * pressed, the sheet drops away and the new loop arrives in Today. Paced
+ * like a calm first-time user, so each tap can be followed.
  *
  * DayWalk (the date strip, a wheel with a fixed lens): tap tomorrow and the
  * days glide under the lens, showing that day; then the next two days, then
@@ -58,6 +60,11 @@ export class AddMoment extends Player {
     this.who = canvas.querySelector('[data-in="who"]');
     this.when = canvas.querySelector('[data-when]');
     this.cat = canvas.querySelector('[data-cat]');
+    this.amount = canvas.querySelector('[data-in="amount"]');
+    this.addAmount = canvas.querySelector('.add-amount');
+    this.viewAll = canvas.querySelector('[data-view-all]');
+    this.pick = canvas.querySelector('[data-pick]');
+    this.done = canvas.querySelector('[data-done]');
     this.add = canvas.querySelector('[data-add-btn]');
     this.p1 = canvas.querySelector('.list-pill.p1 b');
     /* everything under the top of Needs you today steps down for the new card */
@@ -76,11 +83,12 @@ export class AddMoment extends Player {
     this.stop();
     const c = this.canvas;
     c.classList.add('no-anim');
-    c.classList.remove('is-closed');
-    this.sheet.classList.remove('on-form');
+    c.classList.remove('is-closed', 'on-picker');
+    this.sheet.classList.remove('on-form', 'has-amount');
+    this.pick.classList.remove('is-on');
     this.sheet.style.transform = `translateY(${this.low()}px)`;
     this.row.classList.remove('pick');
-    [this.what, this.who].forEach((f) => { f.classList.remove('is-on'); f.querySelector('[data-text]').textContent = ''; });
+    [this.what, this.who, this.amount].forEach((f) => { f.classList.remove('is-on'); f.querySelector('[data-text]').textContent = ''; });
     this.when.classList.remove('is-on');
     this.cat.classList.remove('is-on');
     this.add.classList.add('is-off');
@@ -96,45 +104,63 @@ export class AddMoment extends Player {
     field.classList.add('is-on');
     const out = field.querySelector('[data-text]');
     for (const ch of text) {
-      await wait(ch === ' ' ? 40 : 58, run);
+      await wait(ch === ' ' ? 70 : 95, run);
       out.textContent += ch;
     }
   }
 
   async script(run) {
     const c = this.canvas;
-    await wait(700, run);
+    await wait(1000, run);
     tapAt(c, this.row);
     this.row.classList.add('pick');
-    await wait(320, run);
+    await wait(450, run);
     this.sheet.style.transform = 'translateY(0)';
     this.sheet.classList.add('on-form');
-    await wait(520, run);
+    await wait(800, run);
     await this.typeInto(this.what, 'Pay the electricity bill', run);
     this.add.classList.remove('is-off');
-    await wait(260, run);
+    await wait(600, run);
     this.what.classList.remove('is-on');
     await this.typeInto(this.who, 'Power company', run);
-    await wait(380, run);
+    await wait(700, run);
     this.who.classList.remove('is-on');
+    // an amount: tap the link, the field appears, type it
+    tapAt(c, this.addAmount);
+    await wait(250, run);
+    this.sheet.classList.add('has-amount');
+    await wait(500, run);
+    await this.typeInto(this.amount, '48', run);
+    await wait(800, run);
+    this.amount.classList.remove('is-on');
     tapAt(c, this.when);
     this.when.classList.add('is-on');
-    await wait(520, run);
-    tapAt(c, this.cat.querySelector('.cat-sq'));
+    await wait(1000, run);
+    // the picker: View all opens it, Bills is chosen, Done closes it
+    tapAt(c, this.viewAll);
+    await wait(200, run);
+    c.classList.add('on-picker');
+    await wait(1300, run);
+    tapAt(c, this.pick.querySelector('.cat-sq'));
+    this.pick.classList.add('is-on');
+    await wait(800, run);
+    tapAt(c, this.done);
+    await wait(200, run);
+    c.classList.remove('on-picker');
     this.cat.classList.add('is-on');
-    await wait(620, run);
+    await wait(1200, run);
     tapAt(c, this.add);
     this.add.classList.add('is-down');
-    await wait(160, run);
+    await wait(180, run);
     this.add.classList.remove('is-down');
     c.classList.add('is-closed');
-    await wait(380, run);
+    await wait(450, run);
     // due today, so it heads Needs you today and the rest step down
     this.p1.textContent = '3';
     this.below.forEach((el) => { el.style.transform = 'translateY(98px)'; });
     const card = document.createElement('div');
     card.className = 'loop mine list-card k-new';
-    card.innerHTML = '<div class="loop-art"><img src="assets/art/answer-bill-due.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Pay the electricity bill</span><span class="due today">Today</span></div><div class="loop-meta">Power company</div></div>';
+    card.innerHTML = '<div class="loop-art"><img src="assets/art/answer-bill-due.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Pay the electricity bill</span><span class="due today">Today</span></div><div class="loop-meta">Power company · <b>$48</b></div></div>';
     c.querySelector('[data-list]').append(card);
   }
 }
