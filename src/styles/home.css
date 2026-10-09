@@ -146,6 +146,10 @@
 .cap h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem); letter-spacing: -0.03em; }
 .cap p { margin-top: var(--s-3); color: var(--text-3); font-size: 1.0625rem; }
 .cap strong { color: var(--text); }
+/* Add has two parts, by voice then by hand: the words follow the one playing */
+.cap[data-cap="0"] { display: grid; }
+.cap-sub { grid-area: 1 / 1; opacity: 0; transform: translateY(6px); visibility: hidden; transition: opacity 220ms ease, transform 260ms var(--ease-out), visibility 0s 260ms; }
+.cap-sub.is-on { opacity: 1; transform: none; visibility: visible; transition: opacity 220ms ease, transform 260ms var(--ease-out); }
 .how-phone .screen { position: relative; }
 .stage-screen { position: absolute; inset: 0; opacity: 0; transition: opacity 260ms ease; }
 .stage-screen.is-on { opacity: 1; }
@@ -200,10 +204,9 @@
 .tile-search { grid-area: search; }
 .tile-swipe { grid-area: swipe; }
 .tile-night { grid-area: night; }
-.tile-voice { grid-area: voice; }
-.bento { grid-template-areas: "voice" "cats" "sky" "streak" "search" "swipe" "night"; }
+.bento { grid-template-areas: "cats" "sky" "streak" "search" "swipe" "night"; }
 @media (min-width: 720px) {
-  .bento { grid-template-columns: repeat(2, 1fr); grid-template-areas: "voice voice" "cats cats" "search swipe" "streak streak" "sky sky" "night night"; }
+  .bento { grid-template-columns: repeat(2, 1fr); grid-template-areas: "cats cats" "search swipe" "streak streak" "sky sky" "night night"; }
   /* the night tile closes the grid as one thin band: words and a card left, the sky right */
   .tile-night { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: var(--s-6); align-items: stretch; }
 }
@@ -217,10 +220,8 @@
   .tile-sky .mini-sky { aspect-ratio: auto; min-height: 120px; }
   .bento {
     grid-template-columns: repeat(6, 1fr);
-    /* the voice screen is tall: it stands beside categories and the streak */
     grid-template-areas:
-      "voice voice voice cats cats cats"
-      "voice voice voice streak streak streak"
+      "cats cats cats cats streak streak"
       "search search swipe swipe sky sky"
       "night night night night night night";
   }
@@ -399,113 +400,10 @@
   .cl, .drift, .source.is-in, .gather-lines path, .marquee-row, .caret { animation: none !important; }
   .js .hero [data-rise], .js .hero-phones .phone { animation: none; }
   .stage-screen { transition: opacity 150ms ease; }
-  .cap, .cap.is-on, .seg-btn, .seg.is-ready .seg-pill { transition: none; }
+  .cap, .cap.is-on, .cap-sub, .cap-sub.is-on, .seg-btn, .seg.is-ready .seg-pill { transition: none; }
   .sun-turn, .sun-rays, .sky-stars i { animation: none; }
 }
 
 /* the How it works phone stands flat on the page, no shadow */
 .how-phone { filter: none; }
 
-/* ---------- Just say it: the voice screen (listen.tsx + VoiceCards.tsx) ----------
-   Every size is the app's: 22 card radius, 70 tall, 13 label, 17 value, 21
-   for What, 40 art; the mascot is listening until every card is filled,
-   then holds up her ticked note. */
-.tile-voice { background: var(--tint-blue); --glow: 1 149 255; }
-.voice-note { font-size: 0.9375rem; color: var(--text-3); }
-.vd {
-  --vd-sky: linear-gradient(180deg, #0195ff, #58b8ff 55%, #96d3ff);
-  --vd-card: #ffffff; --vd-text: #1b1b1b; --vd-label: #8a9099;
-  position: relative; overflow: hidden; isolation: isolate;
-  width: 100%; max-width: 400px; justify-self: center;
-  display: grid; gap: 14px; padding: 18px 16px 16px;
-  border-radius: 34px; background: var(--vd-sky);
-}
-.vd-cloud { position: absolute; z-index: -1; width: 160px; height: auto; opacity: 0.4; pointer-events: none; }
-.vd-cloud.c1 { left: -46px; top: 64px; }
-.vd-cloud.c2 { right: -58px; top: 190px; width: 130px; opacity: 0.3; }
-/* My turn / Waiting: Cloudia picks it from what she hears */
-.vd-seg { position: relative; justify-self: center; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 22px; background: rgba(255, 255, 255, 0.28); }
-.vd-seg-pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 18px; background: #fff; box-shadow: 0 2px 8px rgba(10, 37, 64, 0.12); transition: transform 320ms var(--ease-out); }
-.vd.is-theirs .vd-seg-pill { transform: translateX(100%); }
-.vd-seg-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 16px; font-size: 14px; font-weight: 600; color: rgba(27, 27, 27, 0.55); transition: color 200ms ease; }
-.vd-seg-btn svg { width: 15px; height: 15px; }
-.vd:not(.is-theirs) .vd-seg-btn[data-kind="mine"], .vd.is-theirs .vd-seg-btn[data-kind="theirs"] { color: #1b1b1b; }
-.vd-stage { display: grid; justify-items: center; gap: 2px; text-align: center; }
-.vd-mascot { position: relative; width: 150px; aspect-ratio: 540 / 418; }
-.vd-m { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 260ms ease, transform 420ms var(--ease-out); }
-.vd-m.noted { opacity: 0; transform: scale(0.94); }
-.vd.is-done .vd-m.noted { opacity: 1; transform: none; }
-.vd.is-done .vd-m.listening { opacity: 0; }
-.vd-status { position: relative; height: 30px; width: 100%; font-size: 22px; font-weight: 700; letter-spacing: -0.4px; color: #fff; }
-.vd-status span { position: absolute; inset: 0; transition: opacity 200ms ease; }
-.vd-status .st-done, .vd.is-done .vd-status .st-listen { opacity: 0; }
-.vd.is-done .vd-status .st-done { opacity: 1; }
-.vd-heard { position: relative; min-height: 44px; max-width: 30ch; font-size: 16px; line-height: 22px; font-weight: 500; color: rgba(255, 255, 255, 0.95); }
-.vd-hint { position: absolute; inset: 0; opacity: 0; font-size: 14px; color: rgba(255, 255, 255, 0.85); transition: opacity 200ms ease; }
-.vd.is-done [data-voice-heard] { opacity: 0; }
-.vd.is-done .vd-hint { opacity: 1; }
-[data-voice-heard] { transition: opacity 160ms ease; }
-.vd-cards { display: grid; gap: 10px; }
-.vd-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.vd-card {
-  position: relative; display: flex; align-items: center; gap: 10px; min-height: 70px; padding: 12px 14px;
-  border-radius: 22px; min-width: 0;
-  background: rgba(255, 255, 255, 0.12); border: 1.5px dashed rgba(255, 255, 255, 0.55);
-  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-}
-.vd-card > .vd-art, .vd-card > .vd-text { opacity: 0; transition: opacity 180ms ease; }
-.vd-card .vd-text { display: grid; gap: 1px; min-width: 0; }
-.vd-label { font-size: 13px; font-weight: 500; color: var(--vd-label); }
-.vd-card b { font-size: 17px; font-weight: 700; color: var(--vd-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.vd-card.wide b { font-size: 21px; letter-spacing: -0.3px; }
-/* not heard yet: its label, in white, and three dots while she listens */
-.vd-card::before { content: attr(data-label); position: absolute; left: 14px; top: 12px; font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.9); transition: opacity 120ms ease; }
-.vd-dots { position: absolute; left: 14px; top: 38px; width: 28px; height: 6px; background: radial-gradient(circle 3px at 3px 3px, rgba(255, 255, 255, 0.55) 98%, transparent) 0 0 / 11px 6px repeat-x; transition: opacity 120ms ease; }
-.vd-card.is-on { background: var(--vd-card); border: 1.5px solid transparent; box-shadow: 0 8px 18px rgba(10, 37, 64, 0.14); animation: vd-settle 520ms var(--ease-out); }
-.vd-card.is-on > .vd-art, .vd-card.is-on > .vd-text { opacity: 1; }
-.vd-card.is-on::before, .vd-card.is-on .vd-dots { opacity: 0; }
-@keyframes vd-settle { 0% { transform: scale(1); } 18% { transform: scale(0.95); } 60% { transform: scale(1.015); } 100% { transform: scale(1); } }
-.vd-art { flex: none; width: 40px; height: 40px; }
-.vd-avatar { display: grid; place-items: center; border-radius: 50%; background: #f1ebfb; color: #6b45b5; font-size: 19px; font-weight: 700; }
-.vd-coin { display: grid; place-items: center; border-radius: 50%; background: var(--green-100, #f4fbf6); color: var(--green-600, #38a900); font-size: 16px; font-weight: 700; }
-.vd-leaf { width: 38px; display: grid; grid-template-rows: 14px 1fr; overflow: hidden; border-radius: 10px; background: #fff; border: 1px solid #ededed; text-align: center; }
-.vd-leaf i { display: grid; place-items: center; background: #0195ff; color: #fff; font-style: normal; font-size: 9px; font-weight: 700; letter-spacing: 0.4px; }
-.vd-leaf b { font-size: 19px; line-height: 24px; color: #1b1b1b; }
-.vd-controls { display: grid; grid-template-columns: 56px 1fr 56px; gap: 12px; align-items: center; padding-top: 2px; }
-.vd-round { position: relative; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-100); color: var(--blue-700); }
-.vd-round svg { width: 22px; height: 22px; transition: opacity 160ms ease; }
-.vd-swap svg { position: absolute; }
-.vd-swap .ic-mic, .vd.is-done .vd-swap .ic-pencil { opacity: 0; }
-.vd.is-done .vd-swap .ic-mic { opacity: 1; }
-.vd-add { min-height: 56px; padding: 0 12px; pointer-events: none; }
-/* Button.tsx disabled: one flat grey, a muted label, no rim */
-.vd-add.is-off { color: #8a9099; background: #ededed; border-color: transparent; }
-@media all {
-  :root[data-theme="dark"] .vd {
-    --vd-sky: linear-gradient(180deg, #0a2a52, #14406b 55%, #1d4f8f);
-    --vd-card: var(--night-850); --vd-text: var(--night-100); --vd-label: var(--night-400);
-  }
-  :root[data-theme="dark"] .vd-seg { background: rgba(255, 255, 255, 0.12); }
-  :root[data-theme="dark"] .vd-seg-pill { background: var(--night-800); }
-  :root[data-theme="dark"] .vd-seg-btn { color: rgba(234, 240, 248, 0.55); }
-  :root[data-theme="dark"] .vd:not(.is-theirs) .vd-seg-btn[data-kind="mine"],
-  :root[data-theme="dark"] .vd.is-theirs .vd-seg-btn[data-kind="theirs"] { color: var(--night-100); }
-  :root[data-theme="dark"] .vd-avatar { background: #271c42; color: #c4aef5; }
-  :root[data-theme="dark"] .vd-coin { background: #10301a; color: var(--green-500, #4bcd00); }
-  :root[data-theme="dark"] .vd-leaf { background: var(--night-950); border-color: var(--night-800); }
-  :root[data-theme="dark"] .vd-leaf b { color: var(--night-100); }
-  :root[data-theme="dark"] .vd-round { background: var(--blue-800); color: var(--blue-300); }
-  :root[data-theme="dark"] .vd-add.is-off { color: var(--night-400); background: var(--night-700); }
-}
-/* a narrow screen: the values shrink to fit, as the app's do (adjustsFontSizeToFit) */
-.vd { container-type: inline-size; }
-@container (max-width: 370px) {
-  .vd-card { gap: 8px; padding: 12px 11px; }
-  .vd-card b { font-size: 15px; }
-  .vd-card.wide b { font-size: 19px; }
-  .vd-art { width: 36px; height: 36px; }
-  .vd-leaf { width: 34px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .vd-card.is-on { animation: none; }
-}

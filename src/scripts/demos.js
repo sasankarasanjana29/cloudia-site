@@ -160,79 +160,9 @@ function initSearch() {
   });
 }
 
-/**
- * "Just say it" (listen.tsx): the sentence arrives a word at a time, and each
- * card fills the moment Cloudia has heard its part, in the order the app's
- * reader would know it. "owes me" makes it a Waiting loop; once every card is
- * filled she holds up her ticked note and Add to Cloudia wakes up. The day is
- * the visitor's own next Friday, worked out as the app would.
- */
-const VOICE_WORDS = [
-  ['Anna', 'who'], ['owes'], ['me', 'kind'], ['$60', 'amount cat'], ['for'], ['the'],
-  ['concert'], ['tickets', 'what'], ['by'], ['Friday', 'when'],
-];
-const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
-function initVoice() {
-  const root = document.querySelector('[data-voice]');
-  if (!root) return;
-  const heard = root.querySelector('[data-voice-heard]');
-  const add = root.querySelector('.vd-add');
-  const cards = Object.fromEntries([...root.querySelectorAll('[data-card]')].map((c) => [c.dataset.card, c]));
-
-  // "by Friday": this Friday, or today if it is Friday (VoiceCards' whenWords)
-  const now = new Date();
-  const days = (5 - now.getDay() + 7) % 7;
-  const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + days);
-  root.querySelector('[data-voice-mon]').textContent = MONTHS[day.getMonth()];
-  root.querySelector('[data-voice-day]').textContent = String(day.getDate());
-  root.querySelector('[data-voice-when]').textContent = days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : 'Friday';
-
-  const fill = (keys) => keys.split(' ').forEach((k) => {
-    if (k === 'kind') root.classList.add('is-theirs');
-    else cards[k]?.classList.add('is-on');
-  });
-  const reset = () => {
-    root.classList.remove('is-theirs', 'is-done');
-    Object.values(cards).forEach((c) => c.classList.remove('is-on'));
-    heard.textContent = '';
-    add.classList.add('is-off');
-  };
-  const done = () => { root.classList.add('is-done'); add.classList.remove('is-off'); };
-  const finished = () => {
-    reset();
-    VOICE_WORDS.forEach(([, k]) => k && fill(k));
-    heard.textContent = VOICE_WORDS.map(([w]) => w).join(' ');
-    done();
-  };
-  if (reducedMotion()) { finished(); return; }
-
-  reset();
-  let timer = 0; let on = false; let i = 0;
-  const step = () => {
-    if (i < VOICE_WORDS.length) {
-      const [w, k] = VOICE_WORDS[i];
-      heard.textContent = `${heard.textContent} ${w}`.trim();
-      // a beat after the word, as the reader catches up with it
-      if (k) setTimeout(() => on && fill(k), 140);
-      i += 1;
-      timer = setTimeout(step, i === 4 ? 520 : 260 + (w.length > 5 ? 60 : 0));
-      return;
-    }
-    if (i === VOICE_WORDS.length) { i += 1; timer = setTimeout(() => { done(); step(); }, 700); return; }
-    // hold the finished screen, then listen again
-    timer = setTimeout(() => { reset(); i = 0; timer = setTimeout(step, 900); }, 3600);
-  };
-  whenVisible(root, (vis) => {
-    if (vis && !on) { on = true; reset(); i = 0; timer = setTimeout(step, 700); }
-    else if (!vis && on) { on = false; clearTimeout(timer); }
-  });
-}
-
 export function initDemos() {
   initMarquee();
   initSkies();
   initSwipe();
   initSearch();
-  initVoice();
 }

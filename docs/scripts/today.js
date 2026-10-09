@@ -28,6 +28,8 @@ export function initToday() {
 
   document.querySelectorAll('[data-date-long]').forEach((el) => { el.textContent = long; });
   document.querySelectorAll('[data-month]').forEach((el) => { el.textContent = month; });
+  // the Today tab's icon carries the date, as the app's does
+  document.querySelectorAll('[data-date-day]').forEach((el) => { el.textContent = String(new Date().getDate()); });
   document.querySelectorAll('[data-sky-mascot]').forEach((img) => { img.src = `assets/art/mascot-${MASCOT[phase]}.webp`; });
 
   document.querySelectorAll('[data-week]').forEach((week) => {

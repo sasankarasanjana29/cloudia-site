@@ -15,7 +15,7 @@
               </div>
               <div class="type-row" data-type-row="mine"><span class="type-disc mine"><svg><use href="#i-hand"/></svg></span><div class="type-text"><b>My turn</b><span>I need to do something</span></div><svg><use href="#i-chevron"/></svg></div>
               <div class="type-row" data-type-row="theirs"><span class="type-disc theirs"><svg><use href="#i-hourglass"/></svg></span><div class="type-text"><b>Waiting</b><span>Someone needs to respond to me</span></div><svg><use href="#i-chevron"/></svg></div>
-              <div class="type-row voice-row"><span class="type-disc voice"><svg><use href="#i-mic"/></svg></span><div class="type-text"><b>Just say it</b><span>Cloudia works out the rest</span></div><svg><use href="#i-chevron"/></svg></div>
+              <div class="type-row voice-row" data-type-row="voice"><span class="type-disc voice"><svg><use href="#i-mic"/></svg></span><div class="type-text"><b>Just say it</b><span>Cloudia works out the rest</span></div><svg><use href="#i-chevron"/></svg></div>
                 </div>
                 <div class="sheet-step step-form">
                   <div class="sheet-head"><p class="sheet-title">What did you promise?</p><span class="sheet-x"><svg><use href="#i-close"/></svg></span></div>
@@ -36,5 +36,32 @@
               <div class="cat-search"><svg><use href="#i-search"/></svg>Search 50 categories</div>
               <p class="cat-group">Included</p>
               <div class="cat-grid"><span class="cat-cell" data-pick><span class="cat-sq"><img src="assets/art/answer-bill-due.webp" alt="" width="34" height="34"></span><span>Bills</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-package-in-transit.webp" alt="" width="34" height="34"></span><span>Deliveries</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-waiting-on-reply.webp" alt="" width="34" height="34"></span><span>Chasing</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-reply-i-owe.webp" alt="" width="34" height="34"></span><span>Replies</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-refunds-and-returns.webp" alt="" width="34" height="34"></span><span>Refunds</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-appointments-and-callbacks.webp" alt="" width="34" height="34"></span><span>Callbacks</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-health.webp" alt="" width="34" height="34"></span><span>Health</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-money-lent.webp" alt="" width="34" height="34"></span><span>Money lent</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-documents-and-paperwork.webp" alt="" width="34" height="34"></span><span>Paperwork</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-government-and-admin.webp" alt="" width="34" height="34"></span><span>Admin</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-subscription.webp" alt="" width="34" height="34"></span><span>Subscriptions</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-split-bill.webp" alt="" width="34" height="34"></span><span>Split bills</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-paying-back.webp" alt="" width="34" height="34"></span><span>Paying back</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-borrowed.webp" alt="" width="34" height="34"></span><span>Borrowed</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-item-to-return.webp" alt="" width="34" height="34"></span><span>Returns</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-home-repair.webp" alt="" width="34" height="34"></span><span>Repairs</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-friends-and-family.webp" alt="" width="34" height="34"></span><span>Friends</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-work-colleagues.webp" alt="" width="34" height="34"></span><span>Work</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-landlord.webp" alt="" width="34" height="34"></span><span>Landlord</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-other.webp" alt="" width="34" height="34"></span><span>Other</span></span></div>
+            </div>
+                      <div class="vd vd-screen" data-voice aria-hidden="true">
+              <div class="statusbar on-sky"><span>9:41</span><span class="sb-icons"><svg viewBox="0 0 18 12"><use href="#i-signal"/></svg><svg viewBox="0 0 27 13"><use href="#i-battery"/></svg></span></div>
+              <img class="vd-cloud c1" src="assets/art/cloud.webp" alt="" width="669" height="432">
+              <img class="vd-cloud c2" src="assets/art/cloud.webp" alt="" width="669" height="432">
+              <div class="vd-seg"><span class="vd-seg-pill"></span><span class="vd-seg-btn" data-kind="mine"><svg><use href="#i-hand"/></svg>My turn</span><span class="vd-seg-btn" data-kind="theirs"><svg><use href="#i-hourglass"/></svg>Waiting</span></div>
+              <div class="vd-stage">
+                <div class="vd-mascot"><img class="vd-m listening" src="assets/art/mascot-listening.webp" alt="" width="184" height="142"><img class="vd-m noted" src="assets/art/mascot-noted.webp" alt="" width="184" height="142"></div>
+                <p class="vd-status"><span class="st-listen">I'm listening</span><span class="st-done">Got it. Check and add</span></p>
+                <p class="vd-heard"><span data-voice-heard></span><span class="vd-hint">Tap a card to change it, or the mic to add more</span></p>
+              </div>
+              <div class="vd-cards">
+                <div class="vd-card wide" data-card="what" data-label="What"><span class="vd-text"><span class="vd-label">What</span><b>The concert tickets</b></span><i class="vd-dots"></i></div>
+                <div class="vd-row">
+                  <div class="vd-card" data-card="who" data-label="Who"><span class="vd-art vd-avatar">A</span><span class="vd-text"><span class="vd-label">Who</span><b>Anna</b></span><i class="vd-dots"></i></div>
+                  <div class="vd-card" data-card="when" data-label="When"><span class="vd-art vd-leaf"><i data-voice-mon>OCT</i><b data-voice-day>9</b></span><span class="vd-text"><span class="vd-label">When</span><b data-voice-when>Friday</b></span><i class="vd-dots"></i></div>
+                </div>
+                <div class="vd-row">
+                  <div class="vd-card" data-card="amount" data-label="Amount"><span class="vd-art vd-coin">$</span><span class="vd-text"><span class="vd-label">Amount</span><b>$60</b></span><i class="vd-dots"></i></div>
+                  <div class="vd-card" data-card="cat" data-label="Category"><img class="vd-art" src="assets/art/answer-money-lent.webp" alt="" width="40" height="40"><span class="vd-text"><span class="vd-label">Category</span><b>Money lent</b></span><i class="vd-dots"></i></div>
+                </div>
+              </div>
+              <div class="vd-controls">
+                <span class="vd-round"><svg><use href="#i-close"/></svg></span>
+                <span class="btn btn-primary vd-add is-off" data-voice-add>Add to Cloudia</span>
+                <span class="vd-round vd-swap"><svg class="ic-pencil"><use href="#i-pencil"/></svg><svg class="ic-mic"><use href="#i-mic"/></svg></span>
+              </div>
             </div>
           </div>

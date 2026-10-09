@@ -1,7 +1,10 @@
 /**
  * The other two steps of "How it works", played the way the app behaves:
  *
- * AddMoment (add.tsx): tap My turn, the sheet grows into the form, the title
+ * AddMoment (add.tsx), in two parts. By voice: tap Just say it, the voice
+ * screen rises, the sentence arrives a word at a time and each card fills as
+ * its part is heard, Add to Cloudia, and the loop lands in Today. Then by
+ * hand: the + opens the sheet, tap My turn, the sheet grows into the form, the title
  * and the person are typed, an amount is added, Today is picked, View all
  * opens the category picker and Bills is chosen there, Add to Cloudia is
  * pressed, the sheet drops away and the new loop arrives in Today. Paced
@@ -67,10 +70,52 @@ export class AddMoment extends Player {
     this.done = canvas.querySelector('[data-done]');
     this.add = canvas.querySelector('[data-add-btn]');
     this.p1 = canvas.querySelector('.list-pill.p1 b');
-    /* everything under the top of Needs you today steps down for the new card */
-    this.below = [...canvas.querySelectorAll('.list-card.k1, .list-card.k2, .list-pill.p2, .list-card.k3')];
+    this.p2 = canvas.querySelector('.list-pill.p2 b');
+    this.headline = canvas.querySelector('.sky-title');
+    this.fab = canvas.querySelector('.fab');
+    this.voiceRow = canvas.querySelector('[data-type-row="voice"]');
+    this.voice = canvas.querySelector('[data-voice]');
+    this.heard = this.voice.querySelector('[data-voice-heard]');
+    this.vAdd = this.voice.querySelector('[data-voice-add]');
+    this.cards = Object.fromEntries([...this.voice.querySelectorAll('[data-card]')].map((el) => [el.dataset.card, el]));
+    /* the list as it stands, top to bottom; new cards step the rest down */
+    this.rows = () => [...canvas.querySelectorAll('[data-list] .list-card, [data-list] .list-pill')];
     this.sheet.classList.add('has-form');
+    this.setWhen();
     this.reset();
+  }
+
+  /** "by Friday": the visitor's own Friday, as the app's reader would take it */
+  setWhen() {
+    const now = new Date();
+    this.vDays = (5 - now.getDay() + 7) % 7;
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + this.vDays);
+    const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    this.voice.querySelector('[data-voice-mon]').textContent = MONTHS[day.getMonth()];
+    this.voice.querySelector('[data-voice-day]').textContent = String(day.getDate());
+    this.vWhen = this.vDays === 0 ? 'Today' : this.vDays === 1 ? 'Tomorrow' : 'Friday';
+    this.voice.querySelector('[data-voice-when]').textContent = this.vWhen;
+  }
+
+  /** Needs you today's count, and the headline that spells it, as Home does */
+  needs(n) {
+    this.p1.textContent = String(n);
+    const WORDS = ['Nothing', 'One', 'Two', 'Three', 'Four', 'Five'];
+    this.headline.textContent = `${WORDS[n] ?? n} thing${n === 1 ? '' : 's'} need${n === 1 ? 's' : ''} you`;
+  }
+
+  /** a new card at `top` (canvas points); every row at or below it steps down */
+  land(top, html, mine) {
+    this.rows().forEach((el) => {
+      if (el.offsetTop + (el._dy || 0) < top) return;
+      el._dy = (el._dy || 0) + 98;
+      el.style.transform = `translateY(${el._dy}px)`;
+    });
+    const card = document.createElement('div');
+    card.className = `loop${mine ? ' mine' : ''} list-card k-new`;
+    card.style.top = `${top}px`;
+    card.innerHTML = html;
+    this.canvas.querySelector('[data-list]').append(card);
   }
 
   /** the sheet is as tall as the form; on the first step it sits lower by the difference */
@@ -93,9 +138,18 @@ export class AddMoment extends Player {
     this.cat.classList.remove('is-on');
     this.add.classList.add('is-off');
     this.add.classList.remove('is-down');
-    c.querySelector('.k-new')?.remove();
-    this.below.forEach((el) => { el.style.transform = ''; });
-    this.p1.textContent = '2';
+    c.querySelectorAll('.k-new').forEach((el) => el.remove());
+    this.rows().forEach((el) => { el._dy = 0; el.style.transform = ''; });
+    this.needs(2);
+    this.p2.textContent = '3';
+    c.classList.remove('on-voice');
+    this.voiceRow.classList.remove('pick');
+    this.voice.classList.remove('is-theirs', 'is-done');
+    Object.values(this.cards).forEach((el) => el.classList.remove('is-on'));
+    this.heard.textContent = '';
+    this.vAdd.classList.add('is-off');
+    this.vAdd.classList.remove('is-down');
+    this.onPhase?.('voice');
     void c.offsetWidth;
     c.classList.remove('no-anim');
   }
@@ -109,9 +163,63 @@ export class AddMoment extends Player {
     }
   }
 
-  async script(run) {
+  /** Just say it: the voice screen fills as she hears, and one tap adds it */
+  async byVoice(run) {
     const c = this.canvas;
     await wait(1000, run);
+    tapAt(c, this.voiceRow);
+    this.voiceRow.classList.add('pick');
+    await wait(380, run);
+    c.classList.add('on-voice');
+    await wait(900, run);
+    const WORDS = [
+      ['Anna', 'who'], ['owes'], ['me', 'kind'], ['$60', 'amount cat'], ['for'], ['the'],
+      ['concert'], ['tickets', 'what'], ['by'], ['Friday', 'when'],
+    ];
+    for (const [w, keys] of WORDS) {
+      this.heard.textContent = `${this.heard.textContent} ${w}`.trim();
+      await wait(140, run);
+      (keys || '').split(' ').filter(Boolean).forEach((k) => {
+        if (k === 'kind') this.voice.classList.add('is-theirs');
+        else this.cards[k].classList.add('is-on');
+      });
+      await wait(w === '$60' ? 420 : 140 + (w.length > 5 ? 60 : 0), run);
+    }
+    await wait(650, run);
+    this.voice.classList.add('is-done');
+    this.vAdd.classList.remove('is-off');
+    await wait(2000, run);
+    tapAt(c, this.vAdd);
+    this.vAdd.classList.add('is-down');
+    await wait(180, run);
+    this.vAdd.classList.remove('is-down');
+    // it goes straight to Today: the screen and the sheet leave together
+    c.classList.add('is-closed');
+    c.classList.remove('on-voice');
+    await wait(520, run);
+    const due = this.vDays === 0 ? '<span class="due today">Today</span>'
+      : this.vDays === 1 ? '<span class="due soon">Tomorrow</span>' : '<span class="due">Fri</span>';
+    const html = `<div class="loop-art"><img src="assets/art/answer-money-lent.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hourglass"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">The concert tickets</span>${due}</div><div class="loop-meta">Anna · <b>$60</b></div></div>`;
+    if (this.vDays === 0) { this.needs(3); this.land(512, html, false); }
+    else { this.p2.textContent = '4'; this.land(754, html, false); }
+  }
+
+  /** by hand: My turn, the form, the category picker, Add */
+  async byHand(run) {
+    const c = this.canvas;
+    await wait(2200, run);
+    this.onPhase?.('hand');
+    await wait(900, run);
+    // the + opens the sheet again, on its first step
+    tapAt(c, this.fab);
+    c.classList.add('no-anim');
+    this.voiceRow.classList.remove('pick');
+    this.sheet.style.transform = `translateY(${this.low()}px)`;
+    void c.offsetWidth;
+    c.classList.remove('no-anim');
+    await wait(120, run);
+    c.classList.remove('is-closed');
+    await wait(1100, run);
     tapAt(c, this.row);
     this.row.classList.add('pick');
     await wait(450, run);
@@ -156,12 +264,13 @@ export class AddMoment extends Player {
     c.classList.add('is-closed');
     await wait(450, run);
     // due today, so it heads Needs you today and the rest step down
-    this.p1.textContent = '3';
-    this.below.forEach((el) => { el.style.transform = 'translateY(98px)'; });
-    const card = document.createElement('div');
-    card.className = 'loop mine list-card k-new';
-    card.innerHTML = '<div class="loop-art"><img src="assets/art/answer-bill-due.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Pay the electricity bill</span><span class="due today">Today</span></div><div class="loop-meta">Power company · <b>$48</b></div></div>';
-    c.querySelector('[data-list]').append(card);
+    this.needs(Number(this.p1.textContent) + 1);
+    this.land(512, '<div class="loop-art"><img src="assets/art/answer-bill-due.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Pay the electricity bill</span><span class="due today">Today</span></div><div class="loop-meta">Power company · <b>$48</b></div></div>', true);
+  }
+
+  async script(run) {
+    await this.byVoice(run);
+    await this.byHand(run);
   }
 }
 

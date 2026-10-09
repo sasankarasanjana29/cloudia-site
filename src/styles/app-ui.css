@@ -63,6 +63,11 @@
   background: linear-gradient(180deg, #0195ff 0%, #38aaff 55%, #96d3ff 100%);
 }
 [data-theme="dark"] .sky { background: linear-gradient(180deg, #0b4a8c, #1662ad 55%, #2d7cc4); }
+/* the two small clouds up in the corners, as on Home (sky.cloudOpacity.hero) */
+.sky-cloud { position: absolute; width: 96px; height: auto; opacity: 0.46; pointer-events: none; }
+.sky-cloud.l { left: -30px; top: 116px; }
+.sky-cloud.r { left: 322px; top: 124px; }
+[data-theme="dark"] .sky-cloud { opacity: 0.3; }
 /* the app's CloudEdge: a faint back row and a solid front row, 64 tall */
 /* reaches 6pt past the sky: scaled down, the sky's bottom lands between two
    pixels and that row blends into a pale line (the app's CloudEdge has the
@@ -353,3 +358,96 @@
 @media (prefers-reduced-motion: reduce) {
   .lp-hero, .track i { transition: none; }
 }
+
+/* ---------- Just say it: the voice screen (listen.tsx + VoiceCards.tsx) ----------
+   A full-screen modal over the add sheet, on the 402 canvas with the app's
+   numbers: segmented control under the status bar, the 184 mascot with a
+   24 status line and the 17 heard line, then the cards (22 radius, 70 tall,
+   13 label, 17 value, 21 for What, 40 art) and the 60 buttons. She listens
+   until every card is filled, then holds up her ticked note. */
+.vd {
+  --vd-card: #ffffff; --vd-text: #1b1b1b; --vd-label: #8a9099;
+  position: absolute; inset: 0; z-index: 20; overflow: hidden; isolation: isolate;
+  display: flex; flex-direction: column; padding: 62px 0 40px;
+  background: linear-gradient(180deg, #0195ff, #58b8ff 55%, #96d3ff);
+  transform: translateY(102%); transition: transform 460ms var(--ease-sheet);
+}
+.add-screen.on-voice .vd { transform: none; }
+.vd .statusbar.on-sky { color: #fff; }
+.vd-cloud { position: absolute; z-index: -1; width: 190px; height: auto; opacity: 0.4; pointer-events: none; }
+.vd-cloud.c1 { left: -60px; top: 150px; }
+.vd-cloud.c2 { right: -70px; top: 300px; width: 150px; opacity: 0.3; }
+.vd-seg { position: relative; align-self: center; display: grid; grid-template-columns: 1fr 1fr; margin-top: 8px; padding: 4px; border-radius: 22px; background: rgba(255, 255, 255, 0.28); }
+.vd-seg-pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 18px; background: #fff; box-shadow: 0 2px 8px rgba(10, 37, 64, 0.12); transition: transform 320ms var(--ease-out); }
+.vd.is-theirs .vd-seg-pill { transform: translateX(100%); }
+.vd-seg-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 38px; padding: 0 18px; font-size: 15px; font-weight: 600; color: rgba(27, 27, 27, 0.55); transition: color 200ms ease; }
+.vd-seg-btn svg { width: 16px; height: 16px; }
+.vd:not(.is-theirs) .vd-seg-btn[data-kind="mine"], .vd.is-theirs .vd-seg-btn[data-kind="theirs"] { color: #1b1b1b; }
+.vd-stage { flex: 1; display: grid; place-content: center; justify-items: center; gap: 4px; padding: 0 28px; text-align: center; }
+.vd-mascot { position: relative; width: 184px; aspect-ratio: 540 / 418; margin-bottom: 4px; }
+.vd-m { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 260ms ease, transform 420ms var(--ease-out); }
+.vd-m.noted { opacity: 0; transform: scale(0.94); }
+.vd.is-done .vd-m.noted { opacity: 1; transform: none; }
+.vd.is-done .vd-m.listening { opacity: 0; }
+.vd-status { position: relative; height: 32px; width: 346px; font-size: 24px; font-weight: 700; letter-spacing: -0.4px; color: #fff; }
+.vd-status span { position: absolute; inset: 0; transition: opacity 200ms ease; }
+.vd-status .st-done, .vd.is-done .vd-status .st-listen { opacity: 0; }
+.vd.is-done .vd-status .st-done { opacity: 1; }
+.vd-heard { position: relative; min-height: 46px; width: 346px; font-size: 17px; line-height: 23px; font-weight: 500; color: rgba(255, 255, 255, 0.95); }
+.vd-hint { position: absolute; inset: 0; opacity: 0; font-size: 15px; line-height: 21px; color: rgba(255, 255, 255, 0.85); transition: opacity 200ms ease; }
+[data-voice-heard] { transition: opacity 160ms ease; }
+.vd.is-done [data-voice-heard] { opacity: 0; }
+.vd.is-done .vd-hint { opacity: 1; }
+.vd-cards { display: grid; gap: 10px; padding: 0 16px; }
+.vd-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vd-card {
+  position: relative; display: flex; align-items: center; gap: 10px; min-height: 70px; padding: 12px 14px; min-width: 0;
+  border-radius: 22px; background: rgba(255, 255, 255, 0.12); border: 1.5px dashed rgba(255, 255, 255, 0.55);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.vd-card > .vd-art, .vd-card > .vd-text { opacity: 0; transition: opacity 180ms ease; }
+.vd-card .vd-text { display: grid; gap: 1px; min-width: 0; }
+.vd-label { font-size: 13px; font-weight: 500; color: var(--vd-label); }
+.vd-card b { font-size: 17px; font-weight: 700; color: var(--vd-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vd-card.wide b { font-size: 21px; letter-spacing: -0.3px; }
+/* not heard yet: its label in white, and three dots while she listens */
+.vd-card::before { content: attr(data-label); position: absolute; left: 14px; top: 12px; font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.9); transition: opacity 120ms ease; }
+.vd-dots { position: absolute; left: 14px; top: 38px; width: 28px; height: 6px; background: radial-gradient(circle 3px at 3px 3px, rgba(255, 255, 255, 0.55) 98%, transparent) 0 0 / 11px 6px repeat-x; transition: opacity 120ms ease; }
+.vd-card.is-on { background: var(--vd-card); border: 1.5px solid transparent; box-shadow: 0 8px 18px rgba(10, 37, 64, 0.14); animation: vd-settle 520ms var(--ease-out); }
+.vd-card.is-on > .vd-art, .vd-card.is-on > .vd-text { opacity: 1; }
+.vd-card.is-on::before, .vd-card.is-on .vd-dots { opacity: 0; }
+@keyframes vd-settle { 0% { transform: scale(1); } 18% { transform: scale(0.95); } 60% { transform: scale(1.015); } 100% { transform: scale(1); } }
+.vd-art { flex: none; width: 40px; height: 40px; }
+.vd-avatar { display: grid; place-items: center; border-radius: 50%; background: #f1ebfb; color: #6b45b5; font-size: 19px; font-weight: 700; }
+.vd-coin { display: grid; place-items: center; border-radius: 50%; background: var(--green-100); color: var(--green-600); font-size: 16px; font-weight: 700; }
+.vd-leaf { width: 38px; display: grid; grid-template-rows: 14px 1fr; overflow: hidden; border-radius: 10px; background: #fff; border: 1px solid #ededed; text-align: center; }
+.vd-leaf i { display: grid; place-items: center; background: #0195ff; color: #fff; font-style: normal; font-size: 9px; font-weight: 700; letter-spacing: 0.4px; }
+.vd-leaf b { font-size: 19px; line-height: 24px; color: #1b1b1b; }
+.vd-controls { display: grid; grid-template-columns: 60px 1fr 60px; gap: 12px; align-items: center; padding: 14px 16px 0; }
+.vd-round { position: relative; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-100); color: var(--blue-700); }
+.vd-round svg { width: 22px; height: 22px; transition: opacity 160ms ease; }
+.vd-swap svg { position: absolute; }
+.vd-swap .ic-mic, .vd.is-done .vd-swap .ic-pencil { opacity: 0; }
+.vd.is-done .vd-swap .ic-mic { opacity: 1; }
+.vd-add { min-height: 60px; padding: 0 12px; pointer-events: none; }
+.vd-add.is-down { --press: 0.97; }
+/* Button.tsx disabled: one flat grey, a muted label, no rim */
+.vd-add.is-off { color: #8a9099; background: #ededed; border-color: transparent; }
+@media all {
+  :root[data-theme="dark"] .vd {
+    --vd-card: var(--night-850); --vd-text: var(--night-100); --vd-label: var(--night-400);
+    background: linear-gradient(180deg, #0a2a52, #14406b 55%, #1d4f8f);
+  }
+  :root[data-theme="dark"] .vd-seg { background: rgba(255, 255, 255, 0.12); }
+  :root[data-theme="dark"] .vd-seg-pill { background: var(--night-800); }
+  :root[data-theme="dark"] .vd-seg-btn { color: rgba(234, 240, 248, 0.55); }
+  :root[data-theme="dark"] .vd:not(.is-theirs) .vd-seg-btn[data-kind="mine"],
+  :root[data-theme="dark"] .vd.is-theirs .vd-seg-btn[data-kind="theirs"] { color: var(--night-100); }
+  :root[data-theme="dark"] .vd-avatar { background: #271c42; color: #c4aef5; }
+  :root[data-theme="dark"] .vd-coin { background: #10301a; color: var(--green-500); }
+  :root[data-theme="dark"] .vd-leaf { background: var(--night-950); border-color: var(--night-800); }
+  :root[data-theme="dark"] .vd-leaf b { color: var(--night-100); }
+  :root[data-theme="dark"] .vd-round { background: var(--blue-800); color: var(--blue-300); }
+  :root[data-theme="dark"] .vd-add.is-off { color: var(--night-400); background: var(--night-700); }
+}
+@media (prefers-reduced-motion: reduce) { .vd-card.is-on { animation: none; } }

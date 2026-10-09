@@ -5,12 +5,12 @@
  * take over, and the tour picks up again after a quiet spell. Hovering or
  * focusing the control holds it. The seal plays each time Seal is chosen.
  */
-import { SealMoment } from './seal.js?v=a93b57b2c8';
-import { AddMoment, DayWalk } from './howto.js?v=a93b57b2c8';
-import { reducedMotion, whenVisible } from './motion.js?v=a93b57b2c8';
+import { SealMoment } from './seal.js?v=322d01a3f3';
+import { AddMoment, DayWalk } from './howto.js?v=322d01a3f3';
+import { reducedMotion, whenVisible } from './motion.js?v=322d01a3f3';
 
 /** how long each step stays up: long enough for its little story to finish */
-const DWELL = [19500, 10200, 6800];
+const DWELL = [34000, 10200, 6800];
 /** after a tap, wait this long before touring again */
 const RESUME = 12000;
 
@@ -27,6 +27,9 @@ export function initStory() {
   const addCanvas = document.querySelector('.how-phone .add-screen');
   const dayCanvas = document.querySelector('.how-phone .today-screen');
   const players = [addCanvas && new AddMoment(addCanvas), dayCanvas && new DayWalk(dayCanvas)];
+  // Add plays by voice, then by hand: its words follow the part playing
+  const subs = [...document.querySelectorAll('.how-cap .cap-sub')];
+  if (players[0]) players[0].onPhase = (part) => subs.forEach((el) => el.classList.toggle('is-on', el.dataset.sub === part));
   let current = 0;
   let sealTimer = 0;
 
@@ -91,5 +94,11 @@ export function initStory() {
     new ResizeObserver(placePill).observe(seg);
     requestAnimationFrame(() => requestAnimationFrame(() => seg.classList.add('is-ready')));
   }
-  whenVisible(seg, (on) => { visible = on; if (on) next(); else stop(); }, { threshold: 0.6 });
+  // the first time it comes into view, Add starts from the top, so its voice part is seen
+  let seen = false;
+  whenVisible(seg, (on) => {
+    visible = on;
+    if (on && !seen) { seen = true; if (current === 0) show(0); }
+    if (on) next(); else stop();
+  }, { threshold: 0.6 });
 }
