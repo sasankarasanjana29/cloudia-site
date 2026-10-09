@@ -4,7 +4,7 @@
  * behind her over the top and in front round the bottom. Numbers are in the
  * art's 480px space. Runs only while on screen; still under reduced motion.
  */
-import { reducedMotion, whenVisible } from './motion.js?v=4882f2dda1';
+import { reducedMotion, whenVisible } from './motion.js?v=a93b57b2c8';
 
 const SRC = 480;
 const RING = { cx: 245, cy: 249, rx: 214, ry: 142, tilt: 2.5 };

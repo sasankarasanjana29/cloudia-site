@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="site.css?v=a19199d1de">
+  <link rel="stylesheet" href="site.css?v=904a7dffe2">
   <!-- Nothing on this site comes from another company: no fonts, scripts,
        analytics or cookies. Keep it that way, or update privacy.html. -->
   <script>
@@ -25,7 +25,7 @@
     try { if (localStorage.getItem('cloudia-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
     setTimeout(function () { if (!window.cloudiaReady) document.documentElement.classList.remove('js'); }, 2500);
   </script>
-  <script type="module" src="scripts/main.js?v=4882f2dda1"></script>
+  <script type="module" src="scripts/main.js?v=a93b57b2c8"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -52,6 +52,8 @@
       <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.6 3.8h6.6c1.1 0 2 .9 2 2v6.6c0 .5-.2 1-.6 1.4l-6.9 6.9a2 2 0 0 1-2.8 0l-5.6-5.6a2 2 0 0 1 0-2.8l6.9-6.9c.4-.4.9-.6 1.4-.6Z"/><circle cx="15.6" cy="8.4" r="1.4"/></g></symbol>
       <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15M9.5 6.5V4.8A1.3 1.3 0 0 1 10.8 3.5h2.4a1.3 1.3 0 0 1 1.3 1.3v1.7"/><path d="M6.8 6.5 7.7 19a1.5 1.5 0 0 0 1.5 1.4h5.6a1.5 1.5 0 0 0 1.5-1.4l.9-12.5"/></g></symbol>
       <symbol id="i-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.6h-4.6"/></g></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a2.9 2.9 0 0 0-2.9 2.9v5.2a2.9 2.9 0 0 0 5.8 0V6.4A2.9 2.9 0 0 0 12 3.5z"/><path d="M6.2 11.2a5.8 5.8 0 0 0 11.6 0M12 17v3.5"/></g></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 5.4l4 4L8.4 19.6 3.8 20.2l.6-4.6L14.6 5.4z"/><path d="M12.8 7.2l4 4"/></g></symbol>
       <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="i-signal" viewBox="0 0 18 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></symbol>
       <symbol id="i-battery" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="currentColor" opacity="0.45"/></symbol>
@@ -159,6 +161,7 @@
               </div>
               <div class="type-row" data-type-row="mine"><span class="type-disc mine"><svg><use href="#i-hand"/></svg></span><div class="type-text"><b>My turn</b><span>I need to do something</span></div><svg><use href="#i-chevron"/></svg></div>
               <div class="type-row" data-type-row="theirs"><span class="type-disc theirs"><svg><use href="#i-hourglass"/></svg></span><div class="type-text"><b>Waiting</b><span>Someone needs to respond to me</span></div><svg><use href="#i-chevron"/></svg></div>
+              <div class="type-row voice-row"><span class="type-disc voice"><svg><use href="#i-mic"/></svg></span><div class="type-text"><b>Just say it</b><span>Cloudia works out the rest</span></div><svg><use href="#i-chevron"/></svg></div>
                 </div>
                 <div class="sheet-step step-form">
                   <div class="sheet-head"><p class="sheet-title">What did you promise?</p><span class="sheet-x"><svg><use href="#i-close"/></svg></span></div>
@@ -166,9 +169,9 @@
                   <div class="ff"><b>For who</b><div class="ff-in" data-in="who"><span data-text></span><i class="ff-caret"></i><span class="ff-ph">Mr Perera</span></div></div>
                   <span class="add-amount"><svg><use href="#i-plus"/></svg>Add an amount</span>
                   <div class="ff ff-amount"><b>Amount</b><div class="ff-in" data-in="amount"><span class="ff-cur">$</span><span data-text></span><i class="ff-caret"></i><span class="ff-ph">Optional</span></div></div>
-                  <div class="ff"><b>When</b><div class="rail"><span class="wpill" data-when>Today</span><span class="wpill">Tomorrow</span><span class="wpill">In a few days</span><span class="wpill">Next week</span><span class="wpill">No deadline</span></div></div>
+                  <div class="ff"><b>When</b><div class="rail"><span class="wpill" data-when>Today</span><span class="wpill">Tomorrow</span><span class="wpill">In a few days</span><span class="wpill">Next week</span><span class="wpill">No deadline</span><span class="wpill">Pick a date</span></div></div>
                   <div class="ff"><div class="cat-head"><b>Category</b><span data-view-all>View all</span></div><div class="rail cat-rail"><span class="cat-cell" data-cat><span class="cat-sq"><img src="assets/art/answer-bill-due.webp" alt="" width="34" height="34"></span><span>Bills</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-package-in-transit.webp" alt="" width="34" height="34"></span><span>Deliveries</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-waiting-on-reply.webp" alt="" width="34" height="34"></span><span>Chasing</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-reply-i-owe.webp" alt="" width="34" height="34"></span><span>Replies</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-refunds-and-returns.webp" alt="" width="34" height="34"></span><span>Refunds</span></span></div></div>
-                  <span class="btn btn-primary form-add is-off" data-add-btn>Add to Cloudia</span>
+                  <div class="form-foot"><span class="btn btn-secondary form-mic"><svg><use href="#i-mic"/></svg></span><span class="btn btn-primary form-add is-off" data-add-btn>Add to Cloudia</span></div>
                 </div>
               </div>
             </div>
@@ -317,7 +320,7 @@
         </div>
         <div class="how-body" id="how-panel" role="tabpanel" aria-labelledby="how-tab-0">
           <div class="how-cap" aria-live="polite">
-            <div class="cap is-on" data-cap="0"><h3>Add it in a few taps</h3><p>Pick <strong>My turn</strong> for something you promised, or <strong>Waiting</strong> for something someone owes you. Add who it is with, an amount if there is one, and a day.</p></div>
+            <div class="cap is-on" data-cap="0"><h3>Add it in a few taps</h3><p>Pick <strong>My turn</strong> for something you promised, or <strong>Waiting</strong> for something someone owes you. Add who it is with, an amount if there is one, and a day. Or tap <strong>Just say it</strong> and tell her.</p></div>
             <div class="cap" data-cap="1"><h3>See what needs you today</h3><p>Today puts what is due first and what is late in red. The week strip marks every day: red for late, blue for due, green for done.</p></div>
             <div class="cap" data-cap="2"><h3>Close it with a seal</h3><p>Tap <strong>It arrived</strong> or <strong>Mark as done</strong>, and Cloudia climbs onto the card and presses a green wax seal into it. Your phone taps along with her.</p></div>
           </div>
@@ -380,6 +383,7 @@
               </div>
               <div class="type-row" data-type-row="mine"><span class="type-disc mine"><svg><use href="#i-hand"/></svg></span><div class="type-text"><b>My turn</b><span>I need to do something</span></div><svg><use href="#i-chevron"/></svg></div>
               <div class="type-row" data-type-row="theirs"><span class="type-disc theirs"><svg><use href="#i-hourglass"/></svg></span><div class="type-text"><b>Waiting</b><span>Someone needs to respond to me</span></div><svg><use href="#i-chevron"/></svg></div>
+              <div class="type-row voice-row"><span class="type-disc voice"><svg><use href="#i-mic"/></svg></span><div class="type-text"><b>Just say it</b><span>Cloudia works out the rest</span></div><svg><use href="#i-chevron"/></svg></div>
                 </div>
                 <div class="sheet-step step-form">
                   <div class="sheet-head"><p class="sheet-title">What did you promise?</p><span class="sheet-x"><svg><use href="#i-close"/></svg></span></div>
@@ -387,9 +391,9 @@
                   <div class="ff"><b>For who</b><div class="ff-in" data-in="who"><span data-text></span><i class="ff-caret"></i><span class="ff-ph">Mr Perera</span></div></div>
                   <span class="add-amount"><svg><use href="#i-plus"/></svg>Add an amount</span>
                   <div class="ff ff-amount"><b>Amount</b><div class="ff-in" data-in="amount"><span class="ff-cur">$</span><span data-text></span><i class="ff-caret"></i><span class="ff-ph">Optional</span></div></div>
-                  <div class="ff"><b>When</b><div class="rail"><span class="wpill" data-when>Today</span><span class="wpill">Tomorrow</span><span class="wpill">In a few days</span><span class="wpill">Next week</span><span class="wpill">No deadline</span></div></div>
+                  <div class="ff"><b>When</b><div class="rail"><span class="wpill" data-when>Today</span><span class="wpill">Tomorrow</span><span class="wpill">In a few days</span><span class="wpill">Next week</span><span class="wpill">No deadline</span><span class="wpill">Pick a date</span></div></div>
                   <div class="ff"><div class="cat-head"><b>Category</b><span data-view-all>View all</span></div><div class="rail cat-rail"><span class="cat-cell" data-cat><span class="cat-sq"><img src="assets/art/answer-bill-due.webp" alt="" width="34" height="34"></span><span>Bills</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-package-in-transit.webp" alt="" width="34" height="34"></span><span>Deliveries</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-waiting-on-reply.webp" alt="" width="34" height="34"></span><span>Chasing</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-reply-i-owe.webp" alt="" width="34" height="34"></span><span>Replies</span></span><span class="cat-cell"><span class="cat-sq"><img src="assets/art/answer-refunds-and-returns.webp" alt="" width="34" height="34"></span><span>Refunds</span></span></div></div>
-                  <span class="btn btn-primary form-add is-off" data-add-btn>Add to Cloudia</span>
+                  <div class="form-foot"><span class="btn btn-secondary form-mic"><svg><use href="#i-mic"/></svg></span><span class="btn btn-primary form-add is-off" data-add-btn>Add to Cloudia</span></div>
                 </div>
               </div>
             </div>
@@ -514,6 +518,40 @@
       <div class="wrap">
         <h2 id="features-title" data-reveal>Made for how loops really go.</h2>
         <div class="bento">
+          <article class="tile tile-voice" data-reveal>
+            <div class="tile-copy">
+              <h3>Just say it</h3>
+              <p>Tell Cloudia the way you would tell a friend. She works out whose turn it is, then puts what, who, when and how much on their own cards for you to check. One tap adds it.</p>
+              <p class="voice-note">In English for now. Your iPhone turns your words into text itself, and nothing is recorded.</p>
+            </div>
+            <div class="vd" data-voice aria-hidden="true">
+              <img class="vd-cloud c1" src="assets/art/cloud.webp" alt="" width="669" height="432">
+              <img class="vd-cloud c2" src="assets/art/cloud.webp" alt="" width="669" height="432">
+              <div class="vd-seg"><span class="vd-seg-pill"></span><span class="vd-seg-btn" data-kind="mine"><svg><use href="#i-hand"/></svg>My turn</span><span class="vd-seg-btn" data-kind="theirs"><svg><use href="#i-hourglass"/></svg>Waiting</span></div>
+              <div class="vd-stage">
+                <div class="vd-mascot"><img class="vd-m listening" src="assets/art/mascot-listening.webp" alt="" width="184" height="142"><img class="vd-m noted" src="assets/art/mascot-noted.webp" alt="" width="184" height="142"></div>
+                <p class="vd-status"><span class="st-listen">I'm listening</span><span class="st-done">Got it. Check and add</span></p>
+                <p class="vd-heard"><span data-voice-heard></span><span class="vd-hint">Tap a card to change it, or the mic to add more</span></p>
+              </div>
+              <div class="vd-cards">
+                <div class="vd-card wide" data-card="what" data-label="What"><span class="vd-text"><span class="vd-label">What</span><b>The concert tickets</b></span><i class="vd-dots"></i></div>
+                <div class="vd-row">
+                  <div class="vd-card" data-card="who" data-label="Who"><span class="vd-art vd-avatar">A</span><span class="vd-text"><span class="vd-label">Who</span><b>Anna</b></span><i class="vd-dots"></i></div>
+                  <div class="vd-card" data-card="when" data-label="When"><span class="vd-art vd-leaf"><i data-voice-mon>OCT</i><b data-voice-day>9</b></span><span class="vd-text"><span class="vd-label">When</span><b data-voice-when>Friday</b></span><i class="vd-dots"></i></div>
+                </div>
+                <div class="vd-row">
+                  <div class="vd-card" data-card="amount" data-label="Amount"><span class="vd-art vd-coin">$</span><span class="vd-text"><span class="vd-label">Amount</span><b>$60</b></span><i class="vd-dots"></i></div>
+                  <div class="vd-card" data-card="cat" data-label="Category"><img class="vd-art" src="assets/art/answer-money-lent.webp" alt="" width="40" height="40"><span class="vd-text"><span class="vd-label">Category</span><b>Money lent</b></span><i class="vd-dots"></i></div>
+                </div>
+              </div>
+              <div class="vd-controls">
+                <span class="vd-round"><svg><use href="#i-close"/></svg></span>
+                <span class="btn btn-primary vd-add is-off">Add to Cloudia</span>
+                <span class="vd-round vd-swap"><svg class="ic-pencil"><use href="#i-pencil"/></svg><svg class="ic-mic"><use href="#i-mic"/></svg></span>
+              </div>
+            </div>
+          </article>
+
           <article class="tile tile-cats" data-reveal>
             <div class="tile-copy"><h3>50 categories, each one drawn</h3><p>Bills, deliveries, callbacks, money lent, a reply you owe. Twenty of them are free.</p></div>
             <div class="marquee" aria-hidden="true">
@@ -596,7 +634,7 @@
 
           <article class="tile tile-night" data-reveal style="--delay: 80ms">
             <div class="night-main">
-              <div class="tile-copy"><h3>Night mode, made of night sky</h3><p>Dark mode is deep navy rather than grey, so Cloudia after dark still feels like sky.</p></div>
+              <div class="tile-copy"><h3>Night mode, made of night sky</h3><p>Dark mode is deep navy rather than grey, so Cloudia after dark still feels like sky. It follows your iPhone's setting, or you can pick one, and switching is a soft fade.</p></div>
               <div class="loop night-card" aria-hidden="true"><div class="loop-art"><img src="assets/art/answer-subscription.webp" alt="" width="38" height="38"><span class="loop-badge"><svg><use href="#i-hand"/></svg></span></div><div class="loop-text"><div class="loop-top"><span class="loop-title">Cancel the free trial</span><span class="due soon">Tomorrow</span></div><div class="loop-meta">Streaming app</div></div></div>
             </div>
             <div class="night-sky" aria-hidden="true"><svg class="sky-sun" viewBox="0 0 190 190" aria-hidden="true"><defs><radialGradient id="g-night-band"><stop offset="0" stop-color="#f4f7ff" stop-opacity="0.35"/><stop offset=".35" stop-color="#dfe7ff" stop-opacity="0.193"/><stop offset="1" stop-color="#dfe7ff" stop-opacity="0"/></radialGradient></defs><circle cx="95" cy="95" r="95" fill="url(#g-night-band)"/><circle cx="95" cy="95" r="17" fill="#f4f7ff" opacity=".95"/><circle class="moon-shade" cx="103" cy="90" r="15"/></svg><span class="sky-stars"><i style="left:8%;top:18%;--s:3px"></i><i style="left:22%;top:52%;--s:2px;--d:380ms"></i><i style="left:36%;top:14%;--s:2.5px;--d:760ms"></i><i style="left:50%;top:36%;--s:2px;--d:1140ms"></i><i style="left:14%;top:76%;--s:2px;--d:1520ms"></i><i style="left:58%;top:10%;--s:3px;--d:1900ms"></i><i style="left:44%;top:66%;--s:1.5px;--d:2280ms"></i></span><img src="assets/art/mascot-all-clear.webp" alt="" width="96" height="91"></div>
@@ -643,6 +681,7 @@
           <details data-reveal><summary>Is Cloudia free?</summary><p>Yes. Cloudia is free, including 20 of its 50 categories. A Cloudia Pro plan may come later. Nothing is for sale today.</p></details>
           <details data-reveal><summary>When can I get it?</summary><p>Cloudia is being built now and is coming to iPhone. There is no release date yet.</p></details>
           <details data-reveal><summary>Is there an Android version?</summary><p>Not yet. Cloudia is made for iPhone first.</p></details>
+          <details data-reveal><summary>Can I add a loop by talking?</summary><p>Yes, in English for now. Tap Just say it, or press and hold the + button, and say it as you would to a friend: "Anna owes me $60 for the concert tickets by Friday." Cloudia shows each part on its own card to check before you add it. Your iPhone turns the speech into text itself; nothing is recorded or sent anywhere.</p></details>
           <details data-reveal><summary>Will Cloudia remind me?</summary><p>Not yet. Reminders are being rebuilt. For now, Today shows what is due and what is late, and the week strip marks every day.</p></details>
           <details data-reveal><summary>Where are my loops stored?</summary><p>On your phone. If you turn on sync, a copy is kept with Supabase, the hosting provider Cloudia uses, so your loops can follow you to another device. The <a href="privacy.html">privacy policy</a> has the details.</p></details>
           <details data-reveal><summary>Can I delete everything?</summary><p>Yes. In Profile, Delete everything erases the loops on your phone, and Delete account removes your synced account and everything in it.</p></details>

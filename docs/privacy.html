@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="site.css?v=a19199d1de">
+  <link rel="stylesheet" href="site.css?v=904a7dffe2">
   <!-- Nothing on this site comes from another company: no fonts, scripts,
        analytics or cookies. Keep it that way, or update privacy.html. -->
   <script>
@@ -25,7 +25,7 @@
     try { if (localStorage.getItem('cloudia-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
     setTimeout(function () { if (!window.cloudiaReady) document.documentElement.classList.remove('js'); }, 2500);
   </script>
-  <script type="module" src="scripts/main.js?v=4882f2dda1"></script>
+  <script type="module" src="scripts/main.js?v=a93b57b2c8"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -52,6 +52,8 @@
       <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.6 3.8h6.6c1.1 0 2 .9 2 2v6.6c0 .5-.2 1-.6 1.4l-6.9 6.9a2 2 0 0 1-2.8 0l-5.6-5.6a2 2 0 0 1 0-2.8l6.9-6.9c.4-.4.9-.6 1.4-.6Z"/><circle cx="15.6" cy="8.4" r="1.4"/></g></symbol>
       <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15M9.5 6.5V4.8A1.3 1.3 0 0 1 10.8 3.5h2.4a1.3 1.3 0 0 1 1.3 1.3v1.7"/><path d="M6.8 6.5 7.7 19a1.5 1.5 0 0 0 1.5 1.4h5.6a1.5 1.5 0 0 0 1.5-1.4l.9-12.5"/></g></symbol>
       <symbol id="i-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.6h-4.6"/></g></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a2.9 2.9 0 0 0-2.9 2.9v5.2a2.9 2.9 0 0 0 5.8 0V6.4A2.9 2.9 0 0 0 12 3.5z"/><path d="M6.2 11.2a5.8 5.8 0 0 0 11.6 0M12 17v3.5"/></g></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 5.4l4 4L8.4 19.6 3.8 20.2l.6-4.6L14.6 5.4z"/><path d="M12.8 7.2l4 4"/></g></symbol>
       <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="i-signal" viewBox="0 0 18 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></symbol>
       <symbol id="i-battery" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="currentColor" opacity="0.45"/></symbol>
@@ -88,7 +90,7 @@
       <div class="doc-wrap">
         <header class="doc-head">
           <h1>Privacy policy</h1>
-          <p class="doc-meta">Last updated 7 October 2026</p>
+          <p class="doc-meta">Last updated 9 October 2026</p>
           <p class="doc-intro">Cloudia is an iPhone app and this website, both made by one independent developer, Sasanka Rasanjana (“we” on this page). This page explains what each of them keeps, where it is kept, and how you remove it. The short version: your loops live on your phone, nothing is tracked, and nothing is sold.</p>
         </header>
         <nav class="doc-toc" aria-label="On this page">
@@ -98,6 +100,7 @@
             <li><a href="#phone">What stays on your phone</a></li>
             <li><a href="#sync">If you turn on sync</a></li>
             <li><a href="#reminders">Reminders</a></li>
+            <li><a href="#voice">Adding by voice</a></li>
             <li><a href="#never">What we never do</a></li>
             <li><a href="#others">Other people in your loops</a></li>
             <li><a href="#delete">Keeping and deleting your data</a></li>
@@ -133,16 +136,21 @@
             <h2>4. Reminders</h2>
             <p>The current version of Cloudia does not send notifications. If reminders come back, they will be scheduled on your phone by iOS, not sent through any server, and this page will say so first.</p>
           </section>
+          <section id="voice">
+            <h2>5. Adding by voice</h2>
+            <p>If you tap the mic to add a loop by voice, Cloudia uses Apple's speech recognition to turn what you say into text and fill in the new loop. It asks iOS to do this on your iPhone itself, not online. Cloudia keeps no recording and sends your voice nowhere; only the loop you save is kept, like any other.</p>
+            <p>This uses the microphone only while you are adding by voice, and only after you allow it. You can turn it off any time in iOS Settings.</p>
+          </section>
           <section id="never">
-            <h2>5. What we never do</h2>
+            <h2>6. What we never do</h2>
             <p>No ads, no analytics, no tracking across apps or websites, no selling or renting of your data, and no sharing with anyone except the hosting providers named above.</p>
           </section>
           <section id="others">
-            <h2>6. Other people in your loops</h2>
+            <h2>7. Other people in your loops</h2>
             <p>Loops often name other people, like a friend who owes you money. Cloudia only stores those names for you. Please keep what you write about others fair and lawful, and leave out sensitive details you would not want stored.</p>
           </section>
           <section id="delete">
-            <h2>7. Keeping and deleting your data</h2>
+            <h2>8. Keeping and deleting your data</h2>
             <ul>
               <li>On your phone, data stays until you remove it. Profile, then Delete everything, erases it, and so does deleting the app.</li>
               <li>Synced data stays until you delete your account. Profile, then Sync across devices, then Delete account, removes your account and everything synced to it straight away. The hosting provider may keep encrypted backups for a short time before they expire.</li>
@@ -150,24 +158,24 @@
             </ul>
           </section>
           <section id="rights">
-            <h2>8. Your rights</h2>
+            <h2>9. Your rights</h2>
             <p>Wherever you live, you can see, copy, correct and delete your data, and object to how it is used. Most of this you can do yourself inside the app. These rights come from laws such as the GDPR in the European Union and the United Kingdom, the CCPA in California and the Personal Data Protection Act in Sri Lanka, and we give them to everyone.</p>
             <p>You can also complain to the data protection authority where you live.</p>
           </section>
           <section id="security">
-            <h2>9. Security</h2>
+            <h2>10. Security</h2>
             <p>Synced data travels over encrypted connections (HTTPS), and your sign-in session is kept in the iOS Keychain. No method is perfect, so we only keep what the app needs.</p>
           </section>
           <section id="children">
-            <h2>10. Children</h2>
+            <h2>11. Children</h2>
             <p>Cloudia is not made for children. Please do not create an account if you are under 13, or under 16 where your local law sets that age.</p>
           </section>
           <section id="changes">
-            <h2>11. Changes</h2>
+            <h2>12. Changes</h2>
             <p>If this policy changes, the new version will be here and in the app, with a new date at the top. A change that affects your data will be pointed out in the app before it applies.</p>
           </section>
           <section id="contact">
-            <h2>12. Contact</h2>
+            <h2>13. Contact</h2>
             <p class="doc-note">A contact address will be published here before Cloudia is offered to the public. Until then, everything on this page can be done yourself inside the app.</p>
           </section>
         </div>

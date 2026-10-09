@@ -38,6 +38,10 @@
   --brand-strong: var(--blue-700);
   --brand-subtle: var(--blue-100);
   --brand-line: var(--blue-200);
+  /* the app's background.brandSoft: secondary buttons and the voice row */
+  --brand-soft: var(--blue-100);
+  /* the app's disabled button fill */
+  --btn-off: #ededed;
   --on-brand: #ffffff;
   --success: var(--green-600);
   --success-subtle: var(--green-100);
@@ -105,6 +109,8 @@
     --brand-strong: var(--blue-300);
     --brand-subtle: var(--blue-950);
     --brand-line: var(--blue-800);
+    --brand-soft: var(--blue-800);
+    --btn-off: var(--night-700);
     --success: var(--green-500);
     --success-subtle: #10301a;
     --danger: #ff5a64;

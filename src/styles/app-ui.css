@@ -194,6 +194,9 @@
 .type-text b { font-size: 17px; font-weight: 600; color: var(--text); }
 .type-text span { font-size: 13px; color: var(--text-2); }
 .type-row > svg { width: 18px; height: 18px; color: var(--text-muted); }
+/* VoiceRow.tsx: the third way in, the same shape on the brand's soft fill */
+.voice-row { background: var(--brand-soft); border-color: var(--line); }
+.type-disc.voice { background: #0195ff; }
 .type-row.pick { border-color: var(--blue-500); background: var(--brand-subtle); box-shadow: inset 0 0 0 1px var(--blue-500); }
 
 /* ---------- the add sheet's second step (add.tsx), shown when it plays ---------- */
@@ -242,8 +245,12 @@
 .cat-sq { width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; background: var(--sunken); border: 2px solid transparent; transition: background-color 160ms ease, border-color 160ms ease; }
 .cat-sq img { width: 34px; height: 34px; }
 .cat-cell.is-on .cat-sq { background: var(--brand-subtle); border-color: var(--brand); }
-.form-add { width: 100%; min-height: 56px; margin-top: 2px; }
-.form-add.is-off { opacity: 0.45; }
+/* add.tsx's footer: say it instead (secondary, round) beside Add */
+.form-foot { display: flex; gap: 12px; margin-top: 2px; }
+.form-mic { flex: none; width: 56px; min-height: 56px; padding: 0; background: var(--brand-soft); }
+.form-add { flex: 1; min-height: 56px; }
+/* Button.tsx disabled: one flat grey with a muted label, no rim, not faded */
+.form-add.is-off { color: var(--text-muted); background: var(--btn-off); border-color: transparent; }
 .form-add.is-down { --press: 0.97; }
 .type-row, .wpill, .cat-sq { will-change: auto; }
 .dim { transition: opacity 280ms ease; }
