@@ -263,8 +263,9 @@
 .add-screen.is-closed .sheet { transform: translateY(105%) !important; }
 /* a reset: put things back without playing the way there */
 .no-anim, .no-anim * { transition: none !important; }
-/* a finger: a soft ring where the demo taps */
-.tap { position: absolute; z-index: 40; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: rgba(1, 149, 255, 0.22); box-shadow: 0 0 0 2px rgba(1, 149, 255, 0.35); pointer-events: none; animation: tap 520ms var(--ease-out) forwards; }
+/* a finger: a grey touch dot where the demo taps (iOS's own touch marker),
+   never the brand blue, which read as a second selected day */
+.tap { position: absolute; z-index: 40; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: rgba(60, 60, 67, 0.28); box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.7); pointer-events: none; animation: tap 520ms var(--ease-out) forwards; }
 @keyframes tap { from { opacity: 0; transform: scale(0.6); } 30% { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(1.15); } }
 /* the new loop arriving in Today */
 .list-card.k-new { top: 512px; animation: card-in 520ms var(--ease-out) both; }
