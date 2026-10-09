@@ -962,6 +962,9 @@ p { text-wrap: pretty; }
   .sun-turn, .sun-rays, .sky-stars i { animation: none; }
 }
 
+/* the How it works phone stands flat on the page, no shadow */
+.how-phone { filter: none; }
+
 /* legal.css */
 /* Privacy, terms and licences: long reading, set for comfort. */
 .doc { padding-block: clamp(var(--s-7), 6vw, var(--s-9)) 0; }

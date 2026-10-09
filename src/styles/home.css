@@ -399,3 +399,6 @@
   .cap, .cap.is-on, .seg-btn, .seg.is-ready .seg-pill { transition: none; }
   .sun-turn, .sun-rays, .sky-stars i { animation: none; }
 }
+
+/* the How it works phone stands flat on the page, no shadow */
+.how-phone { filter: none; }
