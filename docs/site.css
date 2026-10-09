@@ -234,38 +234,41 @@ p { text-wrap: pretty; }
  */
 
 /* ---------- the phone ----------
-   The frame is the mockup (assets/phone-frame.svg, 1073 x 2179) with its
-   screen, island and status bar taken out; the screen sits in its hole.
-   That hole is 402 x 859 points at the app's scale with 55pt corners: the
-   app's own width and corners, 15pt shorter than the iPhone 17, so the
-   canvas is 859 tall and the tab bar, the + and the sheets stay on the
-   bottom edge. --sw is the screen width; --k = --sw / 402. */
+   The frame is the iOS 27 kit's "iPhone 17 Pro - Silver - Portrait" bezel
+   (assets/phone-frame.webp, 450 x 920 points at 3x). Its screen hole is
+   402 x 874 at (24, 23): the app's own iPhone 17 canvas, so nothing is
+   cropped or squeezed. The bezel carries its own Dynamic Island, so it is
+   laid over the screen and the drawn island is hidden. --sw is the screen
+   width; --k = --sw / 402. */
 .phone {
   --sw: 280px; --k: 0.69652;
   position: relative; flex: none;
-  width: calc(var(--sw) / 0.923458);
-  aspect-ratio: 1073 / 2179;
-  background: url("assets/phone-frame.svg") center / 100% 100% no-repeat;
-  border-radius: 14.94% / 7.36%;
+  width: calc(var(--sw) * 450 / 402);
+  aspect-ratio: 450 / 920;
+  border-radius: 15.6% / 7.6%;
   box-shadow:
     0 2px 2px rgba(var(--shadow-ink) / 0.06),
     0 30px 60px -20px rgba(var(--shadow-ink) / 0.35),
     0 60px 120px -40px rgba(var(--shadow-ink) / 0.35);
 }
+.phone::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: url("assets/phone-frame.webp") center / 100% 100% no-repeat;
+}
+.phone .island { display: none; }
 .phone--lg { --sw: 310px; --k: 0.77114; }
 .phone--sm { --sw: 236px; --k: 0.58706; }
 .screen {
-  position: absolute; left: 3.6136%; top: 1.4229%;
+  position: absolute; left: 5.3333%; top: 2.5%;
   overflow: hidden;
-  width: var(--sw); height: calc(var(--sw) * 2.136466);
-  border-radius: calc(55px * var(--k));
+  width: var(--sw); height: calc(874px * var(--k));
+  border-radius: calc(62px * var(--k));
   background: var(--page);
   isolation: isolate;
-  clip-path: inset(0 round calc(55px * var(--k)));
 }
 .canvas {
   position: absolute; left: 0; top: 0;
-  width: 402px; height: 859px;
+  width: 402px; height: 874px;
   transform: scale(var(--k)); transform-origin: 0 0;
   font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); text-align: left;
 }
