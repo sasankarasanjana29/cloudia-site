@@ -87,3 +87,20 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   .js [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* one marker highlight per section headline: a soft stroke drawn in from the
+   left once the heading has revealed. Shown at once without JavaScript or with
+   Reduce Motion. */
+.mk { position: relative; z-index: 0; white-space: nowrap; }
+.mk::before {
+  content: ""; position: absolute; z-index: -1;
+  left: -0.06em; right: -0.06em; bottom: 0.06em; height: 0.36em;
+  border-radius: 0.16em; background: var(--marker);
+  transform: skewX(-8deg); transform-origin: left center;
+}
+.js [data-reveal]:not(.is-in) .mk::before { transform: skewX(-8deg) scaleX(0); }
+.js [data-reveal].is-in .mk::before { transition: transform 900ms var(--ease-out) 380ms; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal]:not(.is-in) .mk::before { transform: skewX(-8deg); }
+  .js [data-reveal].is-in .mk::before { transition: none; }
+}

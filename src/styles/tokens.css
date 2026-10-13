@@ -38,6 +38,8 @@
   --brand-strong: var(--blue-700);
   --brand-subtle: var(--blue-100);
   --brand-line: var(--blue-200);
+  /* the headline marker, the pale blue of the App Store set */
+  --marker: var(--blue-200);
   /* the app's background.brandSoft: secondary buttons and the voice row */
   --brand-soft: var(--blue-100);
   /* the app's disabled button fill */
@@ -95,6 +97,7 @@
    default; the switch in the header sets data-theme="dark". */
 @media all {
   :root[data-theme="dark"] {
+    --marker: rgba(1, 149, 255, 0.38);
     --page: var(--night-950);
     --raised: var(--night-850);
     --sunken: var(--night-900);

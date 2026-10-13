@@ -417,3 +417,14 @@
 /* the How it works phone stands flat on the page, no shadow */
 .how-phone { filter: none; }
 
+
+/* hero: one rotating word. Only the word on show takes space, so the line
+   stays centred; the script eases the slot's width from word to word.
+   Without JavaScript (or with Reduce Motion) it simply reads "reply." */
+.swap { display: inline-block; position: relative; vertical-align: bottom; overflow: hidden; white-space: nowrap; text-align: left; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.swap > span { position: absolute; left: 0; top: 0; opacity: 0; transform: translateY(105%); }
+.swap > span.is-on { position: relative; opacity: 1; transform: none; }
+.swap > span.is-out { opacity: 0; transform: translateY(-105%); }
+.js .swap { transition: width 560ms var(--ease-in-out); }
+.js .swap > span { transition: transform 560ms var(--ease-out), opacity 380ms var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .js .swap, .js .swap > span { transition: none; } }

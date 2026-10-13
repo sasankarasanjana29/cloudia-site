@@ -10,6 +10,7 @@ import { initOrbit } from './orbit.js';
 import { initStory } from './story.js';
 import { initDemos } from './demos.js';
 import { initGather } from './gather.js';
+import { initSwap } from './swap.js';
 
 initNav();
 initThemeSwitch();
@@ -19,5 +20,6 @@ initOrbit();
 initStory();
 initDemos();
 initGather();
+initSwap();
 
 window.cloudiaReady = true;
