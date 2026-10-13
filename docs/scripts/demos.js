@@ -3,7 +3,7 @@
  * skies, the search that types by itself, and the swipe rows. Each one
  * only moves while it is on screen, and holds still under reduced motion.
  */
-import { reducedMotion, whenVisible } from './motion.js?v=8e3b931cd6';
+import { reducedMotion, whenVisible } from './motion.js?v=42023f1b1c';
 
 function initMarquee() {
   const m = document.querySelector('.marquee');

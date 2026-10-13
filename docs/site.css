@@ -39,6 +39,8 @@
   --brand-strong: var(--blue-700);
   --brand-subtle: var(--blue-100);
   --brand-line: var(--blue-200);
+  /* the headline marker, the pale blue of the App Store set */
+  --marker: var(--blue-200);
   /* the app's background.brandSoft: secondary buttons and the voice row */
   --brand-soft: var(--blue-100);
   /* the app's disabled button fill */
@@ -96,6 +98,7 @@
    default; the switch in the header sets data-theme="dark". */
 @media all {
   :root[data-theme="dark"] {
+    --marker: rgba(1, 149, 255, 0.38);
     --page: var(--night-950);
     --raised: var(--night-850);
     --sunken: var(--night-900);
@@ -229,6 +232,23 @@ p { text-wrap: pretty; }
 }
 @media (prefers-reduced-motion: reduce) {
   .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* one marker highlight per section headline: a soft stroke drawn in from the
+   left once the heading has revealed. Shown at once without JavaScript or with
+   Reduce Motion. */
+.mk { position: relative; z-index: 0; white-space: nowrap; }
+.mk::before {
+  content: ""; position: absolute; z-index: -1;
+  left: -0.06em; right: -0.06em; bottom: 0.06em; height: 0.36em;
+  border-radius: 0.16em; background: var(--marker);
+  transform: skewX(-8deg); transform-origin: left center;
+}
+.js [data-reveal]:not(.is-in) .mk::before { transform: skewX(-8deg) scaleX(0); }
+.js [data-reveal].is-in .mk::before { transition: transform 900ms var(--ease-out) 380ms; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal]:not(.is-in) .mk::before { transform: skewX(-8deg); }
+  .js [data-reveal].is-in .mk::before { transition: none; }
 }
 
 /* app-ui.css */
@@ -1193,6 +1213,17 @@ p { text-wrap: pretty; }
 /* the How it works phone stands flat on the page, no shadow */
 .how-phone { filter: none; }
 
+
+/* hero: one rotating word. Only the word on show takes space, so the line
+   stays centred; the script eases the slot's width from word to word.
+   Without JavaScript (or with Reduce Motion) it simply reads "reply." */
+.swap { display: inline-block; position: relative; vertical-align: bottom; overflow: hidden; white-space: nowrap; text-align: left; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.swap > span { position: absolute; left: 0; top: 0; opacity: 0; transform: translateY(105%); }
+.swap > span.is-on { position: relative; opacity: 1; transform: none; }
+.swap > span.is-out { opacity: 0; transform: translateY(-105%); }
+.js .swap { transition: width 560ms var(--ease-in-out); }
+.js .swap > span { transition: transform 560ms var(--ease-out), opacity 380ms var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .js .swap, .js .swap > span { transition: none; } }
 
 /* legal.css */
 /* Privacy, terms and licences: long reading, set for comfort. */

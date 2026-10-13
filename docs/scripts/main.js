@@ -3,13 +3,14 @@
  * does nothing if the page does not have it, so the legal pages pay only
  * for the nav and the reveals.
  */
-import { initNav, initThemeSwitch } from './nav.js?v=8e3b931cd6';
-import { initReveal } from './reveal.js?v=8e3b931cd6';
-import { initToday } from './today.js?v=8e3b931cd6';
-import { initOrbit } from './orbit.js?v=8e3b931cd6';
-import { initStory } from './story.js?v=8e3b931cd6';
-import { initDemos } from './demos.js?v=8e3b931cd6';
-import { initGather } from './gather.js?v=8e3b931cd6';
+import { initNav, initThemeSwitch } from './nav.js?v=42023f1b1c';
+import { initReveal } from './reveal.js?v=42023f1b1c';
+import { initToday } from './today.js?v=42023f1b1c';
+import { initOrbit } from './orbit.js?v=42023f1b1c';
+import { initStory } from './story.js?v=42023f1b1c';
+import { initDemos } from './demos.js?v=42023f1b1c';
+import { initGather } from './gather.js?v=42023f1b1c';
+import { initSwap } from './swap.js?v=42023f1b1c';
 
 initNav();
 initThemeSwitch();
@@ -19,5 +20,6 @@ initOrbit();
 initStory();
 initDemos();
 initGather();
+initSwap();
 
 window.cloudiaReady = true;
