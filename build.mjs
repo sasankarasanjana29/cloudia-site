@@ -18,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'src');
 const OUT = resolve(process.argv[2] ?? join(ROOT, 'dist'));
+const SITE = 'https://sasankarasanjana29.github.io/cloudia-site/';
 
 /** the stylesheet, in cascade order */
 const STYLES = ['tokens', 'base', 'app-ui', 'layout', 'home', 'legal'];
@@ -79,6 +80,10 @@ function build() {
       .replaceAll('{{title}}', esc(meta.title))
       .replaceAll('{{description}}', esc(meta.description))
       .replaceAll('{{page}}', file.replace('.html', ''))
+      // absolute links for share previews; 404.html is served at any depth, so it
+      // needs a base to find its styles and assets
+      .replace('{{base}}', file === '404.html' ? `<base href="/cloudia-site/">\n  ` : '')
+      .replaceAll('{{url}}', `${SITE}${file === 'index.html' ? '' : file}`)
       .replaceAll('{{cssv}}', v.css)
       .replaceAll('{{jsv}}', v.js);
     if (html.includes('{{')) throw new Error(`${file}: unfilled placeholder`);
